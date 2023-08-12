@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAnimaor : MonoBehaviour
+public class CharacterAnimator : MonoBehaviour
 {
 
     public GameObject idle_0;
     public GameObject idle_1;
 
 
-    List<GameObject> states;
+    public List<GameObject> states;
 
     private void Start()
     {
