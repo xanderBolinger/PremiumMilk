@@ -13,7 +13,7 @@ public class IdleAnimator : MonoBehaviour
 
     public List<GameObject> idleStates;
 
-    CharacterAnimator characterAnimator;
+    public CharacterAnimator characterAnimator;
 
     private void Start()
     {

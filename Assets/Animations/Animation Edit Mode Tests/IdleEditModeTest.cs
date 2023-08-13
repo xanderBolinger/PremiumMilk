@@ -10,13 +10,16 @@ public class IdleEditModeTest
     [Test]
     public void IdleTestChangeState()
     {
+
         GameObject animator = new GameObject();
         GameObject idleOne = new GameObject();
         GameObject idleTwo = new GameObject();  
         idleOne.transform.parent = animator.transform;
         idleTwo.transform.parent = animator.transform;
 
+        var animController = animator.AddComponent<CharacterAnimator>();
         var controller = animator.AddComponent<IdleAnimator>();
+        controller.characterAnimator = animController;
         controller.idle_0 = idleOne;
         controller.idle_1 = idleTwo;
 
