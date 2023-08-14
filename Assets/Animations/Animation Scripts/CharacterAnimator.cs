@@ -9,6 +9,8 @@ public class CharacterAnimator : MonoBehaviour
     public void DeactivateAll() { 
         GetComponent<IdleAnimator>()?.Deactivate();
         GetComponent<SwingAnimator>()?.Deactivate();
+        GetComponent<StabAnimator>()?.Deactivate();
+        GetComponent<WalkAnimator>()?.Deactivate();
     }
 
 
