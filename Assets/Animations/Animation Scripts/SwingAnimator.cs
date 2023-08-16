@@ -8,8 +8,6 @@ public class SwingAnimator : MonoBehaviour
 
     public GameObject swing_0;
     public GameObject swing_1;
-    public GameObject swing_2;
-    public GameObject swing_3;
 
 
     public List<GameObject> swingStates;
@@ -22,9 +20,7 @@ public class SwingAnimator : MonoBehaviour
         swingStates = new List<GameObject>
         {
             swing_0,
-            swing_1,
-            swing_2,
-            swing_3,
+            swing_1
         };
     }
 

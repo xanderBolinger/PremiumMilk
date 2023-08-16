@@ -6,7 +6,6 @@ public class StabAnimator : MonoBehaviour
 {
     public GameObject stab_0;
     public GameObject stab_1;
-    public GameObject stab_2;
 
 
     public List<GameObject> stabStates;
@@ -20,7 +19,6 @@ public class StabAnimator : MonoBehaviour
         {
             stab_0,
             stab_1,
-            stab_2,
         };
     }
 
