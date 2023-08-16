@@ -20,7 +20,7 @@ public class IdlePlaymodeTest
         
         yield return null;
 
-        var controller = playerInstance.GetComponent<CharacterAnimator>();
+        var controller = playerInstance.GetComponent<IdleAnimator>();
 
         yield return new WaitForSeconds(0.5f);
 
