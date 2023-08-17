@@ -3,43 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterAnimator))]
-public class SwingAnimator : MonoBehaviour
+public class SwingAnimator : MonoBehaviour, IAnimator
 {
-
-    public GameObject swing_0;
-    public GameObject swing_1;
+    public List<GameObject> states { get; set; }
 
 
-    public List<GameObject> swingStates;
+    public List<GameObject> SwingStates;
 
-    CharacterAnimator characterAnimator;
-
-    private void Start()
+    public void Start()
     {
-        characterAnimator = GetComponent<CharacterAnimator>();
-        swingStates = new List<GameObject>
-        {
-            swing_0,
-            swing_1
-        };
+        states = SwingStates;
     }
 
-    public void Deactivate()
+    public void Swing(int frame)
     {
-        foreach (var state in swingStates)
-        {
-            state.SetActive(false);
-        }
+        IAnimator animator = this;
+
+        animator.SetState(frame);
     }
-
-    public void Swing(int state)
-    {
-        if (characterAnimator == null || state >= swingStates.Count)
-            return;
-
-        characterAnimator.DeactivateAll();
-        swingStates[state].SetActive(true);
-    }
-
 
 }
