@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DialogTrigger : MonoBehaviour {
 
-    [SerializeField] public GameObject PopUp;
-    [SerializeField] public TextAsset inkJSON;
+    [SerializeField] private GameObject PopUp;
+    [SerializeField] private TextAsset inkJSON;
 
     private bool inRange;
 
