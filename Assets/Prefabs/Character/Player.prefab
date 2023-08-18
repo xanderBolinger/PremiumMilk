@@ -831,9 +831,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25bc16582c9b1746b47d92c383549c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walk_0: {fileID: 5494465669538114910}
-  walk_1: {fileID: 5494465668797574569}
-  walkStates: []
+  WalkStates:
+  - {fileID: 919132149155446097, guid: d74bc4dcdf9a8c94590d093207408fb3, type: 3}
+  - {fileID: 919132149155446097, guid: dabc1cb909d88b14c9a29ce54675fc5f, type: 3}
 --- !u!1 &4648043275603564923
 GameObject:
   m_ObjectHideFlags: 0

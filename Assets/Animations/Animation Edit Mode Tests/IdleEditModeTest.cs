@@ -16,28 +16,20 @@ public class IdleEditModeTest
         GameObject idleTwo = new GameObject();  
         idleOne.transform.parent = animator.transform;
         idleTwo.transform.parent = animator.transform;
-
-        var animController = animator.AddComponent<CharacterAnimator>();
         var controller = animator.AddComponent<IdleAnimator>();
-        controller.characterAnimator = animController;
-        controller.idle_0 = idleOne;
-        controller.idle_1 = idleTwo;
+        controller.states = new List<GameObject> { idleOne , idleTwo};
 
-        controller.idleStates = new List<GameObject>
-        {
-            idleOne,
-            idleTwo
-        };
+        controller.IdleStates = controller.states;
 
         controller.Idle(1);
 
-        Assert.AreEqual(false, controller.idle_0.activeSelf);
-        Assert.AreEqual(true, controller.idle_1.activeSelf);
+        Assert.AreEqual(false, controller.IdleStates[0].activeSelf);
+        Assert.AreEqual(true, controller.IdleStates[1].activeSelf);
 
         controller.Idle(0);
 
-        Assert.AreEqual(true, controller.idle_0.activeSelf);
-        Assert.AreEqual(false, controller.idle_1.activeSelf);
+        Assert.AreEqual(true, controller.IdleStates[0].activeSelf);
+        Assert.AreEqual(false, controller.IdleStates[1].activeSelf);
 
     }
 

@@ -2,45 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [RequireComponent(typeof(CharacterAnimator))]
-public class IdleAnimator : MonoBehaviour
+public class IdleAnimator : MonoBehaviour, IAnimator
 {
-
-    public GameObject idle_0;
-    public GameObject idle_1;
+    public List<GameObject> states { get; set; }
 
 
-    public List<GameObject> idleStates;
+    public List<GameObject> IdleStates;
 
-    public CharacterAnimator characterAnimator;
-
-    private void Start()
+    public void Start()
     {
-        characterAnimator = GetComponent<CharacterAnimator>();
-
-        idleStates = new List<GameObject>
-        {
-            idle_0,
-            idle_1
-        };
-
+        states = IdleStates;
     }
 
-    public void Deactivate() { 
-        foreach(var state in idleStates)
-        {
-            state.SetActive(false); 
-        }
+    public void Idle(int frame)
+    {
+        IAnimator animator = this;
+       
+        animator.SetState(frame);
     }
-
-    public void Idle(int state) {
-        if (characterAnimator == null || state >= idleStates.Count)
-            return;
-
-        characterAnimator.DeactivateAll();
-        idleStates[state].SetActive(true);
-    }
-
 
 }
