@@ -12,11 +12,11 @@ public class ClothingManager : MonoBehaviour
     public Color testColor;
 
     public enum SlotType { 
-        ChestArmor,Body,Legs,LeftHand,RightHand
+        HeadArmor,ChestArmor,Body,Legs,LeftHand,RightHand
     }
 
     public enum ItemType { 
-        Armor,Weapon
+        Armor,Weapons
     }
 
     public void SetColor(Color color, SlotType slotType) {
@@ -30,6 +30,17 @@ public class ClothingManager : MonoBehaviour
 
     }
 
+    public void UnequipItem(SlotType slotType) {
+        var slots = FindSlots(slotType.ToString());
+
+        foreach (var slot in slots)
+        {
+            foreach (Transform child in slot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
 
     public void EquipItem(string name, ItemType itemType, SlotType slotType) {
 
@@ -37,11 +48,9 @@ public class ClothingManager : MonoBehaviour
 
         var slots = FindSlots(slotType.ToString());
 
+        UnequipItem(slotType);
+
         foreach (var slot in slots) {
-            foreach (Transform child in slot.transform)
-            {
-                Destroy(child.gameObject);
-            }
             var instance = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
             instance.transform.parent = slot.transform;
             instance.transform.localPosition = Vector3.zero;
