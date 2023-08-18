@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.11768, g: 324.74365, b: 429.81006, a: 1}
+  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -439,6 +439,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1549449621}
+  - {fileID: 609247610}
   m_Father: {fileID: 1309140791}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -485,6 +486,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588444674}
   m_CullTransparentMesh: 1
+--- !u!1 &609247609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 609247610}
+  - component: {fileID: 609247611}
+  m_Layer: 0
+  m_Name: ButtonContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &609247610
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609247609}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.8357096, y: 1.8357096, z: 1.8357096}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 588444675}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -54}
+  m_SizeDelta: {x: 429.94995, y: 89.368}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &609247611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609247609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 1
+  m_CellSize: {x: 200, y: 50}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1001 &612956780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -615,11 +677,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4156e8cc25f4c349a0e727e768651d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogPopupText: {fileID: 0}
+  dialogPopupText: {fileID: 1549449622}
   PopUp: {fileID: 1935312284}
   inkJSON: {fileID: 4900000, guid: c03d89cd7e324f54a8ffe0a9ab8e24e4, type: 3}
-  choiceButtonContainer: {fileID: 0}
-  choiceButtonPrefab: {fileID: 0}
+  choiceButtonPrefab: {fileID: 432740235229661419, guid: ab7743cac0869764aa934252bef0a07e,
+    type: 3}
+  buttonContainer: {fileID: 609247609}
 --- !u!65 &617733037
 BoxCollider:
   m_ObjectHideFlags: 0
