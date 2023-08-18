@@ -2,40 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StabAnimator : MonoBehaviour
+[RequireComponent(typeof(CharacterAnimator))]
+public class StabAnimator : MonoBehaviour, IAnimator
 {
-    public GameObject stab_0;
-    public GameObject stab_1;
+    public List<GameObject> states { get; set; }
 
 
-    public List<GameObject> stabStates;
+    public List<GameObject> StabStates;
 
-    CharacterAnimator characterAnimator;
-
-    private void Start()
+    public void Start()
     {
-        characterAnimator = GetComponent<CharacterAnimator>();
-        stabStates = new List<GameObject>
-        {
-            stab_0,
-            stab_1,
-        };
+        states = StabStates;
     }
 
-    public void Deactivate()
+    public void Stab(int frame)
     {
-        foreach (var state in stabStates)
-        {
-            state.SetActive(false);
-        }
+        IAnimator animator = this;
+
+        animator.SetState(frame);
     }
 
-    public void Stab(int state)
-    {
-        if (characterAnimator == null || state >= stabStates.Count)
-            return;
-
-        characterAnimator.DeactivateAll();
-        stabStates[state].SetActive(true);
-    }
 }

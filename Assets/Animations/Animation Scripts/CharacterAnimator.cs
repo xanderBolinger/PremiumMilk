@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
@@ -48,10 +49,11 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     public void DeactivateAll() { 
-        GetComponent<IdleAnimator>()?.Deactivate();
-        GetComponent<SwingAnimator>()?.Deactivate();
-        GetComponent<StabAnimator>()?.Deactivate();
-        GetComponent<WalkAnimator>()?.Deactivate();
+        IAnimator[] animators = FindObjectsOfType<MonoBehaviour>(true).OfType<IAnimator>().ToArray();
+        foreach(var animator in animators)
+        {
+            animator.Deactivate();
+        }
     }
 
 
