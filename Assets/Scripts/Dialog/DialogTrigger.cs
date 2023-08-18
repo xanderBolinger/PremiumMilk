@@ -15,14 +15,14 @@ public class DialogTrigger : MonoBehaviour {
     }
 
     private void Update() {
-        if (inRange) {
-            PopUp.SetActive(true);
-            /*if (InputManager.GetInstance().GetInteractPressed()) {
-                Debug.log(inkJSON.text);
-            }*/
-        } else {
-            PopUp.SetActive(false);
-        }
+       if (inRange) {
+           PopUp.SetActive(true);
+           /*if (InputManager.GetInstance().GetInteractPressed()) {
+               Debug.log(inkJSON.text);
+           }*/
+       } else {
+           PopUp.SetActive(false);
+      }
     }
 
     private void OnTriggerEnter(Collider col) {
