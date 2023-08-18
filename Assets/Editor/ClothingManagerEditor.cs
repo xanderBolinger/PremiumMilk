@@ -18,6 +18,10 @@ public class ClothingManagerEditorGui : Editor
         }
 
 
+        if (GUILayout.Button("Set Color"))
+        {
+            cm.SetColor(cm.testColor, cm.testSlotType);
+        }
 
 
     }

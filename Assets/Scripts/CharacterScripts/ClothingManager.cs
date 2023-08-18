@@ -9,15 +9,27 @@ public class ClothingManager : MonoBehaviour
     public SlotType testSlotType;
     public ItemType testItemType;
     public string testItemName = "MailHalberk";
+    public Color testColor;
 
     public enum SlotType { 
-    
-        ChestArmor
+        ChestArmor,Body,Legs
     }
 
     public enum ItemType { 
         Armor
     }
+
+    public void SetColor(Color color, SlotType slotType) {
+
+        var slots = FindSlots(slotType.ToString());
+
+        foreach(var slot in slots)
+        {
+            slot.GetComponent<Renderer>().material.color = color;
+        }
+
+    }
+
 
     public void EquipItem(string name, ItemType itemType, SlotType slotType) {
 
