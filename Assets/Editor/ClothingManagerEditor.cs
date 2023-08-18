@@ -17,12 +17,10 @@ public class ClothingManagerEditorGui : Editor
             cm.EquipItem(cm.testItemName, cm.testItemType, cm.testSlotType);
         }
 
-
         if (GUILayout.Button("Set Color"))
         {
             cm.SetColor(cm.testColor, cm.testSlotType);
         }
-
 
     }
 }

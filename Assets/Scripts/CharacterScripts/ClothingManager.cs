@@ -12,11 +12,11 @@ public class ClothingManager : MonoBehaviour
     public Color testColor;
 
     public enum SlotType { 
-        ChestArmor,Body,Legs
+        ChestArmor,Body,Legs,LeftHand,RightHand
     }
 
     public enum ItemType { 
-        Armor
+        Armor,Weapon
     }
 
     public void SetColor(Color color, SlotType slotType) {
