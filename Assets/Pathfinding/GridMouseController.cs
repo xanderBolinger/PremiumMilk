@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEditor;
 
 [RequireComponent(typeof(CharacterGridInfo))]
 public class GridMouseController : MonoBehaviour
@@ -14,6 +15,7 @@ public class GridMouseController : MonoBehaviour
 
     private PathFinder pathFinder;
     private List<Tile> path;
+    private List<Tile> plottedPath;
 
     private void Start()
     {
@@ -35,17 +37,12 @@ public class GridMouseController : MonoBehaviour
             animator.SetIdle();
         }
 
-        if (!Input.GetMouseButtonDown(0))
-        {
-            return;
-        }
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 100))
         {
-            Debug.Log(hit.transform.gameObject.name);
+            //Debug.Log(hit.transform.gameObject.name);
             if (hit.transform.gameObject.tag == "Tile")
             {
                 hit.transform.gameObject.GetComponent<Tile>().PrintData();
@@ -60,9 +57,78 @@ public class GridMouseController : MonoBehaviour
         }
 
         Tile tile = hit.transform.gameObject.GetComponent<Tile>();
-        path = pathFinder.FindPath(character.standingOnTile, tile);
+        var newPath = pathFinder.FindPath(character.standingOnTile, tile);
+        
+        PlotPath(newPath);
+
+        if (!Input.GetMouseButtonDown(0))
+        {
+            return;
+        }
+
+        path = newPath;
 
     }
+
+    private void PlotPath(List<Tile> path) {
+        if (EqualPath(path, plottedPath))
+            return;
+
+        plottedPath = path;
+
+        //Debug.Log("New Path: "+path.Count);
+
+        ClearPath();
+
+        foreach (var tile in path) {
+            if (tile == path[path.Count - 1])
+                continue;
+            AddPathMarker(tile);
+        }
+
+        AddTarget(path[path.Count - 1]);
+    }
+
+    private bool EqualPath(List<Tile> path, List<Tile> path2) {
+        if (path == null || path2 == null || path.Count != path2.Count)
+            return false;
+
+        for (int i = 0; i < path.Count; i++) {
+            var t1 = path[i];
+            var t2 = path2[i];
+            if (t1.x != t2.x || t1.y != t2.y || t1.z != t2.z)
+                return false;
+        }
+
+        return true;
+    }
+
+    private void ClearPath() {
+        var contianer = GameObject.Find("CursorContainer");
+        foreach(Transform obj in contianer.transform) {
+            Destroy(obj.gameObject);
+        }
+    }
+
+    private void AddTarget(Tile tile) {
+        GameObject token = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridMovement/TargetMarker.prefab");
+        AddToken(tile, token);
+    }
+
+    private void AddPathMarker(Tile tile) {
+        GameObject token = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridMovement/MovementToken.prefab");
+        AddToken(tile, token);
+    }
+
+    private void AddToken(Tile tile, GameObject token) {
+        var tokenObj = Instantiate(token);
+        var pos = tile.transform.position;
+        tokenObj.transform.position = new Vector3(pos.x,pos.y+1,pos.z);
+        tokenObj.transform.parent = GameObject.Find("CursorContainer").transform;
+    }
+
+    
+
 
     private void RotateTowards(Vector3 target) {
         Vector3 targetDirection = target - transform.position;
@@ -110,4 +176,3 @@ public class GridMouseController : MonoBehaviour
         return null;
     }
 }
-
