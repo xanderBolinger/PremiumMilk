@@ -27,7 +27,6 @@ public class GridMouseController : MonoBehaviour
 
     void Update()
     {
-
         if (path.Count > 0)
         {
             MoveAlongPath();
