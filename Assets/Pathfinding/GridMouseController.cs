@@ -66,14 +66,34 @@ public class GridMouseController : MonoBehaviour
             return;
         }
 
+        PlayConfirmPath();
         path = newPath;
 
+    }
+
+    private void PlayMovedTarget() {
+        if (path.Count != 0 && plottedPath.Count != 0) {
+            var t1 = path[path.Count - 1];
+            var t2 = plottedPath[plottedPath.Count - 1];
+            if (t1.x == t2.x && t1.y == t2.y && t1.z == t2.z)
+                return;
+        }
+
+        var source = GameObject.Find("MovedTargetSoundEffect").GetComponent<AudioSource>();
+        //if (!source.isPlaying)
+            source.Play();
+    }
+
+    private void PlayConfirmPath() {
+        var source = GameObject.Find("ConfirmPathSoundEffect").GetComponent<AudioSource>();
+        //if (!source.isPlaying)
+            source.Play();
     }
 
     private void PlotPath(List<Tile> path) {
         if (EqualPath(path, plottedPath))
             return;
-
+        PlayMovedTarget();
         plottedPath = path;
 
         //Debug.Log("New Path: "+path.Count);

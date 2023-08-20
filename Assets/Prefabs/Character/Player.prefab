@@ -1028,6 +1028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7473309c65f6364e993cce6ab1dd3dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovedTarget: {fileID: 0}
+  ConfirmPath: {fileID: 0}
   speed: 4
 --- !u!1 &4648043275603564923
 GameObject:
