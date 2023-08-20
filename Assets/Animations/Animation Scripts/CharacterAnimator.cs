@@ -19,6 +19,13 @@ public class CharacterAnimator : MonoBehaviour
        ClearAnimation();
     }
 
+    public void SetJumping() {
+        if (animator == null) { return; }
+
+        ClearAnimation();
+        animator.SetBool("IsJumping", true);
+    }
+
     public void SetWalk() {
         if (animator == null) { return; }
 
@@ -46,6 +53,7 @@ public class CharacterAnimator : MonoBehaviour
           animator.SetBool("IsWalking", false);
           animator.SetBool("IsSwinging", false);
           animator.SetBool("IsStabbing", false);
+            animator.SetBool("IsJumping", false);
     }
 
     public void DeactivateAll() { 

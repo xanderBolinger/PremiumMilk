@@ -19,6 +19,7 @@ public class GridMouseController : NetworkBehaviour
     private List<Tile> plottedPath;
 
     public bool canMove = true;
+    public bool jumper = false;
 
     private void Start()
     {
@@ -36,9 +37,13 @@ public class GridMouseController : NetworkBehaviour
         if (path.Count > 0 && canMove)
         {
             MoveAlongPath();
-            animator.SetWalk();
+            if (jumper)
+                animator.SetJumping();
+            else
+                animator.SetWalk();
         }
-        else {
+        else if(path.Count == 0) {
+            canMove = true;
             animator.SetIdle();
         }
 
