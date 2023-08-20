@@ -4,9 +4,10 @@ using UnityEngine;
 using System.Linq;
 using System;
 using UnityEditor;
+using Mirror;
 
 [RequireComponent(typeof(CharacterGridInfo))]
-public class GridMouseController : MonoBehaviour
+public class GridMouseController : NetworkBehaviour
 {
     //public GameObject cursor;
     public float speed = 1f;
@@ -16,6 +17,8 @@ public class GridMouseController : MonoBehaviour
     private PathFinder pathFinder;
     private List<Tile> path;
     private List<Tile> plottedPath;
+
+    public bool canMove = true;
 
     private void Start()
     {
@@ -27,7 +30,10 @@ public class GridMouseController : MonoBehaviour
 
     void Update()
     {
-        if (path.Count > 0)
+        if (!isLocalPlayer)
+            return;
+
+        if (path.Count > 0 && canMove)
         {
             MoveAlongPath();
             animator.SetWalk();
@@ -70,6 +76,14 @@ public class GridMouseController : MonoBehaviour
         PlayConfirmPath();
         path = newPath;
 
+    }
+
+    public void CanMoveTrue() {
+        canMove = true;
+    }
+
+    public void CanMoveFalse() {
+        canMove = false;
     }
 
     private void PlayMovedTarget() {
@@ -149,13 +163,10 @@ public class GridMouseController : MonoBehaviour
         tokenObj.transform.parent = GameObject.Find("CursorContainer").transform;
     }
 
-    
-
-
     private void RotateTowards(Vector3 target) {
         Vector3 targetDirection = target - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * speed);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * (speed+2f));
     }
 
     private void MoveAlongPath()
@@ -183,18 +194,4 @@ public class GridMouseController : MonoBehaviour
         character.standingOnTile = tile;
     }
 
-    private static RaycastHit? GetFocusedOnTile()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-        RaycastHit[] hits = Physics.RaycastAll(mousePos2D, Vector2.zero);
-
-        if (hits.Length > 0)
-        {
-            return hits.OrderByDescending(i => i.collider.transform.position.z).First();
-        }
-
-        return null;
-    }
 }
