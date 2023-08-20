@@ -58,7 +58,9 @@ public class GridMouseController : MonoBehaviour
 
         Tile tile = hit.transform.gameObject.GetComponent<Tile>();
         var newPath = pathFinder.FindPath(character.standingOnTile, tile);
-        
+
+        hit.transform.gameObject.GetComponentInParent<UnityEngine.Tilemaps.Tilemap>();
+
         PlotPath(newPath);
 
         if (!Input.GetMouseButtonDown(0))
@@ -106,7 +108,8 @@ public class GridMouseController : MonoBehaviour
             AddPathMarker(tile);
         }
 
-        AddTarget(path[path.Count - 1]);
+        if(path.Count != 0)
+            AddTarget(path[path.Count - 1]);
     }
 
     private bool EqualPath(List<Tile> path, List<Tile> path2) {
