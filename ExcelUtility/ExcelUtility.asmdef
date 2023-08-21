@@ -1,0 +1,16 @@
+{
+    "name": "ExcelUtility",
+    "rootNamespace": "",
+    "references": [
+        "GUID:14aa3d460d49bcf4d8c38d2ea31516a9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
