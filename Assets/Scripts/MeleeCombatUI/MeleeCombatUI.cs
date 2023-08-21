@@ -7,6 +7,14 @@ using UnityEngine.UI;
 public class MeleeCombatUI : NetworkBehaviour
 {
 
+    private GameObject declareWindowObject;
+    private GameObject attackWindowObject;
+    private GameObject defendWindowObject;
+
+    private DeclareWindow declareWindow;
+    private AttackWindow attackWindow;
+    private DefendWindow defendWindow;
+
     private TextMeshProUGUI combatLog;
     private bool setScrollBarFlag = false;
 
@@ -17,6 +25,18 @@ public class MeleeCombatUI : NetworkBehaviour
          GameObject.Find("AttackWindow") != null &&
           GameObject.Find("DefendWindow") != null);
 
+        
+        declareWindowObject = GameObject.Find("DeclareWindow");
+        declareWindow = declareWindowObject.GetComponent<DeclareWindow>();
+
+        attackWindowObject = GameObject.Find("AttackWindow");
+        attackWindow = attackWindowObject.GetComponent<AttackWindow>();
+        
+
+        defendWindowObject = GameObject.Find("DefendWindow");
+        defendWindow = defendWindowObject.GetComponent<DefendWindow>();
+        
+
         combatLog = GameObject.Find("CombatLogText").GetComponent<TextMeshProUGUI>();
 
         AddLog("You see a plate helmet at your feet...");
@@ -25,6 +45,12 @@ public class MeleeCombatUI : NetworkBehaviour
         AddLog("There are Orcs in the dungeon, beware.");
         AddLog("You will have to kill them if you want to have any chance of escaping.");
 
+        if (isOwned)
+        {
+            declareWindowObject.SetActive(false);
+            attackWindowObject.SetActive(false);
+            defendWindowObject.SetActive(false);
+        }
 
     }
 
@@ -64,6 +90,41 @@ public class MeleeCombatUI : NetworkBehaviour
         //scrollRect.normalizedPosition = new Vector2(0, 0);
     }
 
-   
+    [TargetRpc]
+    public void RcpShowDeclare(string target) {
+        
+        declareWindow.SetTarget(target);    
+        declareWindowObject.SetActive(true);  
+    }
+
+    [TargetRpc]
+    public void RpcHideDeclare() {
+        declareWindowObject.SetActive(false);
+    }
+
+    [TargetRpc]
+    public void RpcShowAttack(Combatant attacker, Combatant defender, Bout bout, bool firstExchange, int reachCost) {
+        attackWindowObject.SetActive(true);
+        
+        attackWindow.Show(attacker, defender, bout, firstExchange, reachCost);
+    }
+
+    public void HideAttack()
+    {
+        attackWindowObject.SetActive(false);
+    }
+
+    [TargetRpc]
+    public void RpcShowDefense(Combatant defender, Combatant attacker, Bout bout, 
+        bool firstExchange, string name, int dice) { 
+        defendWindowObject.SetActive(true);
+        defendWindow.Show(defender, attacker, bout, firstExchange, 
+            name,
+            dice);
+    }
+
+    public void HideDefense() { 
+        defendWindowObject.SetActive(false); 
+    }
 
 }
