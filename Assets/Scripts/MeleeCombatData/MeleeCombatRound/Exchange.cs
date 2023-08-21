@@ -116,8 +116,7 @@ public class Exchange {
             Debug.Log("Hit to location: "+amd.anatomicalHitLocation+" stopped by armor.");
             return;
         }
-        CharacterController.GetCharacterObject(defender.characterSheet.name)?
-               .GetComponent<CharacterSoundEffects>().RpcHit();
+
         if (amd.knockedDown) { KnockDown(); }
        
         defender.ApplyShock(amd.hitLocation.shockPD);

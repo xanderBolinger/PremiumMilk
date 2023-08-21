@@ -31,8 +31,6 @@ public class MeleeCombatManager : MonoBehaviour
     }
 
     public void ResolveExchanges(bool playAnimations=false) {
-        if(playAnimations)
-            PlayAnimations();
         
         List<(Bout, Exchange, Exchange, int, bool)> exchanges = new List<(Bout, Exchange, Exchange, int, bool)>();
 
@@ -87,59 +85,6 @@ public class MeleeCombatManager : MonoBehaviour
         ResetCombatants();
     }
 
-    private void PlayAnimations()
-    {
-        foreach (var bout in bouts) {
-
-            if (bout.combatantA.selectManuever != null && 
-                bout.combatantA.selectManuever.offensiveManuever != null) {
-                AnimateCombatant(bout.combatantA.characterSheet.name, 
-                    bout.combatantB.characterSheet.name,
-                    bout.combatantA.selectManuever.meleeDamageType 
-                    != ExcelUtillity.MeleeHitLocation.MeleeDamageType.PIERICNG);
-            }
-
-            if (bout.combatantB.selectManuever != null &&
-                bout.combatantB.selectManuever.offensiveManuever != null)
-            {
-                AnimateCombatant(bout.combatantB.characterSheet.name, bout.combatantA.characterSheet.name,
-                    bout.combatantB.selectManuever.meleeDamageType
-                    != ExcelUtillity.MeleeHitLocation.MeleeDamageType.PIERICNG);
-            }
-
-        }
-    }
-
-    private void AnimateCombatant(string name, string targetName, bool swing) {
-        var character = CharacterController.GetCharacterObject(name);
-        var con = character.GetComponent<CharacterAnimator>();
-        var target = CharacterController.GetCharacterObject(targetName);
-
-        var tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
-
-        var direction = PathFinding.GetDirection(
-            tilemap.WorldToCell(character.transform.position), 
-            tilemap.WorldToCell(target.transform.position));
-
-        switch (direction)
-        {
-            case PathFinding.Direction.UP:
-                con.RcpAttackUp(swing);
-                break;
-            case PathFinding.Direction.DOWN:
-                con.RcpAttackDown(swing);
-                break;
-            case PathFinding.Direction.LEFT:
-                con.RcpAttackLeft(swing);
-                break;
-            case PathFinding.Direction.RIGHT:
-                con.RcpAttackRight(swing);
-                break;
-            case PathFinding.Direction.NOT_ADJACENT:
-                break;
-        }
-
-    }
 
     private void ResetCombatants()
     {

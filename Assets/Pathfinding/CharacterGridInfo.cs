@@ -12,7 +12,7 @@ public class CharacterGridInfo : MonoBehaviour
 
     private void Start()
     {
-        if (standingOnTile == null) {
+        if (standingOnTile == null && MapManager.Instance != null) {
             standingOnTile = MapManager.Instance.GetTile(startingX, startingY);
             var newPos = standingOnTile.transform.position;
             transform.position = new Vector3(newPos.x, newPos.y + 1, newPos.z);
