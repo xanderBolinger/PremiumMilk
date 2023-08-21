@@ -55,7 +55,7 @@ public class GridMouseController : NetworkBehaviour
             //Debug.Log(hit.transform.gameObject.name);
             if (hit.transform.gameObject.tag == "Tile")
             {
-                hit.transform.gameObject.GetComponent<Tile>().PrintData();
+                //hit.transform.gameObject.GetComponent<Tile>().PrintData();
             }
             else
             {

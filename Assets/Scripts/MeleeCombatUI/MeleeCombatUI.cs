@@ -7,15 +7,16 @@ using UnityEngine.UI;
 public class MeleeCombatUI : NetworkBehaviour
 {
 
-    private GameObject declareWindowObject;
-    private GameObject attackWindowObject;
-    private GameObject defendWindowObject;
+    [SerializeField] private GameObject declareWindowObject;
+    [SerializeField] private GameObject attackWindowObject;
+    [SerializeField] private GameObject defendWindowObject;
 
-    private DeclareWindow declareWindow;
-    private AttackWindow attackWindow;
-    private DefendWindow defendWindow;
+    [SerializeField] private DeclareWindow declareWindow;
+    [SerializeField] private AttackWindow attackWindow;
+    [SerializeField] private DefendWindow defendWindow;
 
-    private TextMeshProUGUI combatLog;
+    [SerializeField] private TextMeshProUGUI combatLog;
+    
     private bool setScrollBarFlag = false;
 
 
@@ -25,32 +26,14 @@ public class MeleeCombatUI : NetworkBehaviour
          GameObject.Find("AttackWindow") != null &&
           GameObject.Find("DefendWindow") != null);
 
-        
-        declareWindowObject = GameObject.Find("DeclareWindow");
-        declareWindow = declareWindowObject.GetComponent<DeclareWindow>();
-
-        attackWindowObject = GameObject.Find("AttackWindow");
-        attackWindow = attackWindowObject.GetComponent<AttackWindow>();
-        
-
-        defendWindowObject = GameObject.Find("DefendWindow");
-        defendWindow = defendWindowObject.GetComponent<DefendWindow>();
-        
-
-        combatLog = GameObject.Find("CombatLogText").GetComponent<TextMeshProUGUI>();
-
         AddLog("You see a plate helmet at your feet...");
         AddLog("You should move to it and pick it up (left click)");
         AddLog("You should put the helmet on (tab)");
         AddLog("There are Orcs in the dungeon, beware.");
         AddLog("You will have to kill them if you want to have any chance of escaping.");
 
-        if (isOwned)
-        {
-            declareWindowObject.SetActive(false);
-            attackWindowObject.SetActive(false);
-            defendWindowObject.SetActive(false);
-        }
+       
+        
 
     }
 

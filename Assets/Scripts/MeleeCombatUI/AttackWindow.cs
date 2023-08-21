@@ -146,6 +146,7 @@ public class AttackWindow : MonoBehaviour
 
     private void SetAttackFields(int dice, OffensiveManueverType offensiveManueverType, MeleeDamageType meleeDamageType,
         TargetZoneCutting targetZoneCutting, TargetZonePuncture targetZonePuncture) {
+        // TODO implement
     }
 
 
