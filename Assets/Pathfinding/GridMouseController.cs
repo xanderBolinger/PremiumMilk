@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEditor;
+using Mirror;
 
 [RequireComponent(typeof(CharacterGridInfo))]
-public class GridMouseController : MonoBehaviour
+public class GridMouseController : NetworkBehaviour
 {
     //public GameObject cursor;
     public float speed = 1f;
@@ -14,6 +16,10 @@ public class GridMouseController : MonoBehaviour
 
     private PathFinder pathFinder;
     private List<Tile> path;
+    private List<Tile> plottedPath;
+
+    public bool canMove = true;
+    public bool jumper = false;
 
     private void Start()
     {
@@ -25,19 +31,20 @@ public class GridMouseController : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer)
+            return;
 
-        if (path.Count > 0)
+        if (path.Count > 0 && canMove)
         {
             MoveAlongPath();
-            animator.SetWalk();
+            if (jumper)
+                animator.SetJumping();
+            else
+                animator.SetWalk();
         }
-        else {
+        else if(path.Count == 0) {
+            canMove = true;
             animator.SetIdle();
-        }
-
-        if (!Input.GetMouseButtonDown(0))
-        {
-            return;
         }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -45,7 +52,7 @@ public class GridMouseController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 100))
         {
-            Debug.Log(hit.transform.gameObject.name);
+            //Debug.Log(hit.transform.gameObject.name);
             if (hit.transform.gameObject.tag == "Tile")
             {
                 hit.transform.gameObject.GetComponent<Tile>().PrintData();
@@ -60,14 +67,111 @@ public class GridMouseController : MonoBehaviour
         }
 
         Tile tile = hit.transform.gameObject.GetComponent<Tile>();
-        path = pathFinder.FindPath(character.standingOnTile, tile);
+        var newPath = pathFinder.FindPath(character.standingOnTile, tile);
 
+        hit.transform.gameObject.GetComponentInParent<UnityEngine.Tilemaps.Tilemap>();
+
+        PlotPath(newPath);
+
+        if (!Input.GetMouseButtonDown(0))
+        {
+            return;
+        }
+
+        PlayConfirmPath();
+        path = newPath;
+
+    }
+
+    public void CanMoveTrue() {
+        canMove = true;
+    }
+
+    public void CanMoveFalse() {
+        canMove = false;
+    }
+
+    private void PlayMovedTarget() {
+        if (path.Count != 0 && plottedPath.Count != 0) {
+            var t1 = path[path.Count - 1];
+            var t2 = plottedPath[plottedPath.Count - 1];
+            if (t1.x == t2.x && t1.y == t2.y && t1.z == t2.z)
+                return;
+        }
+
+        var source = GameObject.Find("MovedTargetSoundEffect").GetComponent<AudioSource>();
+        //if (!source.isPlaying)
+            source.Play();
+    }
+
+    private void PlayConfirmPath() {
+        var source = GameObject.Find("ConfirmPathSoundEffect").GetComponent<AudioSource>();
+        //if (!source.isPlaying)
+            source.Play();
+    }
+
+    private void PlotPath(List<Tile> path) {
+        if (EqualPath(path, plottedPath))
+            return;
+        PlayMovedTarget();
+        plottedPath = path;
+
+        //Debug.Log("New Path: "+path.Count);
+
+        ClearPath();
+
+        foreach (var tile in path) {
+            if (tile == path[path.Count - 1])
+                continue;
+            AddPathMarker(tile);
+        }
+
+        if(path.Count != 0)
+            AddTarget(path[path.Count - 1]);
+    }
+
+    private bool EqualPath(List<Tile> path, List<Tile> path2) {
+        if (path == null || path2 == null || path.Count != path2.Count)
+            return false;
+
+        for (int i = 0; i < path.Count; i++) {
+            var t1 = path[i];
+            var t2 = path2[i];
+            if (t1.x != t2.x || t1.y != t2.y || t1.z != t2.z)
+                return false;
+        }
+
+        return true;
+    }
+
+    private void ClearPath() {
+        var contianer = GameObject.Find("CursorContainer");
+        foreach(Transform obj in contianer.transform) {
+            Destroy(obj.gameObject);
+        }
+    }
+
+    private void AddTarget(Tile tile) {
+        GameObject token = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridMovement/TargetMarker.prefab");
+        AddToken(tile, token);
+    }
+
+    private void AddPathMarker(Tile tile) {
+        GameObject token = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridMovement/MovementToken.prefab");
+        AddToken(tile, token);
+    }
+
+    private void AddToken(Tile tile, GameObject token) {
+        var tokenObj = Instantiate(token);
+        var pos = tile.transform.position;
+        tokenObj.transform.position = new Vector3(pos.x,pos.y+1,pos.z);
+        tokenObj.transform.parent = GameObject.Find("CursorContainer").transform;
     }
 
     private void RotateTowards(Vector3 target) {
         Vector3 targetDirection = target - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * speed);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * (speed+2f));
     }
 
     private void MoveAlongPath()
@@ -95,19 +199,4 @@ public class GridMouseController : MonoBehaviour
         character.standingOnTile = tile;
     }
 
-    private static RaycastHit? GetFocusedOnTile()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-        RaycastHit[] hits = Physics.RaycastAll(mousePos2D, Vector2.zero);
-
-        if (hits.Length > 0)
-        {
-            return hits.OrderByDescending(i => i.collider.transform.position.z).First();
-        }
-
-        return null;
-    }
 }
-

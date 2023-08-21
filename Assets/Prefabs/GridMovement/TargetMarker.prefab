@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3828134749607516021
+--- !u!1 &7710913424532134774
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4497852381913877967}
-  - component: {fileID: 703774837416395370}
-  - component: {fileID: 3323859065053968032}
-  - component: {fileID: 703774837416395368}
-  - component: {fileID: 703774837416395369}
+  - component: {fileID: 6938211164853043660}
+  - component: {fileID: 6333927901195931241}
+  - component: {fileID: 8071108692997110435}
+  - component: {fileID: 6333927901195931242}
   m_Layer: 0
-  m_Name: TIleGrassBlock
+  m_Name: TargetMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4497852381913877967
+--- !u!4 &6938211164853043660
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828134749607516021}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0, z: -6.5}
+  m_GameObject: {fileID: 7710913424532134774}
+  m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.09045339, y: 0.99999976, z: -6.098034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &703774837416395370
+--- !u!33 &6333927901195931241
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828134749607516021}
-  m_Mesh: {fileID: -1750125985355865389, guid: 18e37059529af8b49a587587fe1f46b3, type: 3}
---- !u!23 &3323859065053968032
+  m_GameObject: {fileID: 7710913424532134774}
+  m_Mesh: {fileID: 5920515647085482689, guid: b7435ec5d891c1748b739eca6d91ad85, type: 3}
+--- !u!23 &8071108692997110435
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828134749607516021}
+  m_GameObject: {fileID: 7710913424532134774}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,8 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9117483709511198939, guid: 18e37059529af8b49a587587fe1f46b3, type: 3}
-  - {fileID: -6126091556477775235, guid: 18e37059529af8b49a587587fe1f46b3, type: 3}
+  - {fileID: 2100000, guid: 1c17aea05fb03974a8df9e6a7fe8fa96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,36 +84,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &703774837416395368
-BoxCollider:
+--- !u!95 &6333927901195931242
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828134749607516021}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 7710913424532134774}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.99729455, y: 0.99999994, z: 1.0042615}
-  m_Center: {x: 0.0022537708, y: 0.49999997, z: -0.0003130436}
---- !u!114 &703774837416395369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828134749607516021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6d1bf516094878449096162b4894270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  x: 0
-  y: 0
-  z: 0
-  walkable: 1
-  G: 0
-  F: 0
-  H: 0
-  Previous: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 48ca3ad4966ae7d408319c5cd9d404eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
