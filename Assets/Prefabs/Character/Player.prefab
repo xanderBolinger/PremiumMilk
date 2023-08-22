@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 4648043275489738400}
   - component: {fileID: 1430899445923155240}
   - component: {fileID: 6273477719299885555}
-  - component: {fileID: 7231184678567981403}
+  - component: {fileID: 4093770209031128191}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   standingOnTile: {fileID: 0}
   startingX: 1
   startingY: 1
---- !u!114 &7231184678567981403
+--- !u!114 &4093770209031128191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1064,7 +1064,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7473309c65f6364e993cce6ab1dd3dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  speed: 3
+  canMove: 1
+  jumper: 0
 --- !u!1 &4648043275603564923
 GameObject:
   m_ObjectHideFlags: 0

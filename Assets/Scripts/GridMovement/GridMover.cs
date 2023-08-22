@@ -7,7 +7,7 @@ using UnityEditor;
 using Mirror;
 
 [RequireComponent(typeof(CharacterGridInfo))]
-public class GridMouseController : NetworkBehaviour
+public class GridMover : NetworkBehaviour
 {
     //public GameObject cursor;
     public float speed = 1f;
@@ -82,6 +82,8 @@ public class GridMouseController : NetworkBehaviour
         path = newPath;
 
     }
+
+    
 
     public void CanMoveTrue() {
         canMove = true;
