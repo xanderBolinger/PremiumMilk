@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.11768, g: 324.74365, b: 429.81006, a: 1}
+  m_IndirectSpecularColor: {r: 262.03812, g: 324.65375, b: 429.6908, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1477,6 +1477,184 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 605000983}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &674001692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674001697}
+  - component: {fileID: 674001693}
+  - component: {fileID: 674001695}
+  - component: {fileID: 674001694}
+  - component: {fileID: 674001700}
+  - component: {fileID: 674001696}
+  - component: {fileID: 674001699}
+  - component: {fileID: 674001698}
+  m_Layer: 0
+  m_Name: MeleeCombatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &674001693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2791054132
+  _assetId: 0
+  serverOnly: 1
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &674001694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3d9367788c51941b17e25085e3bc44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+--- !u!114 &674001695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c07c7a4c69580346b285ab9084fa360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedCharacterIndex: 0
+--- !u!114 &674001696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0698dce5f60421642a5687d1d091da32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
+  characterName: New Character Name
+  str: 10
+  per: 10
+  agl: 10
+  hlt: 10
+  wil: 10
+  speciesType: 2
+  arms: 2
+  legs: 2
+  weaponName: 
+  armorPieces: []
+  meleeProfType: 0
+  profValue: 0
+--- !u!4 &674001697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.793493, y: -0.98878783, z: -4.0780845}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674001698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b35e6c1a3069e44a6fdebaee7d91e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponNames: []
+  shieldNames: []
+  armorNames: []
+  armorPieces: []
+  selectedWeaponIndex: 0
+  selectedShieldIndex: 0
+  selectedArmorIndex: 0
+  setKO: 0
+  injuryIndex: 0
+  weaponDealt: 
+  characterDealt: 
+  shock: 0
+  pD: 0
+  bloodlessPD: 0
+  pain: 0
+  meleeProfType: 0
+--- !u!114 &674001699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68687a83ecac88f449bf3c069f5c149b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeDamageType: 0
+  meleeDecision: 0
+  offensiveManueverType: 0
+  defensiveManueverType: 0
+  targetZoneCutting: 5
+  targetZonePuncture: 5
+  dice: 0
+  secondaryDice: 0
+  BeatTargetWeapon: 0
+  selectedCharacterIndex: 0
+  selectedCharacterList: []
+  targetCharacterIndex: 0
+  targetCharacterList: []
+  selectedBoutIndex: 0
+  selectedBoutList: []
+  resolveMeleeCombatFlag: 0
+--- !u!114 &674001700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742982a67b725504bb82a99703e7cd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstExchange: 0
 --- !u!1001 &675331763
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -105,7 +105,7 @@ public class CharacterNetwork : NetworkBehaviour
 
     public void Print()
     {
-        TestCharacterController.PrintCharacter(characterSheet);
+        CharacterController.PrintCharacter(characterSheet);
     }
 
     public void SetCharacterSheet(CharacterSheet characterSheet)

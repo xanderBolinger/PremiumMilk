@@ -58,9 +58,9 @@ public class CombatNetworkController : NetworkBehaviour
                             attacker.Key.combatantB :
                             attacker.Key.combatantA;
                         var bout = meleeCombatManager.FindBout(combatantName, targetCombatant.characterSheet.name);
-                        testMeleeCombatController.selectedBoutIndex = meleeCombatManager.bouts.IndexOf(bout);
-                        testMeleeCombatController.selectedCharacterIndex = testMeleeCombatController.selectedCharacterList.IndexOf(combatantName);
-                        int reachCost = testMeleeCombatController.GetReachCost();
+                        meleeCombatController.selectedBoutIndex = meleeCombatManager.bouts.IndexOf(bout);
+                        meleeCombatController.selectedCharacterIndex = meleeCombatController.selectedCharacterList.IndexOf(combatantName);
+                        int reachCost = meleeCombatController.GetReachCost();
                         ui.RpcShowAttack(combatant, 
                             targetCombatant, attacker.Key, meleeCombatManager.firstExchange, reachCost);
                     }
@@ -118,12 +118,12 @@ public class CombatNetworkController : NetworkBehaviour
 
             if (!characterSheet.medicalData.alive || !characterSheet.medicalData.conscious) {
 
-                foreach (var boutString in testMeleeCombatController.selectedBoutList) {
-                    var bout = meleeCombatManager.bouts[testMeleeCombatController.selectedBoutList.IndexOf(boutString)];
+                foreach (var boutString in meleeCombatController.selectedBoutList) {
+                    var bout = meleeCombatManager.bouts[meleeCombatController.selectedBoutList.IndexOf(boutString)];
                     if (bout.combatantA.characterSheet.name == characterSheet.name || bout.combatantB.characterSheet.name == characterSheet.name)
                     {
-                        int boutIndex = testMeleeCombatController.selectedBoutList.IndexOf(boutString);
-                        removeBoutList.Add(testMeleeCombatController.selectedBoutList[boutIndex]);
+                        int boutIndex = meleeCombatController.selectedBoutList.IndexOf(boutString);
+                        removeBoutList.Add(meleeCombatController.selectedBoutList[boutIndex]);
                     }
 
                 }
@@ -149,8 +149,8 @@ public class CombatNetworkController : NetworkBehaviour
 
         foreach (var bout in removeBoutList)
         {
-            testMeleeCombatController.selectedBoutIndex = testMeleeCombatController.selectedBoutList.IndexOf(bout);
-            testMeleeCombatController.RemoveBout(false);
+            meleeCombatController.selectedBoutIndex = meleeCombatController.selectedBoutList.IndexOf(bout);
+            meleeCombatController.RemoveBout(false);
         }
     }
 

@@ -4,14 +4,14 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(TestCharacterController))]
-public class TestCharacterControllerGui : Editor
+[CustomEditor(typeof(CharacterController))]
+public class CharacterControllerGui : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        TestCharacterController tcc = (TestCharacterController)target;
+        CharacterController tcc = (CharacterController)target;
 
         if (CombatManager.combatManager == null)
             return;

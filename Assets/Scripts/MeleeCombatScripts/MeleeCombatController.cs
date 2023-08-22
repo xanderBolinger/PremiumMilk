@@ -41,15 +41,15 @@ public class MeleeCombatController : MonoBehaviour
     public List<string> selectedBoutList = new List<string>();
 
 
-    public static MeleeCombatController testMeleeCombatController;
+    public static MeleeCombatController meleeCombatController;
 
-    CombatNetworkController testCombatNetwork;
+    CombatNetworkController combatNetworkController;
 
     public bool resolveMeleeCombatFlag = false;
 
     IEnumerator Start()
     {
-        testMeleeCombatController = this;
+        meleeCombatController = this;
 
         yield return new WaitUntil(() => CombatManager.combatManager != null);
 
@@ -59,7 +59,7 @@ public class MeleeCombatController : MonoBehaviour
             targetCharacterList.Add(characterSheet.name);
         }
 
-        testCombatNetwork = GetComponent<CombatNetworkController>();
+        combatNetworkController = GetComponent<CombatNetworkController>();
 
     }
 
@@ -69,28 +69,12 @@ public class MeleeCombatController : MonoBehaviour
 
     public void EnterCombat() {
 
-        var initiator = TestCharacterController.GetCharacter(selectedCharacterList[selectedCharacterIndex]);
-        var target = TestCharacterController.GetCharacter(targetCharacterList[targetCharacterIndex]);
+        var initiator = CharacterController.GetCharacter(selectedCharacterList[selectedCharacterIndex]);
+        var target = CharacterController.GetCharacter(targetCharacterList[targetCharacterIndex]);
 
         meleeCombatManager.EnterMeleeCombat(initiator, target);
         selectedBoutList.Add("A: " + initiator.name + ", B: " + target.name);
         Debug.Log("Created bout between " + initiator.name + ", target: " + target.name);
-        CombatLog.LogEnterCombat(initiator.name, target.name);
-        GameObject characterObject = null;
-        GameObject targetObject = null;
-        foreach (var cObj in GameObject.FindGameObjectsWithTag("Character")) { 
-            if (cObj.GetComponent<CharacterNetwork>().GetCharacterSheet().name == initiator.name)
-                characterObject = cObj;
-            if (cObj.GetComponent<CharacterNetwork>().GetCharacterSheet().name == target.name)
-                targetObject = cObj;
-        }
-
-        if(characterObject != null)
-            GetComponent<CombatNetworkController>().UpdateBouts(characterObject, initiator);
-
-        if (targetObject != null)
-            GetComponent<CombatNetworkController>().UpdateBouts(targetObject, target);
-
     }
 
     public void AssignDice() {
@@ -117,7 +101,7 @@ public class MeleeCombatController : MonoBehaviour
             Debug.Log("Could not assign dice. Bout " + selectedBoutIndex + ", Combatant: " + combatant.characterSheet.name + ", failed to assign " + dice + " dice, Max CP: "+ maxCP);
         }
 
-        testCombatNetwork.UpdateCharacters();
+        combatNetworkController.UpdateCharacters();
 
     }
 
@@ -141,7 +125,7 @@ public class MeleeCombatController : MonoBehaviour
         }
 
         Debug.Log("Refil Dice.");
-        testCombatNetwork.UpdateCharacters();
+        combatNetworkController.UpdateCharacters();
     }
 
     public void ListBouts() {
@@ -191,33 +175,30 @@ public class MeleeCombatController : MonoBehaviour
         selectedBoutList.RemoveAt(selectedBoutIndex);
         Debug.Log("Remove bout: " + selectedBoutIndex);
         if(update)
-            testCombatNetwork.UpdateCharacters();
+            combatNetworkController.UpdateCharacters();
     }
 
     public void TryAdvance()
     {
-
-
-
         switch (meleeCombatPhase)
         {
             case MeleeCombatPhase.DECLARE:
                 if (meleeCombatManager.GetDeclareBouts().Count <= 0)
                     AdvanceCombat();
                 else
-                    testCombatNetwork.SendDeclareMessages();
+                    combatNetworkController.SendDeclareMessages();
                 break;
             case MeleeCombatPhase.ATTACK:
                 if (meleeCombatManager.GetAttackersWithoutManeuver().Count <= 0)
                     AdvanceCombat();
                 else
-                    testCombatNetwork.SendAttackerMessages();
+                    combatNetworkController.SendAttackerMessages();
                 break;
             case MeleeCombatPhase.DEFEND:
                 if (meleeCombatManager.GetDefendersWithoutManuever().Count <= 0)
                     AdvanceCombat();
                 else
-                    testCombatNetwork.SendDefenderMessages();
+                    combatNetworkController.SendDefenderMessages();
                 break;
         }
     }
@@ -237,7 +218,7 @@ public class MeleeCombatController : MonoBehaviour
         var declareBouts = meleeCombatManager.GetDeclareBouts();
 
         if (declareBouts.Count > 0) {
-            testCombatNetwork.SendDeclareMessages();
+            combatNetworkController.SendDeclareMessages();
             return;
         }
 
@@ -248,7 +229,7 @@ public class MeleeCombatController : MonoBehaviour
         var attackers = meleeCombatManager.GetAttackersWithoutManeuver();
 
         if (attackers.Count > 0) {
-            testCombatNetwork.SendAttackerMessages();
+            combatNetworkController.SendAttackerMessages();
             return;
         }
 
@@ -257,7 +238,7 @@ public class MeleeCombatController : MonoBehaviour
         //MeleeCombatAIController.DeclareDefense();
         var defenders = meleeCombatManager.GetDefendersWithoutManuever();
         if (defenders.Count > 0) {
-            testCombatNetwork.SendDefenderMessages();
+            combatNetworkController.SendDefenderMessages();
             return;
         }
 
@@ -333,7 +314,7 @@ public class MeleeCombatController : MonoBehaviour
             selectedBoutList.RemoveAt(index);
         }
 
-        testCombatNetwork.UpdateCharacters();
+        combatNetworkController.UpdateCharacters();
 
         resolveMeleeCombatFlag = false;
         //GridManager.gridManager.resolveCombatActionFlag = true;
@@ -350,7 +331,7 @@ public class MeleeCombatController : MonoBehaviour
         var initiator = GetCombatant();
         initiator.meleeDecision = meleeDecision;
         Debug.Log("Declare melee for "+initiator.characterSheet.name+", "+meleeDecision);
-        testCombatNetwork.UpdateCharacters();
+        combatNetworkController.UpdateCharacters();
     }
 
     public void SetAttack() {
@@ -399,17 +380,13 @@ public class MeleeCombatController : MonoBehaviour
             (reachCost != 0 ? (", Reach Cost: "+reachCost) : "") +
             ", Target Zone: "+(meleeDamageType == MeleeDamageType.PIERICNG ? targetZonePuncture : targetZoneCutting));
 
-        CombatLog.Log(combatant.characterSheet.name + " is performing a " + offensiveManueverType + " attack against " +
-            target.characterSheet.name + " with " + dice + " dice, targeting the: "
-            + (meleeDamageType == MeleeDamageType.PIERICNG ? targetZonePuncture : targetZoneCutting));
-
         combatant.selectManuever = new SelectManuever(offensiveManueverType, dice, targetZone, 
             meleeDamageType, reachCost + activationCost);
 
         if (simultaneous)
             maneuver.SetSimultaneousDefense(secondaryDice, combatant.selectManuever);
         maneuver.SetWeaponBeat(BeatTargetWeapon);
-        testCombatNetwork.UpdateCharacters();
+        combatNetworkController.UpdateCharacters();
     }
 
     public int GetReachCost() {
@@ -455,7 +432,7 @@ public class MeleeCombatController : MonoBehaviour
             var targetZone = meleeDamageType == MeleeDamageType.PIERICNG ? (int)targetZonePuncture : (int)targetZoneCutting;
             maneuver.SetSimultaneousAttack(combatant.selectManuever, meleeDamageType, secondaryDice, targetZone);
         }
-        testCombatNetwork.UpdateCharacters();
+        combatNetworkController.UpdateCharacters();
     }
 
     private bool OnPuase()
@@ -477,7 +454,7 @@ public class MeleeCombatController : MonoBehaviour
 
         Debug.Log("Set Do nothing for " + combatant.characterSheet.name);
         combatant.selectManuever = new SelectManuever();
-        testCombatNetwork.UpdateCharacters();
+        combatNetworkController.UpdateCharacters();
     }
 
     public Combatant GetCombatant()

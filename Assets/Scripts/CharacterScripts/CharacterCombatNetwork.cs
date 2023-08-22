@@ -122,8 +122,8 @@ public class CharacterCombatNetwork : NetworkBehaviour
     [Command]
     private void CmdSetDoNothing(string boutTarget) {
         SetSelected(boutTarget);
-        testMeleeCombatController.SetDoNothing();
-        testMeleeCombatController.TryAdvance();
+        meleeCombatController.SetDoNothing();
+        meleeCombatController.TryAdvance();
     }
 
     [Command]
@@ -135,17 +135,17 @@ public class CharacterCombatNetwork : NetworkBehaviour
         string boutTarget) {
         SetSelected(boutTarget);
 
-        testMeleeCombatController.dice = dice;
-        testMeleeCombatController.secondaryDice = secondaryDice;
-        testMeleeCombatController.offensiveManueverType = offensiveManueverType;
-        testMeleeCombatController.defensiveManueverType = defensiveManueverType;
-        testMeleeCombatController.meleeDamageType = meleeDamageType;
-        testMeleeCombatController.targetZoneCutting = targetZoneCutting;
-        testMeleeCombatController.targetZonePuncture = targetZonePuncture;
-        testMeleeCombatController.BeatTargetWeapon = beatTarget;
+        meleeCombatController.dice = dice;
+        meleeCombatController.secondaryDice = secondaryDice;
+        meleeCombatController.offensiveManueverType = offensiveManueverType;
+        meleeCombatController.defensiveManueverType = defensiveManueverType;
+        meleeCombatController.meleeDamageType = meleeDamageType;
+        meleeCombatController.targetZoneCutting = targetZoneCutting;
+        meleeCombatController.targetZonePuncture = targetZonePuncture;
+        meleeCombatController.BeatTargetWeapon = beatTarget;
 
-        testMeleeCombatController.SetDefense();
-        testMeleeCombatController.TryAdvance();
+        meleeCombatController.SetDefense();
+        meleeCombatController.TryAdvance();
     }
 
     [Command]
@@ -157,33 +157,33 @@ public class CharacterCombatNetwork : NetworkBehaviour
         string boutTarget) {
         SetSelected(boutTarget);
 
-        testMeleeCombatController.dice = dice;
-        testMeleeCombatController.secondaryDice = secondaryDice;
-        testMeleeCombatController.offensiveManueverType = offensiveManueverType;
-        testMeleeCombatController.defensiveManueverType = defensiveManueverType;
-        testMeleeCombatController.meleeDamageType = meleeDamageType;
-        testMeleeCombatController.targetZoneCutting = targetZoneCutting;
-        testMeleeCombatController.targetZonePuncture = targetZonePuncture;
-        testMeleeCombatController.BeatTargetWeapon = beatTarget;
+        meleeCombatController.dice = dice;
+        meleeCombatController.secondaryDice = secondaryDice;
+        meleeCombatController.offensiveManueverType = offensiveManueverType;
+        meleeCombatController.defensiveManueverType = defensiveManueverType;
+        meleeCombatController.meleeDamageType = meleeDamageType;
+        meleeCombatController.targetZoneCutting = targetZoneCutting;
+        meleeCombatController.targetZonePuncture = targetZonePuncture;
+        meleeCombatController.BeatTargetWeapon = beatTarget;
 
-        testMeleeCombatController.SetAttack();
-        testMeleeCombatController.TryAdvance();
+        meleeCombatController.SetAttack();
+        meleeCombatController.TryAdvance();
     }
 
 
     [Command]
     private void CmdAssignDice(int dice, string boutTarget) {
         SetSelected(boutTarget);
-        testMeleeCombatController.dice = dice;
-        testMeleeCombatController.AssignDice();
+        meleeCombatController.dice = dice;
+        meleeCombatController.AssignDice();
     }
 
     [Command]
     private void CmdDeclare(MeleeStatus meleeDecision, string boutTarget) {
         SetSelected(boutTarget);
-        testMeleeCombatController.meleeDecision = meleeDecision;
-        testMeleeCombatController.Declare();
-        testMeleeCombatController.TryAdvance();
+        meleeCombatController.meleeDecision = meleeDecision;
+        meleeCombatController.Declare();
+        meleeCombatController.TryAdvance();
     }
 
     public void SetSelected(string boutTarget)
@@ -191,8 +191,8 @@ public class CharacterCombatNetwork : NetworkBehaviour
         var name = characterNetwork.GetCharacterSheet().name;
         var bout = meleeCombatManager.FindBout(name, boutTarget);
 
-        testMeleeCombatController.selectedBoutIndex = meleeCombatManager.bouts.IndexOf(bout);
-        testMeleeCombatController.selectedCharacterIndex = testMeleeCombatController.selectedCharacterList.IndexOf(name);
+        meleeCombatController.selectedBoutIndex = meleeCombatManager.bouts.IndexOf(bout);
+        meleeCombatController.selectedCharacterIndex = meleeCombatController.selectedCharacterList.IndexOf(name);
     }
 
 

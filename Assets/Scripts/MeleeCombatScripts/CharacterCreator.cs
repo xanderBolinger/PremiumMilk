@@ -60,7 +60,7 @@ public class CharacterCreator : MonoBehaviour
     }
 
     public void LearnProf() {
-        var character = TestCharacterController.GetCharacter(characterName);
+        var character = CharacterController.GetCharacter(characterName);
 
         character.meleeCombatStats.LearnProficiency(MeleeProficiencies.GetProfByType(meleeProfType), profValue);
         character.meleeCombatStats.SetCurrProf(meleeProfType);

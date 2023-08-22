@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(TestMeleeCombatController))]
-public class TestMeleeCombatControllerGui : Editor
+[CustomEditor(typeof(MeleeCombatController))]
+public class MeleeCombatControllerGui : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        TestMeleeCombatController ocm = (TestMeleeCombatController)target;
+        MeleeCombatController ocm = (MeleeCombatController)target;
 
         GUIContent selectedCharacterList = new GUIContent("Select Character");
         ocm.selectedCharacterIndex = EditorGUILayout.Popup(selectedCharacterList, ocm.selectedCharacterIndex, ocm.selectedCharacterList.ToArray());
