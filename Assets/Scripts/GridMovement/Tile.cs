@@ -22,6 +22,13 @@ public class Tile : MonoBehaviour
     }
 
     public bool IsBlocked() {
+
+        foreach (var character in GameObject.FindGameObjectsWithTag("Character")) {
+            var tile = character.GetComponent<CharacterGridInfo>().standingOnTile;
+            if (tile != null && tile == this) 
+                return true;
+        }
+
         return false;
     }
 
