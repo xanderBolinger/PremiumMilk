@@ -7,8 +7,15 @@ using static MeleeCombatManager;
 
 public static class CombatLog
 {
+    private static string logQueue = "";
+
     public static void Log(string message) {
-        LogServer(message);
+        //LogServer(message);
+        logQueue += message + "\n";
+    }
+
+    public static void LogQueue() { 
+        LogServer(logQueue);
     }
 
     public static void LogEnterCombat(string initiator, string target) {

@@ -107,12 +107,16 @@ public class MeleeCombatManager : MonoBehaviour
                 bout.combatantA.currentDice /= 2;
                 Debug.Log("Combatant("+bout.combatantA.characterSheet.name
                     +") stood up. Remaining Dice: "+bout.combatantA.currentDice);
+                CombatLog.Log("Combatant(" + bout.combatantA.characterSheet.name
+                    + ") stood up. Remaining Dice: " + bout.combatantA.currentDice);
             }
             if (bout.combatantB.knockedDown && bout.combatantA.currentDice > 0)
             {
                 bout.combatantB.knockedDown = false;
                 bout.combatantB.currentDice /= 2;
                 Debug.Log("Combatant(" + bout.combatantB.characterSheet.name 
+                    + ") stood up. Remaining Dice: " + bout.combatantB.currentDice);
+                CombatLog.Log("Combatant(" + bout.combatantB.characterSheet.name
                     + ") stood up. Remaining Dice: " + bout.combatantB.currentDice);
             }
         }

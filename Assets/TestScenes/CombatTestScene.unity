@@ -1493,6 +1493,7 @@ GameObject:
   - component: {fileID: 674001696}
   - component: {fileID: 674001699}
   - component: {fileID: 674001698}
+  - component: {fileID: 674001701}
   m_Layer: 0
   m_Name: MeleeCombatManager
   m_TagString: Untagged
@@ -1579,7 +1580,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674001692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.793493, y: -0.98878783, z: -4.0780845}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1595,7 +1596,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 674001692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b35e6c1a3069e44a6fdebaee7d91e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fefb869b1a4cd24496abcd9d6bd64a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponNames: []
@@ -1655,6 +1656,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstExchange: 0
+--- !u!114 &674001701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674001692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 7777
+  NoDelay: 1
+  SendTimeout: 5000
+  ReceiveTimeout: 30000
+  serverMaxMessageSize: 16384
+  serverMaxReceivesPerTick: 10000
+  serverSendQueueLimitPerConnection: 10000
+  serverReceiveQueueLimitPerConnection: 10000
+  clientMaxMessageSize: 16384
+  clientMaxReceivesPerTick: 1000
+  clientSendQueueLimit: 10000
+  clientReceiveQueueLimit: 10000
 --- !u!1001 &675331763
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -75,6 +75,7 @@ public class MeleeCombatController : MonoBehaviour
         meleeCombatManager.EnterMeleeCombat(initiator, target);
         selectedBoutList.Add("A: " + initiator.name + ", B: " + target.name);
         Debug.Log("Created bout between " + initiator.name + ", target: " + target.name);
+        CombatLog.Log("Created bout between " + initiator.name + ", target: " + target.name);
     }
 
     public void AssignDice() {
@@ -93,12 +94,17 @@ public class MeleeCombatController : MonoBehaviour
             }
         }
 
-        if (combatant.AssignCP(dice, cpAssignedToOtherBouts))
+        if (combatant.AssignCP(dice, cpAssignedToOtherBouts)) { 
             Debug.Log("Bout " + selectedBoutIndex + ", Combatant: " + combatant.characterSheet.name + ", assign " + dice + " dice.");
+            CombatLog.Log("Bout " + selectedBoutIndex + ", Combatant: " + combatant.characterSheet.name + ", assign " + dice + " dice.");
+        }
         else {
             int pain = characterSheet.medicalData.GetPain();
             int maxCP = characterSheet.meleeCombatStats.GetMaxCp(pain);
-            Debug.Log("Could not assign dice. Bout " + selectedBoutIndex + ", Combatant: " + combatant.characterSheet.name + ", failed to assign " + dice + " dice, Max CP: "+ maxCP);
+            CombatLog.Log("Could not assign dice. Bout " + selectedBoutIndex + ", Combatant: " + combatant.characterSheet.name 
+                + ", failed to assign " + dice + " dice, Max CP: " + maxCP);
+            Debug.Log("Could not assign dice. Bout " + selectedBoutIndex + ", Combatant: " 
+                + combatant.characterSheet.name + ", failed to assign " + dice + " dice, Max CP: "+ maxCP);
         }
 
         combatNetworkController.UpdateCharacters();
@@ -308,6 +314,8 @@ public class MeleeCombatController : MonoBehaviour
         meleeCombatPhase = MeleeCombatPhase.DECLARE;
         
         Debug.Log("Next Exchange: " + (meleeCombatManager.firstExchange ? "first exchange" : "second exchange"));
+
+        CombatLog.Log("Next Exchange: " + (meleeCombatManager.firstExchange ? "first exchange" : "second exchange"));
 
         foreach (var index in removeBoutIndices) { 
             meleeCombatManager.bouts.RemoveAt(index);
