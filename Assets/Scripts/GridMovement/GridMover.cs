@@ -34,7 +34,9 @@ public class GridMover : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if (path.Count > 0 && canMove)
+        var moving = Moving();
+
+        if (moving && canMove && GameManager.Instance.playGridMovment)
         {
             MoveAlongPath();
             if (jumper)
@@ -42,11 +44,15 @@ public class GridMover : NetworkBehaviour
             else
                 animator.SetWalk();
         }
-        else if(path.Count == 0) {
+        else if (!moving) {
             canMove = true;
             animator.SetIdle();
         }
 
+    }
+
+    public bool Moving() {
+        return path.Count > 0;
     }
 
     public Tile GetHitTile() {
