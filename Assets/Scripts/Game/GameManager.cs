@@ -26,7 +26,7 @@ public class GameManager : NetworkBehaviour
 
     public void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Character").Length < 1)
+        if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer)
             return;
 
         if (MovementOver())
@@ -53,11 +53,10 @@ public class GameManager : NetworkBehaviour
         return true;
     }
 
-
     public bool MovementOver() {
         foreach (var character in GameObject.FindGameObjectsWithTag("Character")) { 
             var gridMover = character.GetComponent<GridMover>();
-            if (gridMover.Moving()) 
+            if (gridMover.movementReady) 
                 return false;
         }
 
@@ -66,7 +65,7 @@ public class GameManager : NetworkBehaviour
 
     public bool CharacterReady(GameObject character) {
         var gridMover = character.GetComponent<GridMover>();
-        return gridMover.Moving();
+        return gridMover.movementReady;
     }
 
 }

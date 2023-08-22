@@ -21,6 +21,9 @@ public class GridMover : NetworkBehaviour
     public bool canMove = true;
     public bool jumper = false;
 
+    [SyncVar]
+    public bool movementReady = false;
+
     private void Start()
     {
         character = GetComponent<CharacterGridInfo>();
@@ -46,12 +49,13 @@ public class GridMover : NetworkBehaviour
         }
         else if (!moving) {
             canMove = true;
+            movementReady = false;
             animator.SetIdle();
         }
 
     }
 
-    public bool Moving() {
+    private bool Moving() {
         return path.Count > 0;
     }
 
@@ -78,7 +82,9 @@ public class GridMover : NetworkBehaviour
         }
         PlayConfirmPath();
         path = newPath;
+        movementReady = true;
     }
+
 
     public void CanMoveTrue() {
         canMove = true;

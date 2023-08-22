@@ -13,16 +13,18 @@ public class PlayerMouseController : MonoBehaviour
     private void Update()
     {
         var gm = GameManager.Instance;
+
         if (gm.gridMovement && !gm.turnPaused)
             return;
 
         var tile = gridMover.GetHitTile();
+
         if (tile == null)
             return;
+
         var newPath = gridMover.GetNewPath(tile);
         gridMover.PlotPath(newPath);
         gridMover.ConfirmNewPath(newPath);
     }
-
 
 }
