@@ -47,43 +47,32 @@ public class GridMover : NetworkBehaviour
             animator.SetIdle();
         }
 
+    }
+
+    public Tile GetHitTile() {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 100))
+        if (!Physics.Raycast(ray, out hit, 100) || hit.transform.gameObject.tag != "Tile")
         {
-            //Debug.Log(hit.transform.gameObject.name);
-            if (hit.transform.gameObject.tag == "Tile")
-            {
-                //hit.transform.gameObject.GetComponent<Tile>().PrintData();
-            }
-            else
-            {
-                return;
-            }
-        }
-        else {
-            return;
+            return null;
         }
 
-        Tile tile = hit.transform.gameObject.GetComponent<Tile>();
-        var newPath = pathFinder.FindPath(character.standingOnTile, tile);
+        return hit.transform.gameObject.GetComponent<Tile>();
+    }
 
-        hit.transform.gameObject.GetComponentInParent<UnityEngine.Tilemaps.Tilemap>();
+    public List<Tile> GetNewPath(Tile tile) {
+        return pathFinder.FindPath(character.standingOnTile, tile);
+    }
 
-        PlotPath(newPath);
-
+    public void ConfirmNewPath(List<Tile> newPath) {
         if (!Input.GetMouseButtonDown(0))
         {
             return;
         }
-
         PlayConfirmPath();
         path = newPath;
-
     }
-
-    
 
     public void CanMoveTrue() {
         canMove = true;
@@ -112,7 +101,7 @@ public class GridMover : NetworkBehaviour
             source.Play();
     }
 
-    private void PlotPath(List<Tile> path) {
+    public void PlotPath(List<Tile> path) {
         if (EqualPath(path, plottedPath))
             return;
         PlayMovedTarget();

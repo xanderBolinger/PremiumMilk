@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerMouseController : MonoBehaviour
 {
+    private GridMover gridMover;
 
+    void Start() { 
+        gridMover = GetComponent<GridMover>();
+    }
 
     private void Update()
     {
@@ -12,11 +16,13 @@ public class PlayerMouseController : MonoBehaviour
         if (gm.gridMovement && !gm.turnPaused)
             return;
 
-        CheckGridClick();
+        var tile = gridMover.GetHitTile();
+        if (tile == null)
+            return;
+        var newPath = gridMover.GetNewPath(tile);
+        gridMover.PlotPath(newPath);
+        gridMover.ConfirmNewPath(newPath);
     }
 
-    private void CheckGridClick() { 
-    
-    }
 
 }

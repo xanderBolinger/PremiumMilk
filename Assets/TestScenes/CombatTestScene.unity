@@ -1941,6 +1941,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   gridMovement: 0
+  playGridMovment: 0
   turnPaused: 0
 --- !u!114 &934263890
 MonoBehaviour:

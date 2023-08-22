@@ -11,6 +11,8 @@ public class GameManager : NetworkBehaviour
     [SyncVar]
     public bool gridMovement;
     [SyncVar]
+    public bool playGridMovment;
+    [SyncVar]
     public bool turnPaused;
 
 
@@ -18,5 +20,18 @@ public class GameManager : NetworkBehaviour
     {
         Instance = this;
     }
+
+    public void Update()
+    {
+        
+    }
+
+    public bool PlayGridMovement() {
+        return gridMovement && playGridMovment;
+    }
+
+
+
+
 
 }
