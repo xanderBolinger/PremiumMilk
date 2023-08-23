@@ -1,7 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using static UnityEngine.GraphicsBuffer;
 
 public class GridMovementController : MonoBehaviour
 {
@@ -21,7 +23,8 @@ public class GridMovementController : MonoBehaviour
 
         foreach (var character in GameObject.FindGameObjectsWithTag("Character")) {
             var gridMover = character.GetComponent<GridMover>();
-            gridMover.SetMoveDestination(gridMover.path[0], character.GetComponent<CharacterGridInfo>());
+            NetworkIdentity opponentIdentity = character.GetComponent<NetworkIdentity>();
+            gridMover.RpcSetMoveDestination(opponentIdentity.connectionToClient);
         }
     
     }

@@ -53,11 +53,22 @@ public class GridMover : NetworkBehaviour
         }
         else if (!moving) {
             canMoveAnimation = true;
-            movementReady = false;
+            MovementNotReady();
             movementTurn = false;
             animator.SetIdle();
         }
 
+    }
+
+    private void MovementNotReady() {
+        movementReady = false;
+        CmdMovementNotReady();
+    }
+
+    [Command]
+    private void CmdMovementNotReady()
+    {
+        movementReady = false;
     }
 
     private void MovementReady() {
@@ -97,7 +108,7 @@ public class GridMover : NetworkBehaviour
         }
         PlayConfirmPath();
         path = newPath;
-        movementReady = true;
+        MovementReady();
     }
 
 
@@ -192,6 +203,10 @@ public class GridMover : NetworkBehaviour
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * (speed+2f));
     }
 
+    [TargetRpc]
+    public void RpcSetMoveDestination(NetworkConnectionToClient target) {
+        SetMoveDestination(path[0], GetComponent<CharacterGridInfo>());
+    }
 
     public void SetMoveDestination(Tile tile, CharacterGridInfo info) {
         if (tile.IsBlocked(gameObject))
