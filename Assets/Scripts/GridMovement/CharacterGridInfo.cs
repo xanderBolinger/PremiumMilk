@@ -29,8 +29,12 @@ public class CharacterGridInfo : NetworkBehaviour
             standingOnTile = MapManager.Instance.GetTile(startingX, startingY);
             var newPos = standingOnTile.transform.position;
             transform.position = new Vector3(newPos.x, newPos.y + 1, newPos.z);
-            CmdSetStandingOnTile(standingOnTile.x, standingOnTile.y);
-            CmdSetMovingTowards(-1, -1);
+            if(isOwned)
+            {
+                CmdSetStandingOnTile(standingOnTile.x, standingOnTile.y);
+                CmdSetMovingTowards(-1, -1);
+            }
+            
         }
     }
 
