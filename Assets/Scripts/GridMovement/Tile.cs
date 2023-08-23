@@ -27,8 +27,9 @@ public class Tile : MonoBehaviour
             if (character == mover)
                 continue;
 
-            var tile = character.GetComponent<CharacterGridInfo>().standingOnTile;
-            if (tile != null && tile == this) 
+            var info = character.GetComponent<CharacterGridInfo>();
+
+            if (info.movingTowardsX == x && info.movingTowardsY == y) 
                 return true;
         }
 
@@ -39,7 +40,7 @@ public class Tile : MonoBehaviour
         foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
         {
             var tile = character.GetComponent<CharacterGridInfo>().standingOnTile;
-            if (tile == this)
+            if (tile.x == x && tile.y == y)
                 return true;
         }
 
