@@ -61,7 +61,6 @@ public class GridMover : NetworkBehaviour
     }
 
     private void MovementNotReady() {
-        movementReady = false;
         CmdMovementNotReady();
     }
 
@@ -72,7 +71,6 @@ public class GridMover : NetworkBehaviour
     }
 
     private void MovementReady() {
-        movementReady = true;
         CmdMovementReady();
     }
 
@@ -201,6 +199,12 @@ public class GridMover : NetworkBehaviour
         Vector3 targetDirection = target - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * (speed+2f));
+    }
+
+    [TargetRpc]
+    public void RpcSetMovementTurn(NetworkConnectionToClient target)
+    {
+        movementTurn = true;
     }
 
     [TargetRpc]

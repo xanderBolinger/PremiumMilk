@@ -12,6 +12,8 @@ public class GridMovementController : MonoBehaviour
 
         foreach (var character in GameObject.FindGameObjectsWithTag("Character")) {
             var gridMover = character.GetComponent<GridMover>();
+            NetworkIdentity opponentIdentity = character.GetComponent<NetworkIdentity>();
+            gridMover.RpcSetMovementTurn(opponentIdentity.connectionToClient);
             gridMover.movementTurn = true;
             yield return new WaitUntil(() => !gridMover.movementReady);
         }

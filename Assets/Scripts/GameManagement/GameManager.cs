@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.TextCore.Text;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
@@ -40,14 +41,14 @@ public class GameManager : NetworkBehaviour
         if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer || !turnBasedMovement)
             return;
 
-        if (CharactersReadyOrMoving() && turnPaused)
+        if (CharactersReady() && turnPaused)
         {
             playGridMovment = true;
             turnPaused = false;
             GridMovementController.SetCharacterDestinations();
             StartCoroutine(GridMovementController.MoveCharacterOneTile());
         }
-        else // this are getting called repeatedly 
+        else if(CharactersNotMoving())
         {
             playGridMovment = false;
             turnPaused = true;
@@ -55,10 +56,21 @@ public class GameManager : NetworkBehaviour
 
     }
 
-    public bool CharactersReadyOrMoving() {
+    public bool CharactersReady() {
 
         foreach (var character in GameObject.FindGameObjectsWithTag("Character")) { 
             if(!CharacterReady(character)) 
+                return false;
+        }
+
+        return true;
+    }
+
+    public bool CharactersNotMoving() {
+
+        foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
+        {
+            if (CharacterReady(character))
                 return false;
         }
 
