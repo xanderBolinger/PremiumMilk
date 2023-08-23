@@ -18,7 +18,8 @@ public class GameManager : NetworkBehaviour
     public void Start()
     {
         Instance = this;
-        SetSimultaneousMovement();
+        //SetSimultaneousMovement();
+        SetSequentialMovement();
     }
 
 
@@ -28,8 +29,10 @@ public class GameManager : NetworkBehaviour
         turnPaused = false;
     }
 
-    public void SetSequentialMovement() { 
-    
+    public void SetSequentialMovement() {
+        turnBasedMovement = true; 
+        playGridMovment = false;
+        turnPaused = true;
     }
 
     public void Update()
@@ -42,6 +45,7 @@ public class GameManager : NetworkBehaviour
             playGridMovment = true;
             turnPaused = false;
             GridMovementController.SetCharacterDestinations();
+            StartCoroutine(GridMovementController.MoveCharacterOneTile());
         }
         else
         {

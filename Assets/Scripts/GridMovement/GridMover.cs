@@ -18,11 +18,13 @@ public class GridMover : NetworkBehaviour
     public List<Tile> path;
     private List<Tile> plottedPath;
 
-    public bool canMove = true;
+    public bool canMoveAnimation = true;
     public bool jumper = false;
 
     [SyncVar]
     public bool movementReady = false;
+    [SyncVar]
+    public bool movementTurn = false;
 
     private void Start()
     {
@@ -39,7 +41,8 @@ public class GridMover : NetworkBehaviour
 
         var moving = Moving();
 
-        if (moving && canMove && GameManager.Instance.playGridMovment)
+        if (moving && canMoveAnimation && GameManager.Instance.playGridMovment 
+            && (GameManager.Instance.turnBasedMovement && movementTurn))
         {
             MoveAlongPath();
             if (jumper)
@@ -48,8 +51,9 @@ public class GridMover : NetworkBehaviour
                 animator.SetWalk();
         }
         else if (!moving) {
-            canMove = true;
+            canMoveAnimation = true;
             movementReady = false;
+            movementTurn = false;
             animator.SetIdle();
         }
 
@@ -87,11 +91,11 @@ public class GridMover : NetworkBehaviour
 
 
     public void CanMoveTrue() {
-        canMove = true;
+        canMoveAnimation = true;
     }
 
     public void CanMoveFalse() {
-        canMove = false;
+        canMoveAnimation = false;
     }
 
     private void PlayMovedTarget() {
