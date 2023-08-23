@@ -15,7 +15,7 @@ public class GridMover : NetworkBehaviour
     CharacterAnimator animator;
 
     private PathFinder pathFinder;
-    private List<Tile> path;
+    public List<Tile> path;
     private List<Tile> plottedPath;
 
     public bool canMove = true;
@@ -177,22 +177,54 @@ public class GridMover : NetworkBehaviour
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * (speed+2f));
     }
 
-    private void MoveAlongPath()
-    {
-        var step = speed * Time.deltaTime;
 
-        var target = path[0].transform.position;
-        target.y += 1;
+    public void SetMoveDestination(Tile tile, CharacterGridInfo info) {
+        if (tile.IsBlocked(gameObject))
+        {
+            path.Clear();
+            info.ClearMovingTowards();
+            return;
+        }
+
+        info.SetMovingTowards(tile.x, tile.y);
+    }
+
+    private void TranslateCharacter(Vector3 target) {
+        var step = speed * Time.deltaTime;
+        
+        
         RotateTowards(target);
         var newPos = Vector3.MoveTowards(transform.position, target, step);
         transform.position = newPos;
+    }
 
+    private void EndCharacterMovement(Tile tile, CharacterGridInfo info, Vector3 target) {
         if (Vector3.Distance(transform.position, target) < 0.001f)
         {
-            PositionCharacterOnLine(path[0]);
+            PositionCharacterOnLine(tile);
             path.RemoveAt(0);
-        }
+            info.ClearMovingTowards();
 
+            if (GameManager.Instance.turnBasedMovement)
+                path.Clear();
+        }
+    }
+
+    private void MoveAlongPath()
+    {
+        var info = GetComponent<CharacterGridInfo>();
+        var tile = path[0];
+        var target = tile.transform.position;
+        target.y += 1;
+
+        SetMoveDestination(tile, info);
+
+        if (path.Count < 1)
+            return;
+
+        TranslateCharacter(target);
+
+        EndCharacterMovement(tile, info, target);
     }
 
     private void PositionCharacterOnLine(Tile tile)

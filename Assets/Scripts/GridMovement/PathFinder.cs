@@ -28,7 +28,7 @@ public class PathFinder
 
             foreach (var tile in GetNeightbourTiles(currentTile))
             {
-                if (tile.IsBlocked() || !tile.walkable || closedList.Contains(tile) || Mathf.Abs(currentTile.transform.position.z - tile.transform.position.z) > 1)
+                if (tile.IsBlockedStationary() || !tile.walkable || closedList.Contains(tile) || Mathf.Abs(currentTile.transform.position.z - tile.transform.position.z) > 1)
                 {
                     continue;
                 }

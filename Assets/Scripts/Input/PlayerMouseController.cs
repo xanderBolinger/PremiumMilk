@@ -14,7 +14,7 @@ public class PlayerMouseController : MonoBehaviour
     {
         var gm = GameManager.Instance;
 
-        if (gm.gridMovement && !gm.turnPaused)
+        if (gm.turnBasedMovement && !gm.turnPaused)
             return;
 
         var tile = gridMover.GetHitTile();

@@ -402,6 +402,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5966435772011961610, guid: 39ab7962a28590041b5f7d23e00b711f,
         type: 3}
+      propertyPath: transport
+      value: 
+      objectReference: {fileID: 762558231}
+    - target: {fileID: 5966435772011961610, guid: 39ab7962a28590041b5f7d23e00b711f,
+        type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 4648043275489738401, guid: 6a6b0b64ccaf79b49a4285b2370a50d5,
@@ -466,7 +471,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Network Manager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5966435772011961608, guid: 39ab7962a28590041b5f7d23e00b711f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 39ab7962a28590041b5f7d23e00b711f, type: 3}
 --- !u!1 &333567357
 GameObject:
@@ -1567,6 +1573,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 675331763}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &762558226 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5966435772011961621, guid: 39ab7962a28590041b5f7d23e00b711f,
+    type: 3}
+  m_PrefabInstance: {fileID: 203684088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &762558231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762558226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 2556
+  NoDelay: 1
+  SendTimeout: 5000
+  ReceiveTimeout: 30000
+  serverMaxMessageSize: 16384
+  serverMaxReceivesPerTick: 10000
+  serverSendQueueLimitPerConnection: 10000
+  serverReceiveQueueLimitPerConnection: 10000
+  clientMaxMessageSize: 16384
+  clientMaxReceivesPerTick: 1000
+  clientSendQueueLimit: 10000
+  clientReceiveQueueLimit: 10000
 --- !u!1001 &770220581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1940,7 +1976,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  gridMovement: 0
+  turnBasedMovement: 0
   playGridMovment: 0
   turnPaused: 0
 --- !u!114 &934263890

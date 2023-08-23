@@ -21,11 +21,25 @@ public class Tile : MonoBehaviour
         Debug.Log("X: " + x + ", Y: " + y + ", Z: " + z);
     }
 
-    public bool IsBlocked() {
+    public bool IsBlocked(GameObject mover) {
 
         foreach (var character in GameObject.FindGameObjectsWithTag("Character")) {
+            if (character == mover)
+                continue;
+
             var tile = character.GetComponent<CharacterGridInfo>().standingOnTile;
             if (tile != null && tile == this) 
+                return true;
+        }
+
+        return false;
+    }
+
+    public bool IsBlockedStationary() {
+        foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
+        {
+            var tile = character.GetComponent<CharacterGridInfo>().standingOnTile;
+            if (tile == this)
                 return true;
         }
 

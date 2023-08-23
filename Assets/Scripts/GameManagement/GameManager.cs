@@ -9,54 +9,52 @@ public class GameManager : NetworkBehaviour
     public static GameManager Instance;
 
     [SyncVar]
-    public bool gridMovement;
+    public bool turnBasedMovement;
     [SyncVar]
     public bool playGridMovment;
     [SyncVar]
     public bool turnPaused;
 
-
     public void Start()
     {
         Instance = this;
-        gridMovement = true;
-        turnPaused = true;
-        playGridMovment = false;
+        SetSimultaneousMovement();
+    }
+
+
+    public void SetSimultaneousMovement() {
+        turnBasedMovement = false;
+        playGridMovment = true;
+        turnPaused = false;
+    }
+
+    public void SetSequentialMovement() { 
+    
     }
 
     public void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer)
+        if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer || !turnBasedMovement)
             return;
 
-        if (MovementOver())
+        if (CharactersReadyOrMoving() && turnPaused)
         {
-            turnPaused = true;
-            playGridMovment = false;
-        }
-        
-        if(PlayGridMovement()) { 
-            turnPaused= false;
             playGridMovment = true;
+            turnPaused = false;
+            GridMovementController.SetCharacterDestinations();
         }
-
+        else
+        {
+            playGridMovment = false;
+            turnPaused = true;
+        }
 
     }
 
-    public bool PlayGridMovement() {
+    public bool CharactersReadyOrMoving() {
 
         foreach (var character in GameObject.FindGameObjectsWithTag("Character")) { 
             if(!CharacterReady(character)) 
-                return false;
-        }
-
-        return true;
-    }
-
-    public bool MovementOver() {
-        foreach (var character in GameObject.FindGameObjectsWithTag("Character")) { 
-            var gridMover = character.GetComponent<GridMover>();
-            if (gridMover.movementReady) 
                 return false;
         }
 
