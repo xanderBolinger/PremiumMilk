@@ -249,9 +249,6 @@ public class GridMover : NetworkBehaviour
 
         SetMoveDestination(tile, info);
 
-        if (path.Count < 1)
-            return;
-
         TranslateCharacter(target);
 
         EndCharacterMovement(tile, info, target);

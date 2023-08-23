@@ -47,7 +47,7 @@ public class GameManager : NetworkBehaviour
             GridMovementController.SetCharacterDestinations();
             StartCoroutine(GridMovementController.MoveCharacterOneTile());
         }
-        else
+        else // this are getting called repeatedly 
         {
             playGridMovment = false;
             turnPaused = true;
