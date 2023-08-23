@@ -40,7 +40,8 @@ public class Tile : MonoBehaviour
         foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
         {
             var tile = character.GetComponent<CharacterGridInfo>().standingOnTile;
-            if (tile.x == x && tile.y == y)
+            var info = character.GetComponent<CharacterGridInfo>();
+            if (tile != null && info.standingOnX == x && info.standingOnY == y)
                 return true;
         }
 

@@ -182,11 +182,11 @@ public class GridMover : NetworkBehaviour
         if (tile.IsBlocked(gameObject))
         {
             path.Clear();
-            info.ClearMovingTowards();
+            info.CmdClearMovingTowards();
             return;
         }
 
-        info.SetMovingTowards(tile.x, tile.y);
+        info.CmdSetMovingTowards(tile.x, tile.y);
     }
 
     private void TranslateCharacter(Vector3 target) {
@@ -203,7 +203,7 @@ public class GridMover : NetworkBehaviour
         {
             PositionCharacterOnLine(tile);
             path.RemoveAt(0);
-            info.ClearMovingTowards();
+            info.CmdClearMovingTowards();
 
             if (GameManager.Instance.turnBasedMovement)
                 path.Clear();
@@ -232,6 +232,7 @@ public class GridMover : NetworkBehaviour
         transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y+1f, tile.transform.position.z);
         //character.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder;
         character.standingOnTile = tile;
+        GetComponent<CharacterGridInfo>().CmdSetStandingOnTile(tile.x, tile.y);
     }
 
 }
