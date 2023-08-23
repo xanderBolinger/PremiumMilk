@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using UnityEditor;
 using Mirror;
+using System.Runtime.CompilerServices;
 
 [RequireComponent(typeof(CharacterGridInfo))]
 public class GridMover : NetworkBehaviour
@@ -57,6 +58,16 @@ public class GridMover : NetworkBehaviour
             animator.SetIdle();
         }
 
+    }
+
+    private void MovementReady() {
+        movementReady = true;
+        CmdMovementReady();
+    }
+
+    [Command]
+    private void CmdMovementReady() { 
+        movementReady = true;
     }
 
     private bool Moving() {
