@@ -209,6 +209,11 @@ public class GridMover : NetworkBehaviour
 
     [TargetRpc]
     public void RpcSetMoveDestination(NetworkConnectionToClient target) {
+        if (path.Count < 1) {
+            GetComponent<CharacterGridInfo>().CmdClearMovingTowards();
+            return;
+        }
+
         SetMoveDestination(path[0], GetComponent<CharacterGridInfo>());
     }
 
