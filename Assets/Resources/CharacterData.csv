@@ -1,0 +1,25 @@
+Name,Species,str,hlt,agl,per,wil,Armor Pieces,Weapon,Shield,Proficiencies,Values
+Test1,Human,10,11,12,13,14,Chain Coif;Cuirass,Light Mace,Medium Shield,CutAndThrust,10
+Test2,Goblin,9,8,9,8,7,Padded Coif;Chausses,Spear One Handed,Round Shield,CutAndThrust,6
+Wolf,Wolf,12,12,15,13,12,,Wolf,,CutAndThrust,4
+Orc Elite,Orc,18,18,12,10,11,,Orc Sword,,CutAndThrust,7
+Orc,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
+Orc 2,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
+Orc 3,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
+Orc 4,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
+Orc 5,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
+Orc 6,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
+Gorris,Human,18,18,17,10,13,,Spear One Handed,Medium Shield,CutAndThrust,4
+Baern,Human,16,16,18,11,14,,Light Mace,Medium Shield,CutAndThrust,4
+Cadriel,Human,18,17,16,10,12,,Halberd,,CutAndThrust,4
+Kirika,Human,14,16,19,13,12,,Spear One Handed,Round Shield,CutAndThrust,4
+Player,Human,18,18,17,10,13,,Orc Sword,,CutAndThrust,8
+Player 1,Human,18,18,17,10,13,,Orc Sword,,CutAndThrust,8
+Goblin,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
+Goblin 1,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
+Goblin 2,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
+Goblin 3,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
+Goblin 4,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
+Goblin 5,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
+Goblin 6,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
+Goblin 7,Goblin,9,8,9,8,7,Leather Helm;Chainmail Torso,Orc Sword,,CutAndThrust,3
