@@ -10,6 +10,7 @@ public class DeclareWindow : MonoBehaviour
 
     private string targetName;
     private MeleeCombatUI meleeCombatUI;
+    private CharacterCombatNetwork characterCombatNetwork;
     private TextMeshProUGUI text;
 
     private void Start()
@@ -19,7 +20,8 @@ public class DeclareWindow : MonoBehaviour
 
     }
 
-    public void SetCharacter(MeleeCombatUI meleeCombatUI) {
+    public void SetCharacter(CharacterCombatNetwork characterCombatNetwork, MeleeCombatUI meleeCombatUI) {
+        this.characterCombatNetwork = characterCombatNetwork;
         this.meleeCombatUI = meleeCombatUI;
     }
 
@@ -29,12 +31,18 @@ public class DeclareWindow : MonoBehaviour
     }
 
     public void Attack() {
+        characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
+        characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.RED;
         meleeCombatUI.RpcHideDeclare();
+        characterCombatNetwork.Declare();
     }
 
 
     public void Defend() {
+        characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
+        characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.BLUE;
         meleeCombatUI.RpcHideDeclare();
+        characterCombatNetwork.Declare();
     } 
 
 

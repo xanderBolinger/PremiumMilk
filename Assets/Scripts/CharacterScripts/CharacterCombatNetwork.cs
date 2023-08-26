@@ -26,8 +26,6 @@ public class CharacterCombatNetwork : NetworkBehaviour
     [HideInInspector]
     public int selectedBoutIndex;
 
-    
-
     [HideInInspector]
     public List<string> selectedBoutList = new List<string>();
 
@@ -194,6 +192,8 @@ public class CharacterCombatNetwork : NetworkBehaviour
         meleeCombatController.selectedBoutIndex = meleeCombatManager.bouts.IndexOf(bout);
         meleeCombatController.selectedCharacterIndex = meleeCombatController.selectedCharacterList.IndexOf(name);
     }
+
+
 
 
 }

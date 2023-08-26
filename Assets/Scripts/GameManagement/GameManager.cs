@@ -58,7 +58,9 @@ public class GameManager : NetworkBehaviour
 
     public bool CharactersReady() {
 
-        foreach (var character in GameObject.FindGameObjectsWithTag("Character")) { 
+        foreach (var character in GameObject.FindGameObjectsWithTag("Character")) {
+            if (!character.GetComponent<CharacterController>().player)
+                continue;
             if(!CharacterReady(character)) 
                 return false;
         }

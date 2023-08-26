@@ -18,6 +18,7 @@ public class DefendWindow : MonoBehaviour
     Combatant attacker;
     Bout bout;
 
+    CharacterCombatNetwork characterCombatNetwork;
     MeleeCombatUI meleeCombatUI;
 
     private void Start()
@@ -34,6 +35,10 @@ public class DefendWindow : MonoBehaviour
         this.defender = defender;
         this.attacker = attacker;
         this.bout = bout;
+        meleeCombatUI = CharacterController.GetCharacterObject(defender.characterSheet.name)
+            .GetComponent<MeleeCombatUI>();
+        characterCombatNetwork = CharacterController.GetCharacterObject(defender.characterSheet.name)
+            .GetComponent<CharacterCombatNetwork>();
 
         body.text = "Incoming Attack from: " + attacker.characterSheet.name + ", Maneuver: " 
             + attackingManueverName
@@ -103,7 +108,13 @@ public class DefendWindow : MonoBehaviour
     }
 
     public void Defend() {
+        characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList
+            .IndexOf(attacker.characterSheet.name);
+        characterCombatNetwork.dice = (int)slider.value;
+        characterCombatNetwork.secondaryDice = 0;
+        characterCombatNetwork.defensiveManueverType = GetManuever().manueverType;
         meleeCombatUI.HideDefense();
+        characterCombatNetwork.SetDefense();
     }
 
 }

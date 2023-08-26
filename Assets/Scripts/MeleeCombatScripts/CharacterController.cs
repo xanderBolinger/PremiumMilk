@@ -27,6 +27,8 @@ public class CharacterController : MonoBehaviour
     
     public MeleeProfType meleeProfType;
 
+    public bool player;
+
     private void Start()
     {
         weaponNames = MeleeWeaponLoader.GetWeaponNames();
