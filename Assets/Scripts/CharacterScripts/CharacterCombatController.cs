@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static MeleeCombatController;
+using Mirror;
 
 [RequireComponent(typeof(CharacterNetwork))]
-public class CharacterCombatController : MonoBehaviour
+public class CharacterCombatController : NetworkBehaviour
 {
     CharacterNetwork characterNetwork;
 
@@ -23,7 +24,7 @@ public class CharacterCombatController : MonoBehaviour
         if (distance > 1)
             return;
 
-        EnterCombat(target.GetComponent<CharacterNetwork>().characterName);
+        CmdEnterCombat(target.GetComponent<CharacterNetwork>().characterName);
     }
 
     private int Distance(GameObject target) {
@@ -121,7 +122,8 @@ public class CharacterCombatController : MonoBehaviour
         return bouts;
     }
 
-    public void EnterCombat(string targetName)
+    [Command]
+    public void CmdEnterCombat(string targetName)
     {
         var characterName = GetComponent<CharacterNetwork>().GetCharacterSheet().name;
         var bout = MeleeCombatManager.meleeCombatManager.FindBout(characterName, targetName);
@@ -137,6 +139,7 @@ public class CharacterCombatController : MonoBehaviour
         var targetGridController = targetObj.GetComponent<CharacterCombatController>();
         targetGridController.AssignDice();
         CombatNetworkController.combatNetworkController.UpdateCharacters();
+        MeleeCombatController.meleeCombatController.TryAdvance();
     }
 
 }

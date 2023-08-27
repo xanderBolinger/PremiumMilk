@@ -76,8 +76,8 @@ public class MeleeCombatUI : NetworkBehaviour
         declareWindowObject.SetActive(true);
     }
 
-    [TargetRpc]
-    public void RpcHideDeclare(NetworkConnectionToClient conn)
+    
+    public void HideDeclare()
     {
         declareWindowObject.SetActive(false);
     }

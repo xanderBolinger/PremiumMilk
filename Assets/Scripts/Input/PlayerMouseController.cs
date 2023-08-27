@@ -27,7 +27,7 @@ public class PlayerMouseController : NetworkBehaviour
             Move(tile);
         else if (target != null) { 
             characterCombatController.EnterCombat(target);
-            MeleeCombatController.meleeCombatController.TryAdvance();
+            
         }
     }
 

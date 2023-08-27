@@ -46,6 +46,7 @@ public class CharacterNetwork : NetworkBehaviour
 
     private void CreateCharacter() {
         CharacterSheet character = CharacterSheetLoader.GetCharacterSheetByName(characterName);
+        ClearFields();
         CopyCharacter(character);
         this.characterSheet = new CharacterSheet(character);
     }

@@ -26,6 +26,8 @@ public class CharacterSelection : MonoBehaviour
         else if (character == hoveredCharacter)
             return;
 
+        if(hoveredCharacter != null)
+            Deselect(hoveredCharacter);
         Select(character);
 
     }

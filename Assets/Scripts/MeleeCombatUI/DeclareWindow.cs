@@ -30,7 +30,7 @@ public class DeclareWindow : MonoBehaviour
     public void Attack() {
         characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
         characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.RED;
-        meleeCombatUI.RpcHideDeclare(characterCombatNetwork.GetConn()); ;
+        meleeCombatUI.HideDeclare();
         characterCombatNetwork.Declare();
     }
 
@@ -38,7 +38,7 @@ public class DeclareWindow : MonoBehaviour
     public void Defend() {
         characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
         characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.BLUE;
-        meleeCombatUI.RpcHideDeclare(characterCombatNetwork.GetConn());
+        meleeCombatUI.HideDeclare();
         characterCombatNetwork.Declare();
     } 
 
