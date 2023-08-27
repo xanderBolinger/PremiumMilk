@@ -20,11 +20,8 @@ public class MeleeCombatUI : NetworkBehaviour
     private bool setScrollBarFlag = false;
 
 
-    IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitUntil(() => GameObject.Find("DeclareWindow") != null &&
-         GameObject.Find("AttackWindow") != null &&
-          GameObject.Find("DefendWindow") != null);
 
         AddLog("You see a plate helmet at your feet...");
         AddLog("You should move to it and pick it up (left click)");
@@ -72,21 +69,21 @@ public class MeleeCombatUI : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void RcpShowDeclare(string target)
+    public void RcpShowDeclare(NetworkConnectionToClient conn, string character, string target)
     {
-
+        declareWindow.SetCharacter(character);
         declareWindow.SetTarget(target);
         declareWindowObject.SetActive(true);
     }
 
     [TargetRpc]
-    public void RpcHideDeclare()
+    public void RpcHideDeclare(NetworkConnectionToClient conn)
     {
         declareWindowObject.SetActive(false);
     }
 
     [TargetRpc]
-    public void RpcShowAttack(Combatant attacker, Combatant defender, Bout bout, bool firstExchange, int reachCost)
+    public void RpcShowAttack(NetworkConnectionToClient conn, Combatant attacker, Combatant defender, Bout bout, bool firstExchange, int reachCost)
     {
         attackWindowObject.SetActive(true);
 
@@ -99,7 +96,7 @@ public class MeleeCombatUI : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void RpcShowDefense(Combatant defender, Combatant attacker, Bout bout,
+    public void RpcShowDefense(NetworkConnectionToClient conn, Combatant defender, Combatant attacker, Bout bout,
         bool firstExchange, string name, int dice)
     {
         defendWindowObject.SetActive(true);

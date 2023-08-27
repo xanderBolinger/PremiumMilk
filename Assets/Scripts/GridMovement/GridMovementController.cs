@@ -11,6 +11,9 @@ public class GridMovementController : MonoBehaviour
     public static IEnumerator MoveCharacterOneTile() {
 
         foreach (var character in GameObject.FindGameObjectsWithTag("Character")) {
+            if (GameManager.InCombat(character))
+                continue;
+
             var gridMover = character.GetComponent<GridMover>();
             NetworkIdentity opponentIdentity = character.GetComponent<NetworkIdentity>();
             if (opponentIdentity.connectionToClient != null)

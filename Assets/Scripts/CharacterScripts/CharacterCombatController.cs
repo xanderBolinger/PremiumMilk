@@ -28,10 +28,10 @@ public class CharacterCombatController : MonoBehaviour
 
     private int Distance(GameObject target) {
         var targetGridInfo = target.GetComponent<CharacterGridInfo>();
-        var characterGridInfo = target.GetComponent<CharacterGridInfo>();
+        var characterGridInfo = GetComponent<CharacterGridInfo>();
 
-        return Math.Abs(targetGridInfo.standingOnX - characterGridInfo.standingOnX) 
-            + Math.Abs(targetGridInfo.standingOnY - characterGridInfo.standingOnY);
+        return PathFinder.Distance(targetGridInfo.standingOnX, characterGridInfo.standingOnX,
+            targetGridInfo.standingOnY, characterGridInfo.standingOnY);
     }
 
     private void AssignDice(int dice = 0, bool manual = false)
@@ -136,6 +136,7 @@ public class CharacterCombatController : MonoBehaviour
         var targetObj = CharacterController.GetCharacterObject(targetName);
         var targetGridController = targetObj.GetComponent<CharacterCombatController>();
         targetGridController.AssignDice();
+        CombatNetworkController.combatNetworkController.UpdateCharacters();
     }
 
 }

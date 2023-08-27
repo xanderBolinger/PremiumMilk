@@ -38,10 +38,19 @@ public class AttackWindow : NetworkBehaviour
         weaponDetails = transform.Find("AttackWeaponDetails").gameObject.GetComponent<TextMeshProUGUI>();
     }
 
+    private void OnEnable()
+    {
+        meleeCombatUI = FindObjectOfType<MeleeCombatUI>();
+        header = transform.Find("Header").gameObject.GetComponent<TextMeshProUGUI>();
+        attackDetails = transform.Find("AttackDetails").gameObject.GetComponent<TextMeshProUGUI>();
+        attackOptions = transform.Find("AttackDropdown").gameObject.GetComponent<TMP_Dropdown>();
+        targetOptions = transform.Find("TargetDropdown").gameObject.GetComponent<TMP_Dropdown>();
+        slider = transform.Find("Slider").gameObject.GetComponent<Slider>();
+        weaponDetails = transform.Find("AttackWeaponDetails").gameObject.GetComponent<TextMeshProUGUI>();
+    }
+
     public void Show(Combatant attacker, Combatant defender, Bout bout, bool firstExchange, int reachCost) {
         this.reachCost = reachCost;
-        meleeCombatUI = CharacterController.GetCharacterObject(attacker.characterSheet.name)
-            .GetComponent<MeleeCombatUI>();
         characterCombatNetwork = CharacterController.GetCharacterObject(attacker.characterSheet.name)
             .GetComponent<CharacterCombatNetwork>();
         this.attacker = attacker;

@@ -8,21 +8,18 @@ using UnityEngine;
 public class DeclareWindow : MonoBehaviour
 {
 
+    [SerializeField] private TextMeshProUGUI text;
     private string targetName;
     private MeleeCombatUI meleeCombatUI;
     private CharacterCombatNetwork characterCombatNetwork;
-    private TextMeshProUGUI text;
 
-    private void Start()
 
-    {
-        text = transform.Find("Body").gameObject.GetComponent<TextMeshProUGUI>();
 
-    }
 
-    public void SetCharacter(CharacterCombatNetwork characterCombatNetwork, MeleeCombatUI meleeCombatUI) {
-        this.characterCombatNetwork = characterCombatNetwork;
-        this.meleeCombatUI = meleeCombatUI;
+    public void SetCharacter(string name) {
+        this.characterCombatNetwork = CharacterController.GetCharacterObject(name)
+            .GetComponent<CharacterCombatNetwork>();
+        this.meleeCombatUI = FindObjectOfType<MeleeCombatUI>();
     }
 
     public void SetTarget(string targetName) {
@@ -33,7 +30,7 @@ public class DeclareWindow : MonoBehaviour
     public void Attack() {
         characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
         characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.RED;
-        meleeCombatUI.RpcHideDeclare();
+        meleeCombatUI.RpcHideDeclare(characterCombatNetwork.GetConn()); ;
         characterCombatNetwork.Declare();
     }
 
@@ -41,7 +38,7 @@ public class DeclareWindow : MonoBehaviour
     public void Defend() {
         characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
         characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.BLUE;
-        meleeCombatUI.RpcHideDeclare();
+        meleeCombatUI.RpcHideDeclare(characterCombatNetwork.GetConn());
         characterCombatNetwork.Declare();
     } 
 

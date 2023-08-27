@@ -43,6 +43,11 @@ public class CharacterCombatNetwork : NetworkBehaviour
         
     }
 
+    public NetworkConnectionToClient GetConn()
+    {
+        return GetComponent<NetworkIdentity>().connectionToClient;
+    }
+
     public override void OnStartClient()
     {
         syncBoutList.Callback += SyncBoutList_Callback;

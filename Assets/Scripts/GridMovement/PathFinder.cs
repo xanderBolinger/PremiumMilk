@@ -70,6 +70,12 @@ public class PathFinder
         return Mathf.Abs(start.x - tile.x) + Mathf.Abs(start.y - tile.y);
     }
 
+    public static int Distance(int x1, int x2, int y1, int y2)
+    {
+        return Mathf.Max(Mathf.Abs(x1 - x2), Mathf.Abs(y1 - y2));
+    }
+
+
     private List<Tile> GetNeightbourTiles(Tile currentTile)
     {
         var map = MapManager.Instance.map;

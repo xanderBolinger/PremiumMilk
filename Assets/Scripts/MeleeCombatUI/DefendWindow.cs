@@ -29,14 +29,21 @@ public class DefendWindow : MonoBehaviour
         defenseDetails = transform.Find("DefenseDetails").gameObject.GetComponent<TextMeshProUGUI>();
     }
 
+    private void OnEnable()
+    {
+        meleeCombatUI = FindObjectOfType<MeleeCombatUI>();
+        defenseDropdown = transform.Find("DefenseDropdown").gameObject.GetComponent<TMP_Dropdown>();
+        slider = transform.Find("Slider").gameObject.GetComponent<Slider>();
+        body = transform.Find("Body").gameObject.GetComponent<TextMeshProUGUI>();
+        defenseDetails = transform.Find("DefenseDetails").gameObject.GetComponent<TextMeshProUGUI>();
+    }
+
     public void Show(Combatant defender, Combatant attacker, Bout bout, bool firstExchange, 
         string attackingManueverName,
         int attackingDice) {
         this.defender = defender;
         this.attacker = attacker;
         this.bout = bout;
-        meleeCombatUI = CharacterController.GetCharacterObject(defender.characterSheet.name)
-            .GetComponent<MeleeCombatUI>();
         characterCombatNetwork = CharacterController.GetCharacterObject(defender.characterSheet.name)
             .GetComponent<CharacterCombatNetwork>();
 

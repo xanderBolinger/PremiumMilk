@@ -846,6 +846,7 @@ GameObject:
   - component: {fileID: 2415893709502278561}
   - component: {fileID: 4350589244012907559}
   - component: {fileID: 2729581292639533422}
+  - component: {fileID: 403278802619819638}
   m_Layer: 0
   m_Name: Player
   m_TagString: Character
@@ -1192,6 +1193,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5747688, y: 1.4477528, z: 1}
   m_Center: {x: 0.008384585, y: 0.80948645, z: 1.3501887e-11}
+--- !u!114 &403278802619819638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648043275489738401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5cf93c1f09b95448b577ad8b69929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  meleeDamageType: 0
+  meleeDecision: 0
+  offensiveManueverType: 0
+  defensiveManueverType: 0
+  targetZoneCutting: 5
+  targetZonePuncture: 5
+  dice: 0
+  secondaryDice: 0
+  BeatTargetWeapon: 0
+  selectedBoutIndex: 0
+  selectedBoutList: []
 --- !u!1 &4648043275603564923
 GameObject:
   m_ObjectHideFlags: 0
