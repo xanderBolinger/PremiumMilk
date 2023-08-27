@@ -23,7 +23,7 @@ public class PlayerMouseController : NetworkBehaviour
 
         if (!isLocalPlayer || (gm.turnBasedMovement && !gm.turnPaused))
             return;
-        else if (tile != null)
+        else if (tile != null && !GameManager.InCombat(gameObject))
             Move(tile);
         else if (target != null) { 
             characterCombatController.EnterCombat(target);

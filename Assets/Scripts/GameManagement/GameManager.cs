@@ -82,6 +82,8 @@ public class GameManager : NetworkBehaviour
 
         foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
         {
+            if (InCombat(character))
+                continue;
             if (CharacterReady(character))
                 return false;
         }
@@ -95,6 +97,8 @@ public class GameManager : NetworkBehaviour
     }
 
     public static bool InCombat(GameObject character) {
+        if (MeleeCombatManager.meleeCombatManager == null || MeleeCombatManager.meleeCombatManager.bouts == null)
+            return false; 
 
         string name = character.GetComponent<CharacterNetwork>().characterName;
 
@@ -104,9 +108,7 @@ public class GameManager : NetworkBehaviour
                 return true;
         }
 
-
         return false; 
-        
     }
 
 }
