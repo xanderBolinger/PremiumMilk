@@ -8,6 +8,7 @@ using System;
 [RequireComponent(typeof(CharacterSoundEffects))]
 public class CharacterNetwork : NetworkBehaviour
 {
+    [SyncVar]
     public string characterName;
 
     private static int characterSheetIndex;
@@ -35,6 +36,12 @@ public class CharacterNetwork : NetworkBehaviour
 
         characterSheetIndex++;
        
+    }
+
+    [Command]
+    public void CmdCreateCharacter(string name) {
+        characterName = name;
+        CreateCharacter();
     }
 
     private void CreateCharacter() {

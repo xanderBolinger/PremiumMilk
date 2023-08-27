@@ -17,5 +17,10 @@ public class CharacterNetworkInspectorGui : Editor
             cn.Print();
         }
 
+        if (GUILayout.Button("Create Character"))
+        {
+            cn.CmdCreateCharacter(cn.characterName);
+        }
+
     }
 }
