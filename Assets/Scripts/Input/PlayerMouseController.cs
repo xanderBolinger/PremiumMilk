@@ -42,6 +42,11 @@ public class PlayerMouseController : NetworkBehaviour
         if (Input.GetMouseButtonDown(0) == false)
             return null;
 
+        return GetHoveredCharacter();
+    }
+
+    public static GameObject GetHoveredCharacter()
+    {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -52,6 +57,6 @@ public class PlayerMouseController : NetworkBehaviour
 
         return hit.transform.gameObject;
     }
-    
+
 
 }
