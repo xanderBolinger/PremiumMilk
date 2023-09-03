@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
+  m_IndirectSpecularColor: {r: 262.11768, g: 324.74365, b: 429.81006, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -433,8 +433,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588444674}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 202.4}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 202.40007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -445,7 +445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 6.8598, y: 195.9139}
+  m_AnchoredPosition: {x: 6.859909, y: 195.91388}
   m_SizeDelta: {x: 789.2568, y: 276.3305}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588444676
@@ -2287,9 +2287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25bc16582c9b1746b47d92c383549c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walk_0: {fileID: 5494465668431547374}
-  walk_1: {fileID: 5494465669839112985}
-  walkStates: []
+  WalkStates: []
 --- !u!1 &4648043276595730449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,9 +2322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52ace39b6f712e498eeb66eaa44a1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swing_0: {fileID: 5494465668431547374}
-  swing_1: {fileID: 5494465669839112985}
-  swingStates: []
+  SwingStates: []
 --- !u!114 &4648043276595730451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,9 +2335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f57641a67e44644a83cc9c2e4205d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stab_0: {fileID: 5494465668431547374}
-  stab_1: {fileID: 5494465669839112985}
-  stabStates: []
+  StabStates: []
 --- !u!114 &4648043276595730452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2366,10 +2360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dad777dcf8bdd14e837d6374b565619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idle_0: {fileID: 4648043275458728816}
-  idle_1: {fileID: 4648043277227356947}
-  idleStates: []
-  characterAnimator: {fileID: 0}
+  IdleStates: []
 --- !u!95 &4648043276595730455
 Animator:
   serializedVersion: 5
