@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7585434774850058571}
   - component: {fileID: 5665554671994260865}
   m_Layer: 0
-  m_Name: KettleHelm
+  m_Name: Kettle Helm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
