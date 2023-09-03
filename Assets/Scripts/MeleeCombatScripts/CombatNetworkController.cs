@@ -7,6 +7,17 @@ using static MeleeCombatManager;
 
 public class CombatNetworkController : NetworkBehaviour
 {
+
+    MeleeCombatUI ui;
+    public static CombatNetworkController combatNetworkController;
+    private void Start()
+    {
+        ui = FindObjectOfType<MeleeCombatUI>();
+        combatNetworkController = this;
+    }
+
+    
+
     public void SendDefenderMessages()
     {
         foreach (var defender in meleeCombatManager.GetDefendersWithoutManuever())
@@ -18,8 +29,11 @@ public class CombatNetworkController : NetworkBehaviour
                 {
                     var network = cObj.GetComponent<CharacterNetwork>();
                     var combatNetwork = cObj.GetComponent<CharacterCombatNetwork>();
+
+                    if (combatNetwork.GetConn() == null)
+                        continue;
+
                     var name = network.GetCharacterSheet().name;
-                    var ui = cObj.GetComponent<MeleeCombatUI>();
                     if (combatantName == name)
                     {
                         combatNetwork.RpcSendMessage(name + " must choose defense in bout " + defender.Key.ToString() + ", attack: " + (
@@ -28,7 +42,7 @@ public class CombatNetworkController : NetworkBehaviour
                             ));
                         var attacker = defender.Key.combatantA == combatant ? defender.Key.combatantB
                             : defender.Key.combatantA;
-                        ui.RpcShowDefense(combatant,
+                        ui.RpcShowDefense(combatNetwork.GetConn(), combatant,
                             attacker, defender.Key, meleeCombatManager.firstExchange,
                             attacker.selectManuever.offensiveManuever.GetManeuverName(),
                             attacker.selectManuever.dice);
@@ -49,8 +63,11 @@ public class CombatNetworkController : NetworkBehaviour
                 {
                     var network = cObj.GetComponent<CharacterNetwork>();
                     var combatNetwork = cObj.GetComponent<CharacterCombatNetwork>();
+
+                    if (combatNetwork.GetConn() == null)
+                        continue;
+
                     var name = network.GetCharacterSheet().name;
-                    var ui = cObj.GetComponent<MeleeCombatUI>();
                     if (combatantName == name)
                     {
                         combatNetwork.RpcSendMessage(name + " must choose attack in bout " + attacker.Key.ToString());
@@ -61,7 +78,7 @@ public class CombatNetworkController : NetworkBehaviour
                         meleeCombatController.selectedBoutIndex = meleeCombatManager.bouts.IndexOf(bout);
                         meleeCombatController.selectedCharacterIndex = meleeCombatController.selectedCharacterList.IndexOf(combatantName);
                         int reachCost = meleeCombatController.GetReachCost();
-                        ui.RpcShowAttack(combatant, 
+                        ui.RpcShowAttack(combatNetwork.GetConn(), combatant, 
                             targetCombatant, attacker.Key, meleeCombatManager.firstExchange, reachCost);
                     }
 
@@ -80,17 +97,20 @@ public class CombatNetworkController : NetworkBehaviour
 
                 var network = cObj.GetComponent<CharacterNetwork>();
                 var combatNetwork = cObj.GetComponent<CharacterCombatNetwork>();
+
+                if (combatNetwork.GetConn() == null)
+                    continue;
+
                 var name = network.GetCharacterSheet().name;
-                var ui = cObj.GetComponent<MeleeCombatUI>();
                 if (b.combatantA.characterSheet.name == name && b.combatantA.meleeDecision == MeleeStatus.UNDECIDED)
                 {
                     combatNetwork.RpcSendMessage(name + " must declare.");
-                    ui.RcpShowDeclare(b.combatantB.characterSheet.name);
+                    ui.RcpShowDeclare(combatNetwork.GetConn(), b.combatantA.characterSheet.name, b.combatantB.characterSheet.name);
                 }
                 else if (b.combatantB.characterSheet.name == name && b.combatantB.meleeDecision == MeleeStatus.UNDECIDED)
                 {
                     combatNetwork.RpcSendMessage(name + " must declare.");
-                    ui.RcpShowDeclare(b.combatantA.characterSheet.name);
+                    ui.RcpShowDeclare(combatNetwork.GetConn(), b.combatantB.characterSheet.name, b.combatantA.characterSheet.name);
                 }
 
                 

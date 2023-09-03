@@ -18,10 +18,20 @@ public class DefendWindow : MonoBehaviour
     Combatant attacker;
     Bout bout;
 
+    CharacterCombatNetwork characterCombatNetwork;
     MeleeCombatUI meleeCombatUI;
 
     private void Start()
     {
+        defenseDropdown = transform.Find("DefenseDropdown").gameObject.GetComponent<TMP_Dropdown>();
+        slider = transform.Find("Slider").gameObject.GetComponent<Slider>();
+        body = transform.Find("Body").gameObject.GetComponent<TextMeshProUGUI>();
+        defenseDetails = transform.Find("DefenseDetails").gameObject.GetComponent<TextMeshProUGUI>();
+    }
+
+    private void OnEnable()
+    {
+        meleeCombatUI = FindObjectOfType<MeleeCombatUI>();
         defenseDropdown = transform.Find("DefenseDropdown").gameObject.GetComponent<TMP_Dropdown>();
         slider = transform.Find("Slider").gameObject.GetComponent<Slider>();
         body = transform.Find("Body").gameObject.GetComponent<TextMeshProUGUI>();
@@ -34,6 +44,8 @@ public class DefendWindow : MonoBehaviour
         this.defender = defender;
         this.attacker = attacker;
         this.bout = bout;
+        characterCombatNetwork = CharacterController.GetCharacterObject(defender.characterSheet.name)
+            .GetComponent<CharacterCombatNetwork>();
 
         body.text = "Incoming Attack from: " + attacker.characterSheet.name + ", Maneuver: " 
             + attackingManueverName
@@ -103,7 +115,13 @@ public class DefendWindow : MonoBehaviour
     }
 
     public void Defend() {
+        characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList
+            .IndexOf(attacker.characterSheet.name);
+        characterCombatNetwork.dice = (int)slider.value;
+        characterCombatNetwork.secondaryDice = 0;
+        characterCombatNetwork.defensiveManueverType = GetManuever().manueverType;
         meleeCombatUI.HideDefense();
+        characterCombatNetwork.SetDefense();
     }
 
 }

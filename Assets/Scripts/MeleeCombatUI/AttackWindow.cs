@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -7,9 +8,9 @@ using static DefensiveManuevers;
 using static ExcelUtillity.MeleeHitLocation;
 using static OffensiveManuevers;
 using static TargetZone;
+using static MeleeCombatController;
 using static MeleeCombatManager;
-
-public class AttackWindow : MonoBehaviour
+public class AttackWindow : NetworkBehaviour
 {
 
     TMP_Dropdown attackOptions;
@@ -25,6 +26,7 @@ public class AttackWindow : MonoBehaviour
     int reachCost;
 
     MeleeCombatUI meleeCombatUI;
+    CharacterCombatNetwork characterCombatNetwork;
 
     private void Start()
     {
@@ -36,8 +38,21 @@ public class AttackWindow : MonoBehaviour
         weaponDetails = transform.Find("AttackWeaponDetails").gameObject.GetComponent<TextMeshProUGUI>();
     }
 
+    private void OnEnable()
+    {
+        meleeCombatUI = FindObjectOfType<MeleeCombatUI>();
+        header = transform.Find("Header").gameObject.GetComponent<TextMeshProUGUI>();
+        attackDetails = transform.Find("AttackDetails").gameObject.GetComponent<TextMeshProUGUI>();
+        attackOptions = transform.Find("AttackDropdown").gameObject.GetComponent<TMP_Dropdown>();
+        targetOptions = transform.Find("TargetDropdown").gameObject.GetComponent<TMP_Dropdown>();
+        slider = transform.Find("Slider").gameObject.GetComponent<Slider>();
+        weaponDetails = transform.Find("AttackWeaponDetails").gameObject.GetComponent<TextMeshProUGUI>();
+    }
+
     public void Show(Combatant attacker, Combatant defender, Bout bout, bool firstExchange, int reachCost) {
         this.reachCost = reachCost;
+        characterCombatNetwork = CharacterController.GetCharacterObject(attacker.characterSheet.name)
+            .GetComponent<CharacterCombatNetwork>();
         this.attacker = attacker;
         this.defender = defender;
         this.bout = bout;
@@ -146,7 +161,18 @@ public class AttackWindow : MonoBehaviour
 
     private void SetAttackFields(int dice, OffensiveManueverType offensiveManueverType, MeleeDamageType meleeDamageType,
         TargetZoneCutting targetZoneCutting, TargetZonePuncture targetZonePuncture) {
-        // TODO implement
+        characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList
+            .IndexOf(defender.characterSheet.name);
+        characterCombatNetwork.dice = dice;
+        characterCombatNetwork.secondaryDice = 0;
+        characterCombatNetwork.offensiveManueverType = offensiveManueverType;
+        characterCombatNetwork.defensiveManueverType = DefensiveManueverType.PARRY;
+        characterCombatNetwork.meleeDamageType = meleeDamageType;
+        characterCombatNetwork.targetZoneCutting = targetZoneCutting;
+        characterCombatNetwork.targetZonePuncture = targetZonePuncture;
+        characterCombatNetwork.BeatTargetWeapon = false;
+
+        characterCombatNetwork.SetAttack();
     }
 
 

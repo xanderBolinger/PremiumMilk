@@ -8,19 +8,18 @@ using UnityEngine;
 public class DeclareWindow : MonoBehaviour
 {
 
+    [SerializeField] private TextMeshProUGUI text;
     private string targetName;
     private MeleeCombatUI meleeCombatUI;
-    private TextMeshProUGUI text;
+    private CharacterCombatNetwork characterCombatNetwork;
 
-    private void Start()
 
-    {
-        text = transform.Find("Body").gameObject.GetComponent<TextMeshProUGUI>();
 
-    }
 
-    public void SetCharacter(MeleeCombatUI meleeCombatUI) {
-        this.meleeCombatUI = meleeCombatUI;
+    public void SetCharacter(string name) {
+        this.characterCombatNetwork = CharacterController.GetCharacterObject(name)
+            .GetComponent<CharacterCombatNetwork>();
+        this.meleeCombatUI = FindObjectOfType<MeleeCombatUI>();
     }
 
     public void SetTarget(string targetName) {
@@ -29,12 +28,18 @@ public class DeclareWindow : MonoBehaviour
     }
 
     public void Attack() {
-        meleeCombatUI.RpcHideDeclare();
+        characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
+        characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.RED;
+        meleeCombatUI.HideDeclare();
+        characterCombatNetwork.Declare();
     }
 
 
     public void Defend() {
-        meleeCombatUI.RpcHideDeclare();
+        characterCombatNetwork.selectedBoutIndex = characterCombatNetwork.selectedBoutList.IndexOf(targetName);
+        characterCombatNetwork.meleeDecision = MeleeCombatManager.MeleeStatus.BLUE;
+        meleeCombatUI.HideDeclare();
+        characterCombatNetwork.Declare();
     } 
 
 

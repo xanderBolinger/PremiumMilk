@@ -45,7 +45,7 @@ public class MeleeCombatController : MonoBehaviour
 
     CombatNetworkController combatNetworkController;
 
-    public bool resolveMeleeCombatFlag = false;
+    public bool meleeCombatResolved = false;
 
     IEnumerator Start()
     {
@@ -189,18 +189,21 @@ public class MeleeCombatController : MonoBehaviour
         switch (meleeCombatPhase)
         {
             case MeleeCombatPhase.DECLARE:
+                MeleeCombatAIController.DeclareAI();
                 if (meleeCombatManager.GetDeclareBouts().Count <= 0)
                     AdvanceCombat();
                 else
                     combatNetworkController.SendDeclareMessages();
                 break;
             case MeleeCombatPhase.ATTACK:
+                MeleeCombatAIController.DeclareAttack();
                 if (meleeCombatManager.GetAttackersWithoutManeuver().Count <= 0)
                     AdvanceCombat();
                 else
                     combatNetworkController.SendAttackerMessages();
                 break;
             case MeleeCombatPhase.DEFEND:
+                MeleeCombatAIController.DeclareDefense();
                 if (meleeCombatManager.GetDefendersWithoutManuever().Count <= 0)
                     AdvanceCombat();
                 else
@@ -211,16 +214,13 @@ public class MeleeCombatController : MonoBehaviour
 
     public void AdvanceCombat() {
 
-        if (!resolveMeleeCombatFlag)
-            return;
-
         if(meleeCombatManager.bouts.Count <= 0)
         {
             meleeCombatPhase = MeleeCombatPhase.DECLARE;
             return; 
         }
 
-        //MeleeCombatAIController.DeclareAI();
+        MeleeCombatAIController.DeclareAI();
         var declareBouts = meleeCombatManager.GetDeclareBouts();
 
         if (declareBouts.Count > 0) {
@@ -231,7 +231,7 @@ public class MeleeCombatController : MonoBehaviour
         CombatLog.LogDeclare();
 
         meleeCombatPhase = MeleeCombatPhase.ATTACK;
-        //MeleeCombatAIController.DeclareAttack();
+        MeleeCombatAIController.DeclareAttack();
         var attackers = meleeCombatManager.GetAttackersWithoutManeuver();
 
         if (attackers.Count > 0) {
@@ -241,7 +241,7 @@ public class MeleeCombatController : MonoBehaviour
 
         meleeCombatPhase = MeleeCombatPhase.DEFEND;
 
-        //MeleeCombatAIController.DeclareDefense();
+        MeleeCombatAIController.DeclareDefense();
         var defenders = meleeCombatManager.GetDefendersWithoutManuever();
         if (defenders.Count > 0) {
             combatNetworkController.SendDefenderMessages();
@@ -324,9 +324,7 @@ public class MeleeCombatController : MonoBehaviour
 
         combatNetworkController.UpdateCharacters();
 
-        resolveMeleeCombatFlag = false;
-        //GridManager.gridManager.resolveCombatActionFlag = true;
-        //GridManager.gridManager.startingAdvanceCalled = false;
+        meleeCombatResolved = true;
 
     }
 

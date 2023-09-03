@@ -841,6 +841,12 @@ GameObject:
   - component: {fileID: 6273477719299885555}
   - component: {fileID: 4093770209031128191}
   - component: {fileID: 2229202259378981162}
+  - component: {fileID: 8083348081385481539}
+  - component: {fileID: 4787585655243200441}
+  - component: {fileID: 2415893709502278561}
+  - component: {fileID: 4350589244012907559}
+  - component: {fileID: 2729581292639533422}
+  - component: {fileID: 403278802619819638}
   m_Layer: 0
   m_Name: Player
   m_TagString: Character
@@ -1050,9 +1056,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd4dc00c7a0fae43ac35ca757ca4b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   standingOnTile: {fileID: 0}
   startingX: 1
   startingY: 1
+  movingTowardsX: 0
+  movingTowardsY: 0
+  standingOnX: 0
+  standingOnY: 0
 --- !u!114 &4093770209031128191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,8 +1082,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   speed: 3
-  canMove: 1
+  path: []
+  canMoveAnimation: 1
   jumper: 0
+  movementReady: 0
+  movementTurn: 0
 --- !u!114 &2229202259378981162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,6 +1099,126 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4862524bea591ba4eaab7f3b604dc8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+--- !u!114 &8083348081385481539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648043275489738401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fefb869b1a4cd24496abcd9d6bd64a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponNames: []
+  shieldNames: []
+  armorNames: []
+  armorPieces: []
+  selectedWeaponIndex: 0
+  selectedShieldIndex: 0
+  selectedArmorIndex: 0
+  setKO: 0
+  injuryIndex: 0
+  weaponDealt: 
+  characterDealt: 
+  shock: 0
+  pD: 0
+  bloodlessPD: 0
+  pain: 0
+  meleeProfType: 0
+  player: 1
+--- !u!114 &4787585655243200441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648043275489738401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179a37daad68a874e9ace9199d36340d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  death: {fileID: 0}
+  walk: {fileID: 0}
+  itemEquip: {fileID: 0}
+  inventoryOpen: {fileID: 0}
+  swing: {fileID: 0}
+  hit: {fileID: 0}
+--- !u!114 &2415893709502278561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648043275489738401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683bceb522b51024da0dcc05efddfc98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  characterName: Player
+--- !u!114 &4350589244012907559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648043275489738401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f235179d183daca4bb2cc3c6f11df905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &2729581292639533422
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648043275489738401}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5747688, y: 1.4477528, z: 1}
+  m_Center: {x: 0.008384585, y: 0.80948645, z: 1.3501887e-11}
+--- !u!114 &403278802619819638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648043275489738401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5cf93c1f09b95448b577ad8b69929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  meleeDamageType: 0
+  meleeDecision: 0
+  offensiveManueverType: 0
+  defensiveManueverType: 0
+  targetZoneCutting: 5
+  targetZonePuncture: 5
+  dice: 0
+  secondaryDice: 0
+  BeatTargetWeapon: 0
+  selectedBoutIndex: 0
+  selectedBoutList: []
 --- !u!1 &4648043275603564923
 GameObject:
   m_ObjectHideFlags: 0
