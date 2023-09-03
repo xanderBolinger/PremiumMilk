@@ -433,8 +433,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4156e8cc25f4c349a0e727e768651d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogPopupText: {fileID: 0}
   PopUp: {fileID: 1230130217}
   inkJSON: {fileID: 4900000, guid: c03d89cd7e324f54a8ffe0a9ab8e24e4, type: 3}
+  choiceButtonPrefab: {fileID: 0}
+  buttonContainer: {fileID: 0}
 --- !u!1001 &434041038
 PrefabInstance:
   m_ObjectHideFlags: 0
