@@ -14,6 +14,12 @@ As you travel down the road you come across a fork in the road...
     "This isn't right..." -> Fork
 * [Talk to stange animal]
     "He-hello? And what might you be?" you say as you grimace -> lilGuy2
+* [Think Silenetly] -> Silenthill
+* [I just need more options] -> END
+* [give up] -> END
+* [one more path] -> END
+* [I hope this works] -> END
+
 
 ==MistyMountainsMan==
 * [Go back to fork]
@@ -36,3 +42,6 @@ As you travel down the road you come across a fork in the road...
 {GreenViewVillage} It Furiously hops/runs away from you into the forest. You suddenly feel sick to the stomach. It feels similar to the feeling of when your father disowned you. 
 
     You rejected the Gub, you take 78% decrease on all your stats. -> END
+    
+==Silenthill==
+ wowie ->END
