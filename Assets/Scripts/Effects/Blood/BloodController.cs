@@ -49,11 +49,12 @@ public class BloodController : NetworkBehaviour
         var list = front ? frontBodyPositions : rearBodyPositions;
         var pos = RandomElem.GetElem(list);
         ParticleSystem blood = Instantiate(prefab/*, Vector3.zero, Quaternion.identity, pos.transform*/);
-        blood.transform.parent = pos.transform;
+        blood.transform.SetParent(pos.transform, false);
+        /*blood.transform.parent = pos.transform;
         blood.transform.position = Vector3.zero;
         blood.transform.localPosition = Vector3.zero;
         blood.transform.rotation = new Quaternion(0,0,0,0);
-        blood.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        blood.transform.localRotation = new Quaternion(0, 0, 0, 0);*/
         blood.Play();
     }
 
