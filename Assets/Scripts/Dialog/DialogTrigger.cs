@@ -15,7 +15,7 @@ public class DialogTrigger : MonoBehaviour {
 
     [SerializeField] private GameObject PopUp;
     [SerializeField] private TextAsset inkJSON;
-    [SerializeField] private Button choiceButtonPrefab;
+    [SerializeField] private GameObject choiceButtonPrefab;
     [SerializeField] private GameObject buttonContainer;
 
     [SerializeField] public Camera mainCam;
@@ -61,13 +61,14 @@ public class DialogTrigger : MonoBehaviour {
     Button CreateChoiceButton(string text) {
         // creates the button from a prefab
         var choiceButton = Instantiate(choiceButtonPrefab);
-        choiceButton.transform.parent = buttonContainer.transform;
-
+        
+        //choiceButton.transform.parent = buttonContainer.transform;
+        choiceButton.transform.SetParent(buttonContainer.transform, false);
         // sets text on the button
         var buttonText = choiceButton.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = text;
 
-        return choiceButton;
+        return choiceButton.GetComponent<Button>();
     }
 
     void OnClickChoiceButton(Choice choice) {

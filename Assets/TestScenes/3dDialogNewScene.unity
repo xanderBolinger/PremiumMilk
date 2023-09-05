@@ -372,7 +372,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 626951165}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -569,7 +569,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450652108109420}
-  - {fileID: 4337705616746324316}
   - {fileID: 454076396}
   - {fileID: 1493970649}
   m_Father: {fileID: 0}
@@ -629,7 +628,7 @@ MonoBehaviour:
   dialogPopupText: {fileID: 454076397}
   PopUp: {fileID: 253633731}
   inkJSON: {fileID: 4900000, guid: c03d89cd7e324f54a8ffe0a9ab8e24e4, type: 3}
-  choiceButtonPrefab: {fileID: 6992052905955270450, guid: 9bc2f00df5ae50940a057bb4c0d438ba,
+  choiceButtonPrefab: {fileID: 2603047411991781763, guid: a4e561d3fa4a6db48aa79390653ff2b9,
     type: 3}
   buttonContainer: {fileID: 1493970648}
   mainCam: {fileID: 1282913279}
@@ -1430,11 +1429,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 626951165}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.12, y: 107.34}
+  m_AnchoredPosition: {x: -0.12, y: 112}
   m_SizeDelta: {x: 524.92, y: 206.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1493970650
@@ -1457,8 +1456,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 3
   m_StartAxis: 1
-  m_CellSize: {x: 10000, y: 100000}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 500, y: 45}
+  m_Spacing: {x: 0, y: 15}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!4 &543450652108109420
@@ -1558,37 +1557,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8164078559284466703}
   m_Mesh: {fileID: -2432090755550338912, guid: 3df16f3f21d996144b67a707d1b2ec90, type: 3}
---- !u!1 &3997350295143316454
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4337705616746324316}
-  m_Layer: 5
-  m_Name: DialogButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4337705616746324316
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3997350295143316454}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -135, y: -81, z: -16}
-  m_LocalScale: {x: 45, y: 45, z: 45}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 626951165}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &8164078559284466703
 GameObject:
   m_ObjectHideFlags: 0
