@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Window
-  m_Shader: {fileID: 4800000, guid: 45167080146710546a090789064d69b8, type: 3}
+  m_Shader: {fileID: 4800000, guid: a2895a7ff26216742919e62a33a0bc00, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
