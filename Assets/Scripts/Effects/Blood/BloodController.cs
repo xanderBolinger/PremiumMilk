@@ -23,17 +23,29 @@ public class BloodController : NetworkBehaviour
 
     private void Start()
     {
+        CreateList(frontBodyPositions, "Body Zones Front");
+        CreateList(frontHeadPositions, "Head Zones Front");
+        CreateList(frontLegsPositions, "Leg Zones Front");
+        CreateList(rearBodyPositions, "Body Zones Rear");
+        CreateList(rearHeadPositions, "Head Zones Rear");
+        CreateList(rearLegsPositions, "Leg Zones Rear");
 
-        var body = gameObject.transform.Find("Body Zones");
-        var leg = gameObject.transform.Find("Head Zones");
-        var head = gameObject.transform.Find("Leg Zones");
+        for(int i = 1; i <= 5; i++)
+            LoadPrefab(i);
+    }
 
+    private void CreateList(List<GameObject> list, string transformName) {
+        var transform = gameObject.transform.Find(transformName);
+        list = new List<GameObject>();
+
+        foreach(Transform child in transform)
+            list.Add(child.gameObject);
 
     }
 
-    private GameObject LoadPrefab(string name, string itemType)
+    private GameObject LoadPrefab(int level)
     {
-        GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/" + itemType + "/" + name + ".prefab");
+        GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Effects/Blood/BloodLevel"+level+".prefab");
 
         return asset;
     }
