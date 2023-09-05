@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class ArmorPiece
 {
-    public static MeleeArmorLocationData locationData = new MeleeArmorLocationData();
+    public static MeleeHitLocationData locationData = new MeleeHitLocationData();
 
     public enum ArmorPieceSlots
     {

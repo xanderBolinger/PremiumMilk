@@ -1,60 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror; 
+using Mirror;
+using UnityEditor;
 
 public class BloodController : NetworkBehaviour
 {
-    public ParticleSystem levelOneBloodPrefab;
-    public ParticleSystem levelTwoBloodPrefab;
-    public ParticleSystem levelThreeBloodPrefab;
-    public ParticleSystem levelFourBloodPrefab;
-    public ParticleSystem levelFiveBloodPrefab;
+    private ParticleSystem levelOneBloodPrefab;
+    private ParticleSystem levelTwoBloodPrefab;
+    private ParticleSystem levelThreeBloodPrefab;
+    private ParticleSystem levelFourBloodPrefab;
+    private ParticleSystem levelFiveBloodPrefab;
 
     //public List<GameObject> frontLegPositions;
-    public List<GameObject> frontBodyPositions;
-    public List<GameObject> rearBodyPositions;
+    private List<GameObject> frontBodyPositions;
+    private List<GameObject> rearBodyPositions;
+    private List<GameObject> frontHeadPositions;
+    private List<GameObject> rearHeadPositions;
+    private List<GameObject> frontLegsPositions;
+    private List<GameObject> rearLegsPositions;
     //public List<GameObject> frontHeadPositions;
 
-    [ClientRpc]
-    public void RpcHit(string attackerName, int level) {
-        var attacker = CharacterController.GetCharacterObject(attackerName);
-        Hit(attacker, level);
+    private void Start()
+    {
+
+        var body = gameObject.transform.Find("Body Zones");
+        var leg = gameObject.transform.Find("Head Zones");
+        var head = gameObject.transform.Find("Leg Zones");
+
+
     }
 
-    public void Hit(GameObject attacker, int level)
+    private GameObject LoadPrefab(string name, string itemType)
     {
-        var front = FrontFacing(attacker);
+        GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/" + itemType + "/" + name + ".prefab");
 
-        ParticleSystem prefab = levelOneBloodPrefab;
+        return asset;
+    }
 
-        switch (level) {
+    [ClientRpc]
+    public void RpcHit(string attackerName, int level, string location) {
+        var attacker = CharacterController.GetCharacterObject(attackerName);
+        Hit(attacker, level, location);
+    }
+
+    private ParticleSystem GetPrefab(int level) {
+
+        switch (level)
+        {
             case 1:
-                prefab = levelOneBloodPrefab;
-                break;
+                return levelOneBloodPrefab;
             case 2:
-                prefab = levelTwoBloodPrefab;
-                break;
+                return levelTwoBloodPrefab;
             case 3:
-                prefab = levelThreeBloodPrefab;
-                break;
+                return levelThreeBloodPrefab;
             case 4:
-                prefab = levelFourBloodPrefab;
-                break;
+                return levelFourBloodPrefab;
             case 5:
-                prefab = levelFiveBloodPrefab;
-                break;
+                return levelFiveBloodPrefab;
         }
 
-        var list = front ? frontBodyPositions : rearBodyPositions;
+        throw new System.Exception("Level not 1-5, blood prefab: "+level);
+    }
+
+    private List<GameObject> GetList(MeleeHitLocationData.HitLocationZone zone, bool front) {
+        if (zone == MeleeHitLocationData.HitLocationZone.Head) {
+            return front ? frontHeadPositions : rearHeadPositions;
+        } else if (zone == MeleeHitLocationData.HitLocationZone.Legs) {
+            return front ? frontLegsPositions : rearLegsPositions;
+        } else if (zone == MeleeHitLocationData.HitLocationZone.Body) {
+            return front ? frontBodyPositions : rearBodyPositions;
+        } else
+            throw new System.Exception("Zone not found for zone: "+zone);
+    }
+
+
+    public void Hit(GameObject attacker, int level, string location)
+    {
+        var front = FrontFacing(attacker);
+        ParticleSystem prefab = GetPrefab(level);
+        var hitZone = MeleeHitLocationData.locationData.GetHitLocationZone(location);
+        var list = GetList(hitZone, front);
+
         var pos = RandomElem.GetElem(list);
-        ParticleSystem blood = Instantiate(prefab/*, Vector3.zero, Quaternion.identity, pos.transform*/);
+        ParticleSystem blood = Instantiate(prefab);
         blood.transform.SetParent(pos.transform, false);
-        /*blood.transform.parent = pos.transform;
-        blood.transform.position = Vector3.zero;
-        blood.transform.localPosition = Vector3.zero;
-        blood.transform.rotation = new Quaternion(0,0,0,0);
-        blood.transform.localRotation = new Quaternion(0, 0, 0, 0);*/
         blood.Play();
     }
 

@@ -9,7 +9,7 @@ using static Character.Species;
 
 public class ApplyMeleeDamage
 {
-    public MeleeHitLocationData hitLocation;
+    public ExcelUtillity.MeleeHitLocationData hitLocation;
     public string anatomicalHitLocation;
     public int pd;
     public bool disabled;

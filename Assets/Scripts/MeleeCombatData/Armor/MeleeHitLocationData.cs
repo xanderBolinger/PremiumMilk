@@ -1,8 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class MeleeArmorLocationData
+public class MeleeHitLocationData
 {
+    public static MeleeHitLocationData locationData = new MeleeHitLocationData();
+
+    public enum HitLocationZone { 
+        Head,Body,Legs
+    }
+
+    public HitLocationZone GetHitLocationZone(string location) {
+        if (headUpper.Contains(location) || headLower.Contains(location))
+            return HitLocationZone.Head;
+        else if (legsUpper.Contains(location) || legsLower.Contains(location))
+            return HitLocationZone.Legs;
+        else
+            return HitLocationZone.Body;
+    }
+
     public List<string> headUpper;
     public List<string> headLower;
     public List<string> torsoUpper;
@@ -12,7 +27,7 @@ public class MeleeArmorLocationData
     public List<string> armsUpper;
     public List<string> armsLower;
 
-    public MeleeArmorLocationData()
+    public MeleeHitLocationData()
     {
         List<string> bodyParts = new List<string>
         {
