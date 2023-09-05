@@ -17,6 +17,9 @@ public class DialogTrigger : MonoBehaviour {
     [SerializeField] private Button choiceButtonPrefab;
     [SerializeField] private GameObject buttonContainer;
 
+    [SerializeField] public Camera mainCam;
+    [SerializeField] public Camera UICam;
+
     private bool inRange;
     private Story story;
 
@@ -24,6 +27,8 @@ public class DialogTrigger : MonoBehaviour {
         inRange = false;
         PopUp.SetActive(false);
         story = new Story(inkJSON.text);
+        mainCam.enabled = true;
+        UICam.enabled = false;
     }
 
     private void Update() {
@@ -38,12 +43,16 @@ public class DialogTrigger : MonoBehaviour {
     private void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
             inRange = true;
+            mainCam.enabled = false;
+            UICam.enabled = true;
         }
     }
 
     private void OnTriggerExit(Collider col) {
         if (col.gameObject.tag == "Player") {
             inRange = false;
+            mainCam.enabled = true;
+            UICam.enabled = false;
         }
     }
 
