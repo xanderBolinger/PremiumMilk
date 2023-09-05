@@ -117,10 +117,27 @@ public class Exchange {
             return;
         }
 
+        ApplyTertiaryResults(amd.level);
+
+    }
+
+    private void ApplyTertiaryResults(int level) {
         if (amd.knockedDown) { KnockDown(); }
-       
+
         defender.ApplyShock(amd.hitLocation.shockPD);
         defender.ApplyPain(amd.hitLocation.painPoints);
+
+        ApplyBlood(level);
+    }
+
+    private void ApplyBlood(int level) {
+        var attackerObj = CharacterController.GetCharacterObject(attacker.characterSheet.name);
+        var targetObj = CharacterController.GetCharacterObject(defender.characterSheet.name);
+        if (targetObj == null || attackerObj == null)
+            throw new System.Exception("Attacker or target obj is null");
+
+        var bc = targetObj.GetComponent<BloodController>();
+        bc.RpcHit(attacker.characterSheet.name, level);
     }
 
     private void KnockDown() {

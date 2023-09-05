@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror; 
 
-public class BloodController : MonoBehaviour
+public class BloodController : NetworkBehaviour
 {
     public ParticleSystem levelOneBloodPrefab;
     public ParticleSystem levelTwoBloodPrefab;
@@ -12,14 +13,20 @@ public class BloodController : MonoBehaviour
 
     //public List<GameObject> frontLegPositions;
     public List<GameObject> frontBodyPositions;
+    public List<GameObject> rearBodyPositions;
     //public List<GameObject> frontHeadPositions;
 
+    [ClientRpc]
+    public void RpcHit(string attackerName, int level) {
+        var attacker = CharacterController.GetCharacterObject(attackerName);
+        Hit(attacker, level);
+    }
 
     public void Hit(GameObject attacker, int level)
     {
         var front = FrontFacing(attacker);
 
-        var prefab = levelOneBloodPrefab;
+        ParticleSystem prefab = levelOneBloodPrefab;
 
         switch (level) {
             case 1:
@@ -39,9 +46,15 @@ public class BloodController : MonoBehaviour
                 break;
         }
 
-        
-
-
+        var list = front ? frontBodyPositions : rearBodyPositions;
+        var pos = RandomElem.GetElem(list);
+        ParticleSystem blood = Instantiate(prefab/*, Vector3.zero, Quaternion.identity, pos.transform*/);
+        blood.transform.parent = pos.transform;
+        blood.transform.position = Vector3.zero;
+        blood.transform.localPosition = Vector3.zero;
+        blood.transform.rotation = new Quaternion(0,0,0,0);
+        blood.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        blood.Play();
     }
 
     private bool FrontFacing(GameObject attacker) {
