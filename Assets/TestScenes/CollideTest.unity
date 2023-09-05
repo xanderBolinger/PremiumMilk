@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -682,8 +682,8 @@ MonoBehaviour:
   inkJSON: {fileID: 4900000, guid: c03d89cd7e324f54a8ffe0a9ab8e24e4, type: 3}
   choiceButtonPrefab: {fileID: 1493473577}
   buttonContainer: {fileID: 609247609}
-  mainCam: {fileID: 0}
-  UICam: {fileID: 0}
+  mainCam: {fileID: 1510913052}
+  UICam: {fileID: 1523687080}
 --- !u!65 &617733037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1258,7 +1258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1523687078
 MonoBehaviour:
   m_ObjectHideFlags: 0

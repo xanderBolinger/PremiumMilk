@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using Microsoft.VisualBasic.Devices;
 
 public class DialogTrigger : MonoBehaviour {
 
@@ -42,6 +43,7 @@ public class DialogTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") {
+            Debug.Log("Triggereed");
             inRange = true;
             mainCam.enabled = false;
             UICam.enabled = true;
