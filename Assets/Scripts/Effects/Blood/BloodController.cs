@@ -23,6 +23,12 @@ public class BloodController : NetworkBehaviour
 
     private void Start()
     {
+        frontBodyPositions = new List<GameObject>();
+        frontHeadPositions = new List<GameObject>();
+        frontLegsPositions = new List<GameObject>();
+        frontBodyPositions = new List<GameObject>();
+        rearHeadPositions = new List<GameObject>();
+        rearLegsPositions = new List<GameObject>();
         CreateList(frontBodyPositions, "Body Zones Front");
         CreateList(frontHeadPositions, "Head Zones Front");
         CreateList(frontLegsPositions, "Leg Zones Front");
@@ -35,8 +41,7 @@ public class BloodController : NetworkBehaviour
     }
 
     private void CreateList(List<GameObject> list, string transformName) {
-        var transform = gameObject.transform.Find(transformName);
-        list = new List<GameObject>();
+        Transform transform = gameObject.transform.Find("Blood Zones").Find(transformName);
 
         foreach(Transform child in transform)
             list.Add(child.gameObject);
