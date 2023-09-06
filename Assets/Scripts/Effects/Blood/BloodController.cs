@@ -23,21 +23,25 @@ public class BloodController : NetworkBehaviour
 
     private void Start()
     {
+        levelOneBloodPrefab = LoadPrefab(1);
+        levelTwoBloodPrefab = LoadPrefab(2);
+        levelThreeBloodPrefab = LoadPrefab(3);
+        levelFourBloodPrefab = LoadPrefab(4);
+        levelFiveBloodPrefab = LoadPrefab(5);
+
         frontBodyPositions = new List<GameObject>();
         frontHeadPositions = new List<GameObject>();
         frontLegsPositions = new List<GameObject>();
-        frontBodyPositions = new List<GameObject>();
+        rearBodyPositions = new List<GameObject>();
         rearHeadPositions = new List<GameObject>();
         rearLegsPositions = new List<GameObject>();
+
         CreateList(frontBodyPositions, "Body Zones Front");
         CreateList(frontHeadPositions, "Head Zones Front");
         CreateList(frontLegsPositions, "Leg Zones Front");
         CreateList(rearBodyPositions, "Body Zones Rear");
         CreateList(rearHeadPositions, "Head Zones Rear");
         CreateList(rearLegsPositions, "Leg Zones Rear");
-
-        for(int i = 1; i <= 5; i++)
-            LoadPrefab(i);
     }
 
     private void CreateList(List<GameObject> list, string transformName) {
@@ -48,11 +52,11 @@ public class BloodController : NetworkBehaviour
 
     }
 
-    private GameObject LoadPrefab(int level)
+    private ParticleSystem LoadPrefab(int level)
     {
         GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Effects/Blood/BloodLevel"+level+".prefab");
 
-        return asset;
+        return asset.GetComponent<ParticleSystem>();
     }
 
     [ClientRpc]
