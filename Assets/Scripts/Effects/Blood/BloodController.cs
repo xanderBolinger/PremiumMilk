@@ -84,12 +84,12 @@ public class BloodController : NetworkBehaviour
         throw new System.Exception("Level not 1-5, blood prefab: "+level);
     }
 
-    private List<GameObject> GetList(MeleeHitLocationData.HitLocationZone zone, bool front) {
-        if (zone == MeleeHitLocationData.HitLocationZone.Head) {
+    private List<GameObject> GetList(HitZoneData.HitLocationZone zone, bool front) {
+        if (zone == HitZoneData.HitLocationZone.Head) {
             return front ? frontHeadPositions : rearHeadPositions;
-        } else if (zone == MeleeHitLocationData.HitLocationZone.Legs) {
+        } else if (zone == HitZoneData.HitLocationZone.Legs) {
             return front ? frontLegsPositions : rearLegsPositions;
-        } else if (zone == MeleeHitLocationData.HitLocationZone.Body) {
+        } else if (zone == HitZoneData.HitLocationZone.Body) {
             return front ? frontBodyPositions : rearBodyPositions;
         } else
             throw new System.Exception("Zone not found for zone: "+zone);
@@ -100,7 +100,7 @@ public class BloodController : NetworkBehaviour
     {
         var front = FrontFacing(attacker);
         ParticleSystem prefab = GetPrefab(level);
-        var hitZone = MeleeHitLocationData.locationData.GetHitLocationZone(location);
+        var hitZone = HitZoneData.locationData.GetHitLocationZone(location);
         var list = GetList(hitZone, front);
 
         var pos = RandomElem.GetElem(list);

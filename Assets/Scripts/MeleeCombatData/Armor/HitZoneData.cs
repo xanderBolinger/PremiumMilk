@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class MeleeHitLocationData
+public class HitZoneData
 {
-    public static MeleeHitLocationData locationData = new MeleeHitLocationData();
+    public static HitZoneData locationData = new HitZoneData();
 
     public enum HitLocationZone { 
         Head,Body,Legs
@@ -27,7 +27,7 @@ public class MeleeHitLocationData
     public List<string> armsUpper;
     public List<string> armsLower;
 
-    public MeleeHitLocationData()
+    public HitZoneData()
     {
         List<string> bodyParts = new List<string>
         {
