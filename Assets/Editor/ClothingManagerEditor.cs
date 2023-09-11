@@ -19,7 +19,11 @@ public class ClothingManagerEditorGui : Editor
 
         if (GUILayout.Button("Set Color"))
         {
-            cm.SetColor(cm.testColor, cm.testSlotType);
+            var tempGobj = new GameObject();
+            var bodyColor = tempGobj.AddComponent<BodyColor>();
+            bodyColor.color = cm.testColor;
+            cm.SetColor(bodyColor, cm.testSlotType);
+            Destroy(tempGobj);
         }
 
     }

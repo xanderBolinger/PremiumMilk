@@ -3,6 +3,7 @@ Chain Coif,12,2,Mail,OverHeadUpper
 Padded Coif,2,1,PaddedCloth,UnderHeadUpper
 Cuirass,15,10,Plate,OverTorsoUpper;OverTorsoLower
 Chausses,13,8,Plate,OverLegUpper;OverLegLower
+Kettle Helm,15,2,Plate,OverHeadUpper
 Plate Helm,15,2,Plate,OverHeadUpper;OverHeadLower
 Plate Torso,15,15,Plate,OverArmUpper;OverArmLower;OverTorsoUpper;OverTorsoLower
 Plate Pants,15,10,Plate,OverLegLower;OverLegUpper,
@@ -12,5 +13,6 @@ Orc Pants,12,10,PaddedCloth,OverLegLower;OverLegUpper,
 Leather Helm,4,2,Leather,OverHeadUpper;OverHeadLower
 Leather Torso,4,15,Leather,OverArmUpper;OverArmLower;OverTorsoUpper;OverTorsoLower
 Leather Pants,4,10,Leather,OverLegLower;OverLegUpper,
+Mail Halberk,12,15,Mail,OverArmUpper;OverArmLower;OverTorsoUpper;OverTorsoLower
 Chainmail Torso,12,15,Mail,OverArmUpper;OverArmLower;OverTorsoUpper;OverTorsoLower
 Chainmail Pants,12,10,Mail,OverLegLower;OverLegUpper,

@@ -16,16 +16,19 @@ public class ClothingManager : MonoBehaviour
     }
 
     public enum ItemType { 
-        Armor,Weapons
+        Armor,Weapons,Shield
     }
 
-    public void SetColor(Color color, SlotType slotType) {
+    public void SetColor(BodyColor bodyColor, SlotType slotType) {
+
+        if (slotType == SlotType.ChestArmor)
+            slotType = SlotType.Body;
 
         var slots = FindSlots(slotType.ToString());
 
         foreach(var slot in slots)
         {
-            slot.GetComponent<Renderer>().material.color = color;
+            slot.GetComponent<Renderer>().material.color = bodyColor.color;
         }
 
     }
@@ -43,12 +46,26 @@ public class ClothingManager : MonoBehaviour
     }
 
     public void EquipItem(string name, ItemType itemType, SlotType slotType) {
+        if (itemType == ItemType.Shield) // TODO shield
+            return;
 
        var prefab = FindPrefab(name, itemType.ToString());
 
-        var slots = FindSlots(slotType.ToString());
+        if (prefab == null)
+            return;
 
-        UnequipItem(slotType);
+        var bodyColor = prefab.GetComponent<BodyColor>();
+
+        if(bodyColor != null)
+            SetColor(bodyColor, slotType);
+
+        if (slotType == SlotType.Legs) 
+            return;
+
+
+       var slots = FindSlots(slotType.ToString());
+
+       UnequipItem(slotType);
 
         foreach (var slot in slots) {
             var instance = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -57,7 +74,8 @@ public class ClothingManager : MonoBehaviour
             instance.transform.rotation = Quaternion.identity;
             instance.transform.localRotation = Quaternion.identity;
             instance.transform.localScale = Vector3.one;
-            
+
+
         }
     }
 
