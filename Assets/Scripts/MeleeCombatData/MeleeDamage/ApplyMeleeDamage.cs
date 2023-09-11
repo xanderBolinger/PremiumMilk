@@ -9,13 +9,14 @@ using static Character.Species;
 
 public class ApplyMeleeDamage
 {
-    public MeleeHitLocationData hitLocation;
+    public ExcelUtillity.MeleeHitLocationData hitLocation;
     public string anatomicalHitLocation;
     public int pd;
     public bool disabled;
     public int damagePoints;
     public int av;
     public bool knockedDown;
+    public int level;
     public SpeciesType speciesType;
 
     public void Hit(int success, CharacterSheet attacker, CharacterSheet defender,
@@ -200,8 +201,10 @@ public class ApplyMeleeDamage
 
         int effectiveDamagePoints = GetEffectiveDamagePoints(damagePoints);
 
+        level = Species.GetDamageLevel(characterSheet.species.speciesType, effectiveDamagePoints);
+
         hitLocation = MeleeHitLocation.GetMeleeHitLocation(dmgType, 
-            Species.GetDamageLevel(characterSheet.species.speciesType, effectiveDamagePoints), zone, d6Roll);
+            level, zone, d6Roll);
 
         hitLocation.painPoints -= characterSheet.attributes.wil / 3;
         hitLocation.shockPD -= characterSheet.attributes.wil / 3 / 2 * 20;
