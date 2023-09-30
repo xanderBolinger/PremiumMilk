@@ -62,9 +62,8 @@ public class NpcGridMovement : NetworkBehaviour
         else if (dist < followRange)
         {
             MoveToTarget(enemy);
-        }
-
-        if (path.Count < 1 || FinishedMovement())
+            path = gridMover.path;
+        } else if (path.Count < 1 || FinishedMovement())
         {
             gridInfo.ClearMovingTowards();
             SetRandomPath();
@@ -90,7 +89,7 @@ public class NpcGridMovement : NetworkBehaviour
     }
 
     void MoveToTarget(GameObject enemy) {
-        destination = enemy.GetComponent<CharacterGridInfo>().standingOnTile;
+        destination = finder.GetNeightbourTiles(enemy.GetComponent<CharacterGridInfo>().standingOnTile)[0];
         gridMover.path = finder.FindPath(gridInfo.standingOnTile, destination);
     }
 

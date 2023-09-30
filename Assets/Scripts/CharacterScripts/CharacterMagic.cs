@@ -22,9 +22,13 @@ public class CharacterMagic : NetworkBehaviour
         characterAnimator = GetComponent<CharacterAnimator>();
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
-        casterName = GetComponent<CharacterNetwork>().GetCharacterSheet().name;        
+        var cn = GetComponent<CharacterNetwork>();
+
+        yield return new WaitUntil(() => cn.GetCharacterSheet() != null);
+
+        casterName = cn.GetCharacterSheet().name;        
     }
 
     // Client call
