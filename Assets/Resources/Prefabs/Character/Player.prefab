@@ -2340,6 +2340,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionColor: {r: 1, g: 0.5, b: 0, a: 1}
+--- !u!1 &3283643716739978266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2495584246679975079}
+  m_Layer: 0
+  m_Name: CastZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2495584246679975079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283643716739978266}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.86, y: 1.11, z: 0.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8433631357449078123}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8433631357449078418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,6 +2402,8 @@ GameObject:
   - component: {fileID: 7098995783447278047}
   - component: {fileID: 4506955772234904556}
   - component: {fileID: -5568982959547268585}
+  - component: {fileID: 5882158260191977132}
+  - component: {fileID: 5972223533075350123}
   m_Layer: 0
   m_Name: Player
   m_TagString: Character
@@ -2395,6 +2428,7 @@ Transform:
   - {fileID: 3040721773216409133}
   - {fileID: 3040721773303820741}
   - {fileID: 2196849299197844873}
+  - {fileID: 2495584246679975079}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.497, y: 182.803, z: -0.024}
@@ -2499,7 +2533,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73fc63d48f7dcb4ea475a730c6bb2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   animator: {fileID: 0}
+  attackFinished: 0
 --- !u!114 &8433631357449078422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2640,6 +2678,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fefb869b1a4cd24496abcd9d6bd64a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   weaponNames: []
   shieldNames: []
   armorNames: []
@@ -2793,6 +2834,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278cc735c0cb42246a0b935e595f0bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5882158260191977132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8433631357449078418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28ccc9996b95e741bafc0a82a1f7fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  castSpellType: 0
+  targetName: 
+  castPos: {fileID: 2495584246679975079}
+  castedSpell: 0
+--- !u!54 &5972223533075350123
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8433631357449078418}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &4299708575706694078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2808,17 +2884,17 @@ PrefabInstance:
     - target: {fileID: 2726759044364770359, guid: f6da9be5561889147b8c27aeed6ea9db,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8170388
+      value: 0.069
       objectReference: {fileID: 0}
     - target: {fileID: 2726759044364770359, guid: f6da9be5561889147b8c27aeed6ea9db,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0013782936
+      value: 0.002
       objectReference: {fileID: 0}
     - target: {fileID: 2726759044364770359, guid: f6da9be5561889147b8c27aeed6ea9db,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.20286259
+      value: -0.203
       objectReference: {fileID: 0}
     - target: {fileID: 2726759044364770359, guid: f6da9be5561889147b8c27aeed6ea9db,
         type: 3}
