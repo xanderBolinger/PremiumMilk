@@ -36,7 +36,7 @@ public class CharacterAnimator : NetworkBehaviour
 
     }
 
-    void RotateTowardsTarget(GameObject target)
+    public void RotateTowardsTarget(GameObject target)
     {
         var direction = (target.transform.position - transform.position).normalized;
         var lookRotation = Quaternion.LookRotation(direction);

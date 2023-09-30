@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+[RequireComponent(typeof(MagicDamage))]
 public class MagicManager : NetworkBehaviour
 {
     public enum Spell {
@@ -15,30 +16,42 @@ public class MagicManager : NetworkBehaviour
 
     [SerializeField] GameObject seekerTarget;
 
+    [SerializeField] string casterName;
+    [SerializeField] string targetName;
+
     [SerializeField] Spell testSpell;
 
     [HideInInspector]
     public static MagicManager magicManager;
 
+    public MagicDamage magicDamage;
+
     private void Awake()
     {
         magicManager = this;
+        magicDamage = GetComponent<MagicDamage>();
     }
 
     public void SpawnSpellEffect() {
         var obj = Instantiate(spellEffect, spellStartPos.position, Quaternion.identity);
 
-        obj.GetComponent<Seeker>().Launch(seekerTarget);
+        obj.GetComponent<Seeker>().Launch(seekerTarget, casterName, targetName);
 
         NetworkServer.Spawn(obj);
     }
 
-    public void CastSpell(Spell spell, string targetName="", Transform spellStartPos=null) {
+    public void CastSpell(Spell spell, string casterName = "", string targetName="", Transform spellStartPos=null) {
 
-        if(targetName!="")
+        if (targetName != "") { 
             seekerTarget = CharacterController.GetCharacterObject(targetName);
+            this.targetName = targetName;
+        }
         if (spellStartPos != null)
             this.spellStartPos = spellStartPos;
+        if (casterName != "")
+            this.casterName = casterName;
+
+        
 
         ISpellSystem spellSystem = GetSpell(spell);
 

@@ -13,10 +13,26 @@ public class CharacterMagic : NetworkBehaviour
 
     public bool castedSpell;
 
+    string casterName;
+
+    CharacterAnimator characterAnimator;
+
+    private void Awake()
+    {
+        characterAnimator = GetComponent<CharacterAnimator>();
+    }
+
+    private void Start()
+    {
+        casterName = GetComponent<CharacterNetwork>().GetCharacterSheet().name;        
+    }
+
     // Client call
     public void CastSpell() {
 
         castedSpell = true;
+
+        characterAnimator.RotateTowardsTarget(CharacterController.GetCharacterObject(targetName));
 
         // This method gets called on server, target name has to be passed because it is not set on the server 
         // Could use a sync var but they are kinda annoying
@@ -31,7 +47,7 @@ public class CharacterMagic : NetworkBehaviour
     // Called on server
     [Command]
     private void CmdCastSpell(string targetName) {
-        MagicManager.magicManager.CastSpell(castSpellType, targetName, castPos);
+        MagicManager.magicManager.CastSpell(castSpellType, casterName, targetName, castPos);
     }
 
 }
