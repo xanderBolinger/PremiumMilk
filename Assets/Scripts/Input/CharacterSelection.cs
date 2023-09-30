@@ -40,32 +40,13 @@ public class CharacterSelection : MonoBehaviour
     private void Select(GameObject character)
     {
         PlaySelectSound();
-
         hoveredCharacter = character;
-
-        foreach (Transform childTransform in character.transform) {
-
-            childTransform.gameObject.layer = 6;
-            
-            foreach (Transform grandchildTransform in childTransform) {
-                grandchildTransform.gameObject.layer = 6;
-            }
-        }
+        character.GetComponent<OutlineController>().TurnOnSelector();
     }
 
     private void Deselect(GameObject character) {
         hoveredCharacter = null;
-
-        foreach (Transform childTransform in character.transform)
-        {
-
-            childTransform.gameObject.layer = 0;
-
-            foreach (Transform grandchildTransform in childTransform)
-            {
-                grandchildTransform.gameObject.layer = 0;
-            }
-        }
+        character.GetComponent<OutlineController>().TurnOffSelector();
     }
 
 
