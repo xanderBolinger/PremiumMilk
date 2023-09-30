@@ -61,6 +61,17 @@ public class GameManager : NetworkBehaviour
         StartCoroutine(GridMovementController.MoveCharacterOneTile());
         meleeCombatController.meleeCombatResolved = false;
         meleeCombatController.TryAdvance();
+
+        RefreshCharacters();
+
+    }
+
+    public void RefreshCharacters() {
+        foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
+        {
+            var magic = character.GetComponent<CharacterMagic>();
+            magic.castedSpell = false;
+        }
     }
 
     public bool CharactersReady() {
@@ -90,7 +101,8 @@ public class GameManager : NetworkBehaviour
 
     public bool CharacterReady(GameObject character) {
         var gridMover = character.GetComponent<GridMover>();
-        return gridMover.movementReady;
+        var magic = character.GetComponent<CharacterMagic>();
+        return gridMover.movementReady || magic.castedSpell;
     }
 
     public static bool InCombat(GameObject character) {
