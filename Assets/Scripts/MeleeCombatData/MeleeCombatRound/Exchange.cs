@@ -49,7 +49,7 @@ public class Exchange {
         this.attackerSelectManuever = attackerSelectManuever;
         this.defenderSelectManuever = defenderSelectManuever;
         defenderObj = CharacterController.GetCharacterObject(defender.characterSheet.name);
-        defenderAnimator = defenderAnimator.GetComponent<CharacterAnimator>();
+        defenderAnimator = defenderObj.GetComponent<CharacterAnimator>();
         attackerObj = CharacterController.GetCharacterObject(attacker.characterSheet.name);
         attackerAnimator = attackerObj.GetComponent<CharacterAnimator>();
     }
@@ -125,7 +125,7 @@ public class Exchange {
 
         Debug.Log($"Hit Execution Time: {watch.ElapsedMilliseconds} ms");
 
-        defenderAnimator.RpcHit();
+        defenderAnimator.RpcHit(attacker.characterSheet.name);
 
         if (amd.av >= amd.damagePoints) {
             CombatLog.Log("Hit to location: " + amd.anatomicalHitLocation + " stopped by armor.");

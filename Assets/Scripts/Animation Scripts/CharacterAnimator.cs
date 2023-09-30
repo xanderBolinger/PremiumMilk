@@ -10,6 +10,7 @@ public class CharacterAnimator : NetworkBehaviour
 
     public bool attackFinished;
 
+    bool attacking;
 
     private void Awake()
     {
@@ -18,10 +19,14 @@ public class CharacterAnimator : NetworkBehaviour
 
     public void AttackFinished() { 
         attackFinished = true;
+        attacking = false;
     }
 
     [ClientRpc]
     public void RpcAttack(bool swing, string defender) {
+
+        attacking = true;
+
         if (swing)
             SetSwing();
         else
@@ -41,25 +46,39 @@ public class CharacterAnimator : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcHit()
+    public void RpcHit(string attackerName)
     {
+
+        StartCoroutine(CoroutineHit(attackerName));
+
+    }
+
+    IEnumerator CoroutineHit(string attackerName) {
+
+        yield return AttackerFinished(attackerName);
+
         SetHit();
+
     }
 
     IEnumerator CoroutineDead(string attackerName) {
 
+        yield return AttackerFinished(attackerName);
+        
+        SetDead();
+
+    }
+
+    IEnumerator AttackerFinished(string attackerName) {
         var obj = CharacterController.GetCharacterObject(attackerName);
         var anim = obj.GetComponent<CharacterAnimator>();
 
 
         yield return new WaitUntil(() => anim.attackFinished);
-
-        SetDead();
-
     }
 
     public void SetIdle() {
-       if(animator == null) { return; }
+       if(animator == null || attacking) { return; }
 
        ClearAnimation();
     }
