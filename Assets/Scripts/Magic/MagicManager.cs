@@ -12,9 +12,18 @@ public class MagicManager : NetworkBehaviour
     [SerializeField] GameObject spellEffect;
 
     [SerializeField] Transform spellStartPos;
+
     [SerializeField] GameObject seekerTarget;
 
     [SerializeField] Spell testSpell;
+
+    [HideInInspector]
+    public static MagicManager magicManager;
+
+    private void Awake()
+    {
+        magicManager = this;
+    }
 
     public void SpawnSpellEffect() {
         var obj = Instantiate(spellEffect, spellStartPos.position, Quaternion.identity);
@@ -24,9 +33,12 @@ public class MagicManager : NetworkBehaviour
         NetworkServer.Spawn(obj);
     }
 
-    public void CastSpell(Spell spell) {
+    public void CastSpell(Spell spell, string targetName="", Transform spellStartPos=null) {
 
-
+        if(targetName!="")
+            seekerTarget = CharacterController.GetCharacterObject(targetName);
+        if (spellStartPos != null)
+            this.spellStartPos = spellStartPos;
 
         ISpellSystem spellSystem = GetSpell(spell);
 
