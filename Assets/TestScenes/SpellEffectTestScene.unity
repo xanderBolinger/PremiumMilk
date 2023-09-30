@@ -1662,6 +1662,7 @@ GameObject:
   - component: {fileID: 469606975}
   - component: {fileID: 469606974}
   - component: {fileID: 469606976}
+  - component: {fileID: 469606977}
   m_Layer: 0
   m_Name: MagicManager
   m_TagString: Untagged
@@ -1688,7 +1689,10 @@ MonoBehaviour:
     type: 3}
   spellStartPos: {fileID: 1313671996}
   seekerTarget: {fileID: 0}
+  casterName: 
+  targetName: 
   testSpell: 0
+  magicDamage: {fileID: 0}
 --- !u!4 &469606975
 Transform:
   m_ObjectHideFlags: 0
@@ -1721,6 +1725,18 @@ MonoBehaviour:
   serverOnly: 1
   visible: 0
   hasSpawned: 0
+--- !u!114 &469606977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469606973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c249205399fa56a49bef7c38937b6ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &483198421
 PrefabInstance:
   m_ObjectHideFlags: 0

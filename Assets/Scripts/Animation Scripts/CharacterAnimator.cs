@@ -23,6 +23,12 @@ public class CharacterAnimator : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void RpcAttackFinished() {
+        attackFinished = true;
+        attacking = false;
+    }
+
+    [ClientRpc]
     public void RpcAttack(bool swing, string defender) {
 
         attacking = true;
@@ -36,7 +42,7 @@ public class CharacterAnimator : NetworkBehaviour
 
     }
 
-    void RotateTowardsTarget(GameObject target)
+    public void RotateTowardsTarget(GameObject target)
     {
         var direction = (target.transform.position - transform.position).normalized;
         var lookRotation = Quaternion.LookRotation(direction);

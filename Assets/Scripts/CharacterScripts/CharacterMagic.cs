@@ -13,15 +13,40 @@ public class CharacterMagic : NetworkBehaviour
 
     public bool castedSpell;
 
+    string casterName;
+
+    CharacterAnimator characterAnimator;
+
+    private void Awake()
+    {
+        characterAnimator = GetComponent<CharacterAnimator>();
+    }
+
+    private void Start()
+    {
+        casterName = GetComponent<CharacterNetwork>().GetCharacterSheet().name;        
+    }
+
     // Client call
     public void CastSpell() {
 
         castedSpell = true;
 
+        characterAnimator.RotateTowardsTarget(CharacterController.GetCharacterObject(targetName));
+
+        StartCoroutine(CoroutineCast());
+    }
+
+
+    // Allows for time delay before cast command to allow additional time for model to rotate 
+    IEnumerator CoroutineCast() {
+        yield return new WaitForSecondsRealtime(0.1f);
+
         // This method gets called on server, target name has to be passed because it is not set on the server 
         // Could use a sync var but they are kinda annoying
         CmdCastSpell(targetName);
     }
+
 
     // Use this method to set target name from your player input code once you have clicked on a selected target
     public void GetTargetName(GameObject selectedTarget) {
@@ -31,7 +56,7 @@ public class CharacterMagic : NetworkBehaviour
     // Called on server
     [Command]
     private void CmdCastSpell(string targetName) {
-        MagicManager.magicManager.CastSpell(castSpellType, targetName, castPos);
+        MagicManager.magicManager.CastSpell(castSpellType, casterName, targetName, castPos);
     }
 
 }
