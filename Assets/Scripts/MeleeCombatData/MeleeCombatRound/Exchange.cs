@@ -26,6 +26,10 @@ public class Exchange {
     public SelectManuever attackerSelectManuever;
     public SelectManuever defenderSelectManuever;
 
+    public GameObject attackerObj;
+    public GameObject defenderObj;
+
+
     public Exchange(Bout bout, Combatant attacker, Combatant defender, SelectManuever attackerSelectManuever, 
         SelectManuever defenderSelectManuever)
     {
@@ -41,7 +45,9 @@ public class Exchange {
         this.defenderDice = defenderSelectManuever == null ? 0 : defenderSelectManuever.dice;
         this.defendeCost = defenderSelectManuever == null ? 0 : defenderSelectManuever.additionalCost;
         this.attackerSelectManuever = attackerSelectManuever;
-        this.defenderSelectManuever = defenderSelectManuever; 
+        this.defenderSelectManuever = defenderSelectManuever;
+        defenderObj = CharacterController.GetCharacterObject(defender.characterSheet.name);
+        attackerObj = CharacterController.GetCharacterObject(attacker.characterSheet.name);
     }
 
     public void ResolveAll() {
@@ -89,6 +95,7 @@ public class Exchange {
                 + " against " + attacker.characterSheet.name);
             Debug.Log("Resolve Defensive Manuever(Ds/As)("+defenderSuccess+"/"+attackerSuccess+"): " + defensiveManuever.GetManeuverName());
             defensiveManuever.ResolveDefensiveManeuver(this);
+            
         }
 
     }
@@ -118,7 +125,8 @@ public class Exchange {
         }
 
         ApplyTertiaryResults();
-        ApplyBlood(amd.level, amd.anatomicalHitLocation);
+        ApplyHitEffects(amd.level, amd.anatomicalHitLocation);
+
     }
 
     private void ApplyTertiaryResults() {
@@ -129,14 +137,15 @@ public class Exchange {
         
     }
 
-    private void ApplyBlood(int level, string location) {
-        var attackerObj = CharacterController.GetCharacterObject(attacker.characterSheet.name);
-        var targetObj = CharacterController.GetCharacterObject(defender.characterSheet.name);
-        if (targetObj == null || attackerObj == null)
+    private void ApplyHitEffects(int level, string location) {
+        if (defenderObj == null || attackerObj == null)
             throw new System.Exception("Attacker or target obj is null");
 
-        var bc = targetObj.GetComponent<BloodController>();
+        var bc = defenderObj.GetComponent<BloodController>();
         bc.RpcHit(attacker.characterSheet.name, level, location);
+
+        if (!defender.characterSheet.Alive())
+            defenderObj.GetComponent<CharacterAnimator>().RpcDead();
     }
 
     private void KnockDown() {

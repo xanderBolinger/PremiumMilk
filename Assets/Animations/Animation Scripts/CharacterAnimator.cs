@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using Mirror;
 
-public class CharacterAnimator : MonoBehaviour
+public class CharacterAnimator : NetworkBehaviour
 {
 
     public Animator animator;
@@ -17,6 +17,36 @@ public class CharacterAnimator : MonoBehaviour
 
     public void AttackFinished() { 
         attackFinished = true;
+    }
+
+
+    [ClientRpc]
+    public void RpcSwing() {
+        SetSwing();
+    }
+
+    [ClientRpc]
+    public void RpcStab()
+    {
+        SetStab();
+    }
+
+    [ClientRpc]
+    public void RpcParry()
+    {
+        SetParry();
+    }
+
+    [ClientRpc]
+    public void RpcDead()
+    {
+        SetDead();
+    }
+
+    [ClientRpc]
+    public void RpcHit()
+    {
+        SetHit();
     }
 
     public void SetIdle() {
