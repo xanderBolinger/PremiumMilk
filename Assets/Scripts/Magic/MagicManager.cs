@@ -5,13 +5,15 @@ using Mirror;
 
 public class MagicManager : NetworkBehaviour
 {
-    public enum Spell { 
+    public enum Spell {
         MAGIC_MISSILE
     }
 
     [SerializeField] GameObject spellEffect;
+
     [SerializeField] Transform spellStartPos;
     [SerializeField] GameObject seekerTarget;
+
     [SerializeField] Spell testSpell;
 
     public void SpawnSpellEffect() {
@@ -22,8 +24,10 @@ public class MagicManager : NetworkBehaviour
         NetworkServer.Spawn(obj);
     }
 
-    public void CastSpell(Spell spell) { 
-        
+    public void CastSpell(Spell spell) {
+
+
+
         ISpellSystem spellSystem = GetSpell(spell);
 
         spellSystem.Cast();
@@ -35,13 +39,14 @@ public class MagicManager : NetworkBehaviour
         CastSpell(testSpell);
     }
 
-    public ISpellSystem GetSpell(Spell spell) { 
-        switch(spell)
+    public ISpellSystem GetSpell(Spell spell) {
+        switch (spell)
         {
             case Spell.MAGIC_MISSILE:
+                spellEffect = Resources.Load<GameObject>("Prefabs/Effects/Magic/MagicMissile");
                 return new MagicMissle();
             default:
-                throw new System.Exception("Spell not found for spell: "+spell);
+                throw new System.Exception("Spell not found for spell: " + spell);
 
         }
     }
