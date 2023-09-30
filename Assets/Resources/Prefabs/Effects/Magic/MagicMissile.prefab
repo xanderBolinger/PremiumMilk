@@ -54,7 +54,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  speed: 1
+  speed: 5
 --- !u!135 &6503997105444865907
 SphereCollider:
   m_ObjectHideFlags: 0
