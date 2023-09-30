@@ -34,10 +34,19 @@ public class CharacterMagic : NetworkBehaviour
 
         characterAnimator.RotateTowardsTarget(CharacterController.GetCharacterObject(targetName));
 
+        StartCoroutine(CoroutineCast());
+    }
+
+
+    // Allows for time delay before cast command to allow additional time for model to rotate 
+    IEnumerator CoroutineCast() {
+        yield return new WaitForSecondsRealtime(0.1f);
+
         // This method gets called on server, target name has to be passed because it is not set on the server 
         // Could use a sync var but they are kinda annoying
         CmdCastSpell(targetName);
     }
+
 
     // Use this method to set target name from your player input code once you have clicked on a selected target
     public void GetTargetName(GameObject selectedTarget) {

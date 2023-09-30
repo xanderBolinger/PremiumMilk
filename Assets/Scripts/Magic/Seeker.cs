@@ -28,6 +28,10 @@ public class Seeker : NetworkBehaviour
 
 
         var direction = (targetTransform.position - _transform.position).normalized;
+
+        if (direction == Vector3.zero)
+            return;
+
         var lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 1f);
         _transform.position = Vector3.MoveTowards(_transform.position, targetTransform.position, Time.fixedDeltaTime * speed);
