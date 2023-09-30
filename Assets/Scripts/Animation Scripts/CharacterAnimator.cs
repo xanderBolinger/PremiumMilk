@@ -27,10 +27,20 @@ public class CharacterAnimator : NetworkBehaviour
 
         attacking = true;
 
+        RotateTowardsTarget(CharacterController.GetCharacterObject(defender));
+
         if (swing)
             SetSwing();
         else
             SetStab();
+
+    }
+
+    void RotateTowardsTarget(GameObject target)
+    {
+        var direction = (target.transform.position - transform.position).normalized;
+        var lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 1f);
     }
 
     [ClientRpc]
