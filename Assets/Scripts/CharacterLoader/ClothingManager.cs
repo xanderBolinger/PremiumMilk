@@ -82,7 +82,7 @@ public class ClothingManager : MonoBehaviour
 
     public GameObject FindPrefab(string name, string itemType)
     {
-        GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/"+ itemType + "/"+name+".prefab");
+        GameObject asset = Resources.Load<GameObject>("/Prefabs/"+ itemType + "/"+name+".prefab");
 
         return asset;
     }
