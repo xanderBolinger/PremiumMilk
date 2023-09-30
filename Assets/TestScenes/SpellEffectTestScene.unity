@@ -7037,6 +7037,8 @@ GameObject:
   - component: {fileID: 2118588492}
   - component: {fileID: 2118588493}
   - component: {fileID: 2118588494}
+  - component: {fileID: 2118588496}
+  - component: {fileID: 2118588495}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Character
@@ -7496,6 +7498,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2118588495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118588469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8185c890d3f69ab4192c4166a91b1494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+--- !u!114 &2118588496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118588469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28ccc9996b95e741bafc0a82a1f7fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  castSpellType: 0
+  targetName: 
+  castPos: {fileID: 0}
+  castedSpell: 0
 --- !u!1001 &2132722914
 PrefabInstance:
   m_ObjectHideFlags: 0

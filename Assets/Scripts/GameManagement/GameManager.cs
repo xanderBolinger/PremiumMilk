@@ -94,6 +94,9 @@ public class GameManager : NetworkBehaviour
                 continue;
             if (CharacterReady(character))
                 return false;
+            if (character.GetComponent<GridMover>().Moving())
+                return false;
+            
         }
 
         return true;
