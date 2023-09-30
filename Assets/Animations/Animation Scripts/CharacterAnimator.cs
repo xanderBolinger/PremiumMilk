@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,9 @@ using UnityEngine;
 public class CharacterAnimator : MonoBehaviour
 {
 
-    Animator animator;
+    public Animator animator;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
@@ -33,6 +34,11 @@ public class CharacterAnimator : MonoBehaviour
         animator.SetBool("IsWalking", true);
     }
 
+    public void SetRun()
+    {
+        SetWalk();
+    }
+
     public void SetSwing() {
         if (animator == null) { return; }
 
@@ -47,13 +53,40 @@ public class CharacterAnimator : MonoBehaviour
         animator.SetBool("IsStabbing", true);
     }
 
-    private void ClearAnimation() {
+    public void SetDead()
+    {
         if (animator == null) { return; }
 
-          animator.SetBool("IsWalking", false);
-          animator.SetBool("IsSwinging", false);
-          animator.SetBool("IsStabbing", false);
-            animator.SetBool("IsJumping", false);
+        ClearAnimation();
+        
+        animator.SetBool("IsDead", true);
+    }
+
+    public void SetHit()
+    {
+        if (animator == null) { return; }
+
+        ClearAnimation();
+        animator.SetBool("IsHit", true);
+    }
+
+    public void SetParry()
+    {
+        if (animator == null) { return; }
+
+        ClearAnimation();
+        animator.SetBool("IsParrying", true);
+    }
+
+    private void ClearAnimation() {
+        if (animator == null) { return; }
+        animator.enabled = true;
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsSwinging", false);
+        animator.SetBool("IsStabbing", false);
+        animator.SetBool("IsJumping", false);
+        animator.SetBool("IsHit", false);
+        animator.SetBool("IsParrying", false);
     }
 
     public void DeactivateAll() { 
