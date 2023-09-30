@@ -23,6 +23,12 @@ public class CharacterAnimator : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void RpcAttackFinished() {
+        attackFinished = true;
+        attacking = false;
+    }
+
+    [ClientRpc]
     public void RpcAttack(bool swing, string defender) {
 
         attacking = true;

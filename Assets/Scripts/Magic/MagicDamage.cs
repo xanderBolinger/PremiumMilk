@@ -11,7 +11,7 @@ public class MagicDamage : MonoBehaviour
         var targetObj = CharacterController.GetCharacterObject(targetName);
 
         CharacterAnimator casterAnimator = casterObj.GetComponent<CharacterAnimator>();
-        casterAnimator.attackFinished = true; 
+        casterAnimator.RpcAttackFinished();
 
         CharacterSheet target = targetObj.GetComponent<CharacterNetwork>().GetCharacterSheet();
         BloodController targetBloodController = targetObj.GetComponent<BloodController>();
