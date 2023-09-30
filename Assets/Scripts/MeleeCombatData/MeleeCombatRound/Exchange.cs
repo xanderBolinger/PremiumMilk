@@ -125,6 +125,7 @@ public class Exchange {
         }
 
         ApplyTertiaryResults();
+
         ApplyHitEffects(amd.level, amd.anatomicalHitLocation);
 
     }
@@ -145,7 +146,7 @@ public class Exchange {
         bc.RpcHit(attacker.characterSheet.name, level, location);
 
         if (!defender.characterSheet.Alive())
-            defenderObj.GetComponent<CharacterAnimator>().RpcDead();
+            defenderObj.GetComponent<CharacterAnimator>().RpcDead(attacker.characterSheet.name);
     }
 
     private void KnockDown() {

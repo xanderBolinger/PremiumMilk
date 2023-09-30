@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 public class CharacterAnimator : NetworkBehaviour
 {
@@ -38,15 +39,27 @@ public class CharacterAnimator : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcDead()
+    public void RpcDead(string attackerName)
     {
-        SetDead();
+        StartCoroutine(CoroutineDead(attackerName));
     }
 
     [ClientRpc]
     public void RpcHit()
     {
         SetHit();
+    }
+
+    IEnumerator CoroutineDead(string attackerName) {
+
+        var obj = CharacterController.GetCharacterObject(attackerName);
+        var anim = obj.GetComponent<CharacterAnimator>();
+
+
+        yield return new WaitUntil(() => anim.attackFinished);
+
+        SetDead();
+
     }
 
     public void SetIdle() {
