@@ -1,21 +1,94 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Mirror;
+using System.Collections;
 
-public class CharacterAnimator : MonoBehaviour
+public class CharacterAnimator : NetworkBehaviour
 {
 
     public Animator animator;
+
+    public bool attackFinished;
+
+    bool attacking;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
+    public void AttackFinished() { 
+        attackFinished = true;
+        attacking = false;
+    }
+
+    [ClientRpc]
+    public void RpcAttack(bool swing, string defender) {
+
+        attacking = true;
+
+        RotateTowardsTarget(CharacterController.GetCharacterObject(defender));
+
+        if (swing)
+            SetSwing();
+        else
+            SetStab();
+
+    }
+
+    void RotateTowardsTarget(GameObject target)
+    {
+        var direction = (target.transform.position - transform.position).normalized;
+        var lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 1f);
+    }
+
+    [ClientRpc]
+    public void RpcParry()
+    {
+        SetParry();
+    }
+
+    [ClientRpc]
+    public void RpcDead(string attackerName)
+    {
+        StartCoroutine(CoroutineDead(attackerName));
+    }
+
+    [ClientRpc]
+    public void RpcHit(string attackerName)
+    {
+
+        StartCoroutine(CoroutineHit(attackerName));
+
+    }
+
+    IEnumerator CoroutineHit(string attackerName) {
+
+        yield return AttackerFinished(attackerName);
+
+        SetHit();
+
+    }
+
+    IEnumerator CoroutineDead(string attackerName) {
+
+        yield return AttackerFinished(attackerName);
+        
+        SetDead();
+
+    }
+
+    IEnumerator AttackerFinished(string attackerName) {
+        var obj = CharacterController.GetCharacterObject(attackerName);
+        var anim = obj.GetComponent<CharacterAnimator>();
+
+
+        yield return new WaitUntil(() => anim.attackFinished);
+    }
+
     public void SetIdle() {
-       if(animator == null) { return; }
+       if(animator == null || attacking) { return; }
 
        ClearAnimation();
     }
@@ -44,6 +117,7 @@ public class CharacterAnimator : MonoBehaviour
 
         ClearAnimation();
         animator.SetBool("IsSwinging", true);
+        attackFinished = false;
     }
 
     public void SetStab() {
@@ -51,6 +125,7 @@ public class CharacterAnimator : MonoBehaviour
 
         ClearAnimation();
         animator.SetBool("IsStabbing", true);
+        attackFinished = false;
     }
 
     public void SetDead()
@@ -67,7 +142,7 @@ public class CharacterAnimator : MonoBehaviour
         if (animator == null) { return; }
 
         ClearAnimation();
-        animator.SetBool("IsHit", true);
+        animator.Play("hit");
     }
 
     public void SetParry()
@@ -96,7 +171,6 @@ public class CharacterAnimator : MonoBehaviour
             animator.Deactivate();
         }
     }
-
 
 
 }

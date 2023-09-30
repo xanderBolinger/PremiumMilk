@@ -62,7 +62,8 @@ public class BloodController : NetworkBehaviour
     [ClientRpc]
     public void RpcHit(string attackerName, int level, string location) {
         var attacker = CharacterController.GetCharacterObject(attackerName);
-        Hit(attacker, level, location);
+
+        StartCoroutine(Hit(attacker, level, location));
     }
 
     private ParticleSystem GetPrefab(int level) {
@@ -96,8 +97,13 @@ public class BloodController : NetworkBehaviour
     }
 
 
-    public void Hit(GameObject attacker, int level, string location)
+    public IEnumerator Hit(GameObject attacker, int level, string location)
     {
+
+        var animator = attacker.GetComponent<CharacterAnimator>();
+
+        yield return new WaitUntil(() => animator.attackFinished);
+
         var front = FrontFacing(attacker);
         ParticleSystem prefab = GetPrefab(level);
         var hitZone = HitZoneData.locationData.GetHitLocationZone(location);
