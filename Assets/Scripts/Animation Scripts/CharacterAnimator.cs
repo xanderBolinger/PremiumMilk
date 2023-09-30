@@ -20,16 +20,12 @@ public class CharacterAnimator : NetworkBehaviour
         attackFinished = true;
     }
 
-
     [ClientRpc]
-    public void RpcSwing() {
-        SetSwing();
-    }
-
-    [ClientRpc]
-    public void RpcStab()
-    {
-        SetStab();
+    public void RpcAttack(bool swing, string defender) {
+        if (swing)
+            SetSwing();
+        else
+            SetStab();
     }
 
     [ClientRpc]
@@ -117,7 +113,7 @@ public class CharacterAnimator : NetworkBehaviour
         if (animator == null) { return; }
 
         ClearAnimation();
-        animator.SetBool("IsHit", true);
+        animator.Play("hit");
     }
 
     public void SetParry()

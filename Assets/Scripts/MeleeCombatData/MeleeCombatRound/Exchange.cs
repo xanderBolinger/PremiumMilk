@@ -28,6 +28,8 @@ public class Exchange {
 
     public GameObject attackerObj;
     public GameObject defenderObj;
+    public CharacterAnimator attackerAnimator;
+    public CharacterAnimator defenderAnimator;
 
 
     public Exchange(Bout bout, Combatant attacker, Combatant defender, SelectManuever attackerSelectManuever, 
@@ -47,7 +49,9 @@ public class Exchange {
         this.attackerSelectManuever = attackerSelectManuever;
         this.defenderSelectManuever = defenderSelectManuever;
         defenderObj = CharacterController.GetCharacterObject(defender.characterSheet.name);
+        defenderAnimator = defenderAnimator.GetComponent<CharacterAnimator>();
         attackerObj = CharacterController.GetCharacterObject(attacker.characterSheet.name);
+        attackerAnimator = attackerObj.GetComponent<CharacterAnimator>();
     }
 
     public void ResolveAll() {
@@ -80,6 +84,7 @@ public class Exchange {
             return;
         } else if (defensiveManuever == null && attackerSuccess > 0) {
             offensiveManuever.ResolveOffensiveManever(this, meleeDamageType);
+            attackerAnimator.RpcAttack(meleeDamageType == MeleeDamageType.CUTTING, defender.characterSheet.name);
             return;
         }
 
@@ -89,12 +94,14 @@ public class Exchange {
             CombatLog.Log(attacker.characterSheet.name + " resolve offensive manuever(As/Ds)(" + attackerSuccess + "/" + defenderSuccess + "): " + offensiveManuever.GetManeuverName() 
                 +" against "+defender.characterSheet.name);
             offensiveManuever.ResolveOffensiveManever(this, meleeDamageType);
+            attackerAnimator.RpcAttack(meleeDamageType == MeleeDamageType.CUTTING, defender.characterSheet.name);
         }
         else {
             CombatLog.Log(defender.characterSheet.name + " resolve defensive manuever(Ds/As)(" + defenderSuccess + "/" + attackerSuccess + "): " + defensiveManuever.GetManeuverName()
                 + " against " + attacker.characterSheet.name);
             Debug.Log("Resolve Defensive Manuever(Ds/As)("+defenderSuccess+"/"+attackerSuccess+"): " + defensiveManuever.GetManeuverName());
             defensiveManuever.ResolveDefensiveManeuver(this);
+            defenderAnimator.RpcParry();
             
         }
 
@@ -117,6 +124,8 @@ public class Exchange {
         watch.Stop();
 
         Debug.Log($"Hit Execution Time: {watch.ElapsedMilliseconds} ms");
+
+        defenderAnimator.RpcHit();
 
         if (amd.av >= amd.damagePoints) {
             CombatLog.Log("Hit to location: " + amd.anatomicalHitLocation + " stopped by armor.");
@@ -146,7 +155,7 @@ public class Exchange {
         bc.RpcHit(attacker.characterSheet.name, level, location);
 
         if (!defender.characterSheet.Alive())
-            defenderObj.GetComponent<CharacterAnimator>().RpcDead(attacker.characterSheet.name);
+            defenderAnimator.RpcDead(attacker.characterSheet.name);
     }
 
     private void KnockDown() {
