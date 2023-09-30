@@ -1,17 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Mirror;
 
 public class CharacterAnimator : MonoBehaviour
 {
 
     public Animator animator;
 
+    public bool attackFinished;
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    public void AttackFinished() { 
+        attackFinished = true;
     }
 
     public void SetIdle() {
@@ -44,6 +49,7 @@ public class CharacterAnimator : MonoBehaviour
 
         ClearAnimation();
         animator.SetBool("IsSwinging", true);
+        attackFinished = false;
     }
 
     public void SetStab() {
@@ -51,6 +57,7 @@ public class CharacterAnimator : MonoBehaviour
 
         ClearAnimation();
         animator.SetBool("IsStabbing", true);
+        attackFinished = false;
     }
 
     public void SetDead()
@@ -96,7 +103,6 @@ public class CharacterAnimator : MonoBehaviour
             animator.Deactivate();
         }
     }
-
 
 
 }

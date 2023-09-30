@@ -7130,6 +7130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  attackFinished: 0
 --- !u!95 &2118588487
 Animator:
   serializedVersion: 5
