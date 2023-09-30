@@ -237,37 +237,9 @@ public static class MeleeCombatAI
         return MeleeStatus.BLUE;
     }
     
-    public static List<Bout> GetBouts(string name) {
-        List<Bout> bouts = new List<Bout>();
-
-        foreach (var b in meleeCombatManager.bouts) {
-            if (b.combatantA.characterSheet.name == name ||
-                b.combatantB.characterSheet.name == name) {
-                bouts.Add(b);
-            } 
-        }
-
-        return bouts; 
-    }
-
-    public static List<Combatant> GetCombatants(string name, bool opposing = false) {
-        List<Combatant> combatants = new List<Combatant>();
-
-        var bouts = GetBouts(name);
-
-        foreach (var bout in bouts) {
-            if (bout.combatantA.characterSheet.name == name)
-            {
-                combatants.Add(opposing ? bout.combatantB : bout.combatantA);
-            }
-            else {
-                combatants.Add(opposing ? bout.combatantA : bout.combatantB);
-            }
-        }
 
 
-        return combatants;
-    }
+    
 
     public static (int, int) GetCp(string name) {
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
-
+using static MeleeCombatManager;
 public class MagicDamage : MonoBehaviour
 {
 
@@ -17,7 +17,15 @@ public class MagicDamage : MonoBehaviour
         BloodController targetBloodController = targetObj.GetComponent<BloodController>();
         CharacterAnimator animator = targetObj.GetComponent<CharacterAnimator>();
 
-        var injury = new Injury(damage, 0, 0, 0, spell, casterName, "body", 0);
+        var injury = new Injury(damage, 0, damage/200, damage/10, spell, casterName, "body", 0);
+
+        var combatants = GetCombatants(targetName);
+
+        foreach (var c in combatants) {
+            c.ApplyPain(damage / 200);
+            c.ApplyShock(damage / 10);
+        }
+
         target.medicalData.AddInjury(injury);
         target.medicalData.Knockout(0);
 
