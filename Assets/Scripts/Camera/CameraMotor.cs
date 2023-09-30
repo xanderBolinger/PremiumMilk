@@ -41,7 +41,7 @@ public class CameraMotor : Follower
 
     void LateUpdate()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (!Input.GetKey(KeyCode.LeftControl))
             cursor = true;
         else 
             cursor = false;
