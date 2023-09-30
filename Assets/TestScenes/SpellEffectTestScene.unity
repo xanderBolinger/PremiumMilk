@@ -1688,6 +1688,7 @@ MonoBehaviour:
     type: 3}
   spellStartPos: {fileID: 1313671996}
   seekerTarget: {fileID: 0}
+  testSpell: 0
 --- !u!4 &469606975
 Transform:
   m_ObjectHideFlags: 0
