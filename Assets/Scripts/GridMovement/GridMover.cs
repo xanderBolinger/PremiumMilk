@@ -179,12 +179,12 @@ public class GridMover : NetworkBehaviour
     }
 
     private void AddTarget(Tile tile) {
-        GameObject token = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridMovement/TargetMarker.prefab");
+        GameObject token = Resources.Load<GameObject>("Prefabs/GridMovement/TargetMarker");
         AddToken(tile, token);
     }
 
     private void AddPathMarker(Tile tile) {
-        GameObject token = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridMovement/MovementToken.prefab");
+        GameObject token = Resources.Load<GameObject>("Prefabs/GridMovement/MovementToken");
         AddToken(tile, token);
     }
 

@@ -53,13 +53,13 @@ MonoBehaviour:
   sendRate: 60
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 0}
+  transport: {fileID: 5966435772011961608}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 4648043275489738401, guid: 6a6b0b64ccaf79b49a4285b2370a50d5,
+  playerPrefab: {fileID: 8433631357449078418, guid: 6a6b0b64ccaf79b49a4285b2370a50d5,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0

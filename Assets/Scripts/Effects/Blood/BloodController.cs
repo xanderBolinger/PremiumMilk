@@ -54,7 +54,7 @@ public class BloodController : NetworkBehaviour
 
     private ParticleSystem LoadPrefab(int level)
     {
-        GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Effects/Blood/BloodLevel"+level+".prefab");
+        GameObject asset = Resources.Load<GameObject>("Prefabs/Effects/Blood/BloodLevel"+level);
 
         return asset.GetComponent<ParticleSystem>();
     }
