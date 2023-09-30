@@ -22,6 +22,10 @@ public class CharacterMagic : NetworkBehaviour
         CmdCastSpell();
     }
 
+    public void GetTargetName(GameObject selectedTarget) {
+        targetName = selectedTarget.GetComponent<CharacterNetwork>().characterName;
+    }
+
     // Called on server
     [Command]
     private void CmdCastSpell() {
