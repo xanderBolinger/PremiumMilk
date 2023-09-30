@@ -23,11 +23,11 @@ public class MeleeCombatUI : NetworkBehaviour
     private void Start()
     {
 
-        AddLog("You see a plate helmet at your feet...");
+       /* AddLog("You see a plate helmet at your feet...");
         AddLog("You should move to it and pick it up (left click)");
         AddLog("You should put the helmet on (tab)");
         AddLog("There are Orcs in the dungeon, beware.");
-        AddLog("You will have to kill them if you want to have any chance of escaping.");
+        AddLog("You will have to kill them if you want to have any chance of escaping.");*/
     }
 
     private void Update()

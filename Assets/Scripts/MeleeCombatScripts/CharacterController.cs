@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Character;
 using static MeleeProficiencies;
+using Mirror;
 
-public class CharacterController : MonoBehaviour
+public class CharacterController : NetworkBehaviour
 {
     public List<string> weaponNames;
     public List<string> shieldNames;
@@ -35,6 +36,9 @@ public class CharacterController : MonoBehaviour
         shieldNames = MeleeShieldLoader.GetShieldNames();
         armorNames = ArmorLoader.GetArmorNames();
         armorPieces = new List<string>();
+
+        if(player && isLocalPlayer)
+            GameObject.Find("Main Camera").GetComponent<CameraMotor>().SetFollowing(transform);
     }
 
     public static CharacterSheet GetCharacter(string characterName) {
