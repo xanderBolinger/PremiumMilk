@@ -1837,6 +1837,7 @@ GameObject:
   - component: {fileID: 578454929}
   - component: {fileID: 578454928}
   - component: {fileID: 578454927}
+  - component: {fileID: 578454930}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1910,6 +1911,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 16.822, y: 0, z: 0}
+--- !u!114 &578454930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578454926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f39b2ed5ad80a4a927d9f28ce989f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transform: {fileID: 0}
+  target: {fileID: 0}
+  _mouseSensitivity: 3
+  _scrollSpeed: 20
+  _distanceFromTarget: 10
+  _minDistanceFromTarget: 4
+  _maxDistanceFromTarget: 6
+  _smoothTime: 0.2
+  _rotationXMinMax: {x: -40, y: 40}
 --- !u!1001 &620684066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6972,6 +6994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fefb869b1a4cd24496abcd9d6bd64a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   weaponNames: []
   shieldNames: []
   armorNames: []
