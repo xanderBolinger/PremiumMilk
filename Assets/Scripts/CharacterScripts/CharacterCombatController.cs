@@ -10,10 +10,12 @@ public class CharacterCombatController : NetworkBehaviour
 {
     CharacterNetwork characterNetwork;
 
-    private void Start()
+    private void Awake()
     {
         characterNetwork = GetComponent<CharacterNetwork>();
     }
+
+   
 
     public void EnterCombat(GameObject target) {
         if (target == null)
