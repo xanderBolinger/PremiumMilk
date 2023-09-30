@@ -183,7 +183,7 @@ public class CharacterController : NetworkBehaviour
         i++;
     }
 
-    public static GameObject GetCharacterObject(string characterName)
+    public static GameObject GetCharacterObject(string characterName, bool searchDead=false)
     {
 
         foreach (var c in GameObject.FindGameObjectsWithTag("Character"))
@@ -193,6 +193,18 @@ public class CharacterController : NetworkBehaviour
                 c.GetComponent<CharacterNetwork>().GetCharacterSheet().name == characterName)
             {
                 return c;
+            }
+        }
+
+        if (searchDead) {
+            foreach (var c in GameObject.FindGameObjectsWithTag("Dead"))
+            {
+                if (c.GetComponent<CharacterNetwork>() != null &&
+                    c.GetComponent<CharacterNetwork>().GetCharacterSheet() != null &&
+                    c.GetComponent<CharacterNetwork>().GetCharacterSheet().name == characterName)
+                {
+                    return c;
+                }
             }
         }
 

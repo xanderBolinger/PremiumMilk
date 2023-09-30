@@ -15,7 +15,6 @@ public class CharacterCombatController : NetworkBehaviour
         characterNetwork = GetComponent<CharacterNetwork>();
     }
 
-   
 
     public void EnterCombat(GameObject target) {
         if (target == null)
@@ -25,8 +24,12 @@ public class CharacterCombatController : NetworkBehaviour
 
         if (distance > 1)
             return;
+        var name = target.GetComponent<CharacterNetwork>().characterName;
 
-        CmdEnterCombat(target.GetComponent<CharacterNetwork>().characterName);
+        if(!isServer)
+            CmdEnterCombat(name);
+        else 
+            EnterCombat(name);
     }
 
     private int Distance(GameObject target) {
@@ -127,6 +130,10 @@ public class CharacterCombatController : NetworkBehaviour
     [Command]
     public void CmdEnterCombat(string targetName)
     {
+        EnterCombat(targetName);
+    }
+
+    private void EnterCombat(string targetName) {
         var characterName = GetComponent<CharacterNetwork>().GetCharacterSheet().name;
         var bout = MeleeCombatManager.meleeCombatManager.FindBout(characterName, targetName);
         if (bout != null || characterName == targetName) return;
@@ -143,5 +150,4 @@ public class CharacterCombatController : NetworkBehaviour
         CombatNetworkController.combatNetworkController.UpdateCharacters();
         MeleeCombatController.meleeCombatController.TryAdvance();
     }
-
 }

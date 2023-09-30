@@ -7513,6 +7513,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  followRange: 2
 --- !u!114 &2118588496
 MonoBehaviour:
   m_ObjectHideFlags: 0

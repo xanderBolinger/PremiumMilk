@@ -70,6 +70,7 @@ public class GameManager : NetworkBehaviour
         foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
         {
             var magic = character.GetComponent<CharacterMagic>();
+            var animator = character.GetComponent<CharacterAnimator>();
             magic.castedSpell = false;
         }
     }
