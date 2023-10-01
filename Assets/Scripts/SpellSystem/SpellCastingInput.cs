@@ -7,12 +7,8 @@ using static MagicManager;
 
 public class SpellCastingInput : MonoBehaviour {
 
-    private void Awake() {
-
-    }
-
     public void SelectMagicMissile() {
-        var sp = new SpellCastingMode();
+        var sp = GetComponent<SpellCastingMode>();
 
         Debug.Log("Entering into SpellCastingMode");
         sp.ActivateSpellMode();

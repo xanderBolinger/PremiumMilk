@@ -55,7 +55,7 @@ public class MagicManager : NetworkBehaviour
 
         ISpellSystem spellSystem = GetSpell(spell);
 
-        spellSystem.Cast();
+        spellSystem.Cast(CharacterController.GetCharacter(casterName));
 
         SpawnSpellEffect();
     }

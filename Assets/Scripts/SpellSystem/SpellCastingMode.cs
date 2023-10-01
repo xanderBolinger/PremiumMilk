@@ -22,10 +22,6 @@ public class SpellCastingMode : MonoBehaviour {
         rm = GetComponent<RegularMode>();
     }
 
-    public void Start() {
-        ActivateSpellMode();
-    }
-
     public void Cast(string targetName) {
         var characterMagic = NetworkClient.localPlayer.gameObject.GetComponent<CharacterMagic>();
         characterMagic.SetVariables(Spell.MAGIC_MISSILE, targetName);
