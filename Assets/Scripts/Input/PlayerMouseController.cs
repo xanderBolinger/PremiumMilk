@@ -25,9 +25,14 @@ public class PlayerMouseController : NetworkBehaviour
             return;
         else if (tile != null && !GameManager.InCombat(gameObject))
             Move(tile);
-        else if (target != null) { 
+        else if (target != null && !SpellCastingMode.instance.casting) {
             characterCombatController.EnterCombat(target);
-            
+        } else if (target != null && SpellCastingMode.instance.casting) {
+            SpellCastingMode.instance.Cast(target.GetComponent<CharacterNetwork>()
+                .GetCharacterSheet().name);
+        } else if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            && SpellCastingMode.instance.casting) {
+            SpellCastingMode.instance.DeactivateSpellMode();
         }
     }
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using static MagicManager;
-using Character; 
 
 public class CharacterMagic : NetworkBehaviour
 {
@@ -16,6 +15,11 @@ public class CharacterMagic : NetworkBehaviour
     string casterName;
 
     CharacterAnimator characterAnimator;
+
+    public void SetVariables(Spell castSpellType, string targetName) {
+        this.castSpellType = castSpellType;
+        this.targetName = targetName;
+    }
 
     private void Awake()
     {
