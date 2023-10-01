@@ -171,7 +171,7 @@ public class CharacterController : NetworkBehaviour
             armor += piece.Name + ", ";
         }
         int pain = sheet.medicalData.GetPain();
-        int maxCP = sheet.meleeCombatStats.GetMaxCp(pain);
+        int maxCP = sheet.meleeCombatStats.GetMaxCp(pain, sheet.fatigueSystem.fatiguePoints);
         Debug.Log(i + ":: " + sheet.name + " Alive: " + sheet.medicalData.alive + ", Conscious: " + sheet.medicalData.conscious
             + ", Prof(" + sheet.meleeCombatStats.profValue + "): " + sheet.meleeCombatStats.currProf
             + ", Weapon: " + weapon + ", Shield: " + (sheet.meleeCombatStats.shield != null ? sheet.meleeCombatStats.shield.shieldName : "None")

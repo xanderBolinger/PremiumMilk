@@ -56,7 +56,7 @@ public class CharacterCombatController : NetworkBehaviour
             c.AssignCP(0, 0);
         }
 
-        int maxCp = cs.meleeCombatStats.GetMaxCp(cs.medicalData.GetPain());
+        int maxCp = cs.meleeCombatStats.GetMaxCp(cs.medicalData.GetPain(), cs.fatigueSystem.fatiguePoints);
 
         int diceAssignedToOtherBouts = 0;
 

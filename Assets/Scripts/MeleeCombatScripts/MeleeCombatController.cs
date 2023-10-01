@@ -100,7 +100,7 @@ public class MeleeCombatController : MonoBehaviour
         }
         else {
             int pain = characterSheet.medicalData.GetPain();
-            int maxCP = characterSheet.meleeCombatStats.GetMaxCp(pain);
+            int maxCP = characterSheet.meleeCombatStats.GetMaxCp(pain, characterSheet.fatigueSystem.fatiguePoints);
             CombatLog.Log("Could not assign dice. Bout " + selectedBoutIndex + ", Combatant: " + combatant.characterSheet.name 
                 + ", failed to assign " + dice + " dice, Max CP: " + maxCP);
             Debug.Log("Could not assign dice. Bout " + selectedBoutIndex + ", Combatant: " 
