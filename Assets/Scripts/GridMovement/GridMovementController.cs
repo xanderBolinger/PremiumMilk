@@ -21,7 +21,7 @@ public class GridMovementController : MonoBehaviour
             var player = character.GetComponent<CharacterController>().player;
             if (gridMover.path.Count > 0 && player)
             {
-                fs.AddWork(0.5f);
+                //fs.AddWork(0.5f);
             }
             else if(player)
                 fs.AddRecoveryTime(0.5f);
