@@ -9,10 +9,12 @@ public class PlayerMouseController : NetworkBehaviour
 {
     private GridMover gridMover;
     private CharacterCombatController characterCombatController;
+    CharacterMagic characterMagic;
 
     void Start() { 
         gridMover = GetComponent<GridMover>();
         characterCombatController = GetComponent<CharacterCombatController>();
+        characterMagic = GetComponent<CharacterMagic>();
     }
 
     private void Update()
@@ -27,9 +29,11 @@ public class PlayerMouseController : NetworkBehaviour
             Move(tile);
         else if (target != null && gameObject != target && !SpellCastingMode.instance.casting) {
             characterCombatController.EnterCombat(target);
-        } else if (target != null && gameObject != target && SpellCastingMode.instance.casting) {
+        } else if (target != null && gameObject != target && SpellCastingMode.instance.casting
+            && target.tag != "Dead" && !characterMagic.castedSpell) {
             SpellCastingMode.instance.Cast(target.GetComponent<CharacterNetwork>()
                 .GetCharacterSheet().name);
+            SpellCastingMode.instance.DeactivateSpellMode();
         } else if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             && SpellCastingMode.instance.casting) {
             SpellCastingMode.instance.DeactivateSpellMode();
