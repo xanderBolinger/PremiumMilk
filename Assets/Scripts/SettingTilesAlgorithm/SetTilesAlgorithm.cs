@@ -16,7 +16,7 @@ public class SetTilesAlgorithm : MonoBehaviour {
 
     public bool finished;
 
-    private void Start()
+    private void Awake()
     {
         var t = GameObject.FindObjectsOfType<Tile>();
         tiles = t.ToList();

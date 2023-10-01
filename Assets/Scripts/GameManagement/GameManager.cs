@@ -36,7 +36,8 @@ public class GameManager : NetworkBehaviour
 
     public void Update()
     {
-        if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer || !turnBasedMovement)
+        if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer || !turnBasedMovement
+            || MapManager.Instance == null || MapManager.Instance.map?.Count < 1)
             return;
 
         if (CharactersReady() && turnPaused &&
