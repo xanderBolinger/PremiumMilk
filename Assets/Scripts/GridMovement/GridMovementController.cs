@@ -25,13 +25,18 @@ public class GridMovementController : MonoBehaviour
 
             fs.LogStats();
 
+            //cn.UpdateCharacterSheet(cs);
 
             NetworkIdentity opponentIdentity = character.GetComponent<NetworkIdentity>();
             if (opponentIdentity.connectionToClient != null)
                 gridMover.RpcSetMovementTurn(opponentIdentity.connectionToClient);
             gridMover.movementTurn = true;
             yield return new WaitUntil(() => !gridMover.movementReady);
+
+
         }
+
+        CombatNetworkController.combatNetworkController.UpdateCharacters();
 
 
     }

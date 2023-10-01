@@ -14,6 +14,14 @@ namespace Character {
         
         }
 
+        public FatigueSystem(FatigueSystem fs)
+        {
+            fatiguePoints = fs.fatiguePoints;
+            analeticValue = fs.analeticValue;
+            recoveryTime = fs.recoveryTime;
+            actionElapsedTime = fs.actionElapsedTime;
+        }
+
         public FatigueSystem(Attributes attributes) {
             CalcAV(attributes.str, attributes.hlt);
         }
