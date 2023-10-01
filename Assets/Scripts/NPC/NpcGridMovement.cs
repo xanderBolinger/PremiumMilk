@@ -17,6 +17,8 @@ public class NpcGridMovement : NetworkBehaviour
 
     List<Tile> npcPath;
 
+    public bool moved;
+
     private void Awake()
     {
         animator = GetComponent<CharacterAnimator>();
@@ -28,7 +30,7 @@ public class NpcGridMovement : NetworkBehaviour
 
     private void Update()
     {
-        if (!isServer)
+        if (!isServer || GameManager.Instance.playerDied)
             return;
 
 
@@ -84,6 +86,7 @@ public class NpcGridMovement : NetworkBehaviour
         gridInfo.SetMovingTowards(tile.x, tile.y);
         gridMover.path.Add(npcPath[0]);
         npcPath.RemoveAt(0);
+        moved = true;
     }
 
     public bool FinishedMovement() { 

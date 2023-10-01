@@ -223,6 +223,7 @@ public class GridMover : NetworkBehaviour
     }
 
     public void SetMoveDestination(Tile tile, CharacterGridInfo info) {
+
         if (tile.IsBlocked(gameObject))
         {
             path.Clear();
@@ -241,7 +242,6 @@ public class GridMover : NetworkBehaviour
 
     private void TranslateCharacter(Vector3 target) {
         var step = speed * Time.deltaTime;
-        
         
         RotateTowards(target);
         var newPos = Vector3.MoveTowards(transform.position, target, step);

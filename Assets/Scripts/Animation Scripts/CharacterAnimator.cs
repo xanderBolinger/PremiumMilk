@@ -26,11 +26,24 @@ public class CharacterAnimator : NetworkBehaviour
     public void RpcAttackFinished() {
         attackFinished = true;
         attacking = false;
+        CmdAttackFinished();
+    }
+
+    [Command]
+    public void CmdAttackFinished() {
+        attackFinished = true;
+        attacking = false;
     }
 
     [ClientRpc]
     public void RpcAttack(bool swing, string defender) {
 
+        Attack(swing, defender);
+        CmdAttack(swing, defender);
+
+    }
+
+    public void Attack(bool swing, string defender) {
         attacking = true;
         attackFinished = false;
         var target = CharacterController.GetCharacterObject(defender, true);
@@ -40,7 +53,11 @@ public class CharacterAnimator : NetworkBehaviour
             SetSwing();
         else
             SetStab();
+    }
 
+    [Command]
+    public void CmdAttack(bool swing, string defender) {
+        Attack(swing, defender);
     }
 
     public void RotateTowardsTarget(GameObject target)
@@ -54,11 +71,23 @@ public class CharacterAnimator : NetworkBehaviour
     public void RpcParry()
     {
         SetParry();
+        CmdParry();
+    }
+
+    [Command]
+    public void CmdParry() {
+        SetParry();
     }
 
     [ClientRpc]
     public void RpcDead(string attackerName)
     {
+        StartCoroutine(CoroutineDead(attackerName));
+        CmdDead(attackerName);
+    }
+
+    [Command]
+    public void CmdDead(string attackerName) {
         StartCoroutine(CoroutineDead(attackerName));
     }
 
@@ -67,7 +96,12 @@ public class CharacterAnimator : NetworkBehaviour
     {
 
         StartCoroutine(CoroutineHit(attackerName));
+        CmdHit(attackerName);
+    }
 
+    [Command]
+    public void CmdHit(string attackerName) {
+        StartCoroutine(CoroutineHit(attackerName));
     }
 
     IEnumerator CoroutineHit(string attackerName) {

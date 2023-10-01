@@ -1,5 +1,6 @@
 using Mirror;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static MeleeCombatController;
 using static MeleeCombatManager;
 public class GameManager : NetworkBehaviour
@@ -13,6 +14,9 @@ public class GameManager : NetworkBehaviour
     public bool playGridMovment;
     [SyncVar]
     public bool turnPaused;
+    [SyncVar]
+    public bool playerDied;
+
 
     public void Start()
     {
@@ -36,6 +40,13 @@ public class GameManager : NetworkBehaviour
 
     public void Update()
     {
+        if (playerDied && Input.GetMouseButtonDown(0)) {
+            NetworkManager.singleton.StopHost();
+            //NetworkManager.singleton.StartHost();
+
+            NetworkManager.singleton.ServerChangeScene(SceneManager.GetActiveScene().name);
+        }
+
         if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer || !turnBasedMovement
             || MapManager.Instance == null || MapManager.Instance.map?.Count < 1)
             return;
@@ -71,8 +82,11 @@ public class GameManager : NetworkBehaviour
         foreach (var character in GameObject.FindGameObjectsWithTag("Character"))
         {
             var magic = character.GetComponent<CharacterMagic>();
-            var animator = character.GetComponent<CharacterAnimator>();
             magic.castedSpell = false;
+            /*var npc = character.GetComponent<NpcGridMovement>();
+            if (npc != null) {
+                npc.moved = false;
+            }*/
         }
     }
 
