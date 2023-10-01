@@ -15,7 +15,9 @@ public class Algorithm : MonoBehaviour {
 
     //return script on tile GameObject.GetCompenet<Tile>
 
-
+    public void StartAlgorithm() {
+        GetChildren(StartingObject, tiles);
+    }
     public void GetChildren(GameObject parent, List<Tile> t) {
 
         Vector3 parentLocation = parent.transform.position;
