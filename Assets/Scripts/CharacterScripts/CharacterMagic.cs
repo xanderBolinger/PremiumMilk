@@ -37,7 +37,8 @@ public class CharacterMagic : NetworkBehaviour
 
     // Client call
     public void CastSpell() {
-
+        if (castedSpell)
+            return;
         castedSpell = true;
 
         if(targetName!="")

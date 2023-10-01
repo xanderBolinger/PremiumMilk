@@ -7,8 +7,15 @@ using static MagicManager;
 
 public class SpellCastingInput : MonoBehaviour {
 
+    SpellCastingMode sp;
+
+    private void Awake()
+    {
+        sp = GetComponent<SpellCastingMode>();
+    }
+
+
     public void SelectMagicMissile() {
-        var sp = GetComponent<SpellCastingMode>();
         sp.selectedSpell = Spell.MAGIC_MISSILE;
         Debug.Log("Entering into SpellCastingMode");
         sp.ActivateSpellMode();
@@ -17,11 +24,21 @@ public class SpellCastingInput : MonoBehaviour {
 
     public void SelectLightSpell()
     {
-        var sp = GetComponent<SpellCastingMode>();
         sp.selectedSpell = Spell.LIGHT_SPELL;
-        Debug.Log("Entering into SpellCastingMode");
+        //Debug.Log("Entering into SpellCastingMode");
         sp.ActivateSpellMode();
         sp.Cast();
+
+        StartCoroutine(DelayedDeactivate());
+        
+        //sp.DeactivateSpellMode();
+    }
+
+    IEnumerator DelayedDeactivate() {
+
+        yield return new WaitForSecondsRealtime(2f);
+
+
         sp.DeactivateSpellMode();
     }
 

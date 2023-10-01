@@ -41,6 +41,9 @@ public class PlayerMouseController : NetworkBehaviour
             && SpellCastingMode.instance.casting) {
             SpellCastingMode.instance.DeactivateSpellMode();
         }
+
+
+
     }
 
     private bool MouseOverUi() {

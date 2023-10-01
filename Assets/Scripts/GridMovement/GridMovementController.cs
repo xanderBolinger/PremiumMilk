@@ -5,6 +5,14 @@ using TMPro;
 
 public class GridMovementController : MonoBehaviour
 {
+    public static GridMovementController instance;
+    TextMeshProUGUI fatigueGui;
+
+    private void Awake()
+    {
+        instance = this;
+        fatigueGui = GameObject.Find("FatiguePoints").GetComponent<TextMeshProUGUI>();
+    }
 
     public static IEnumerator MoveCharacterOneTile() {
 
@@ -27,7 +35,7 @@ public class GridMovementController : MonoBehaviour
                 fs.AddRecoveryTime(0.5f);
 
             if (player)
-                GameObject.Find("FatiguePoints").GetComponent<TextMeshProUGUI>().text 
+                instance.fatigueGui.text 
                     = "Fatigue Points: " + cs.fatigueSystem.fatiguePoints;
 
 

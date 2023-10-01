@@ -27,10 +27,13 @@ public class MagicManager : NetworkBehaviour
 
     public MagicDamage magicDamage;
 
+    TextMeshProUGUI fatigueGui;
+
     private void Awake()
     {
         magicManager = this;
         magicDamage = GetComponent<MagicDamage>();
+        fatigueGui = GameObject.Find("FatiguePoints").GetComponent<TextMeshProUGUI>();
     }
 
     public void SpawnSpellEffect() {
@@ -60,7 +63,7 @@ public class MagicManager : NetworkBehaviour
         ISpellSystem spellSystem = GetSpell(spell);
         var cs = CharacterController.GetCharacter(casterName);
         spellSystem.Cast(cs);
-        GameObject.Find("FatiguePoints").GetComponent<TextMeshProUGUI>().text
+        fatigueGui.text
                     = "Fatigue Points: " + cs.fatigueSystem.fatiguePoints;
 
         SpawnSpellEffect();
