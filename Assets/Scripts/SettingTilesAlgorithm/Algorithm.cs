@@ -19,6 +19,8 @@ public class Algorithm : MonoBehaviour {
 
     int iterations;
 
+    public bool finished;
+
     private void Start()
     {
         var t = GameObject.FindObjectsOfType<Tile>();
@@ -38,6 +40,7 @@ public class Algorithm : MonoBehaviour {
         if(zeroTiles.Count > 0)
             throw new System.Exception(zeroTiles.Count+" tiles are 0,0 and were probably not reached by algorithim.");
 
+        finished = true;
     }
 
     public void StartAlgorithm() {

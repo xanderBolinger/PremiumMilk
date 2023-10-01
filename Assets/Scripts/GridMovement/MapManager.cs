@@ -13,6 +13,8 @@ public class MapManager : MonoBehaviour
 
     public Dictionary<Vector2Int, Tile> map;
 
+    public Algorithm setTiles;
+
     private void Awake()
     {
         if(_instance != null && _instance != this)
@@ -25,8 +27,11 @@ public class MapManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+
+        yield return new WaitUntil(() => setTiles.finished);
+
         littleBump = 0.0003f;
         map = new Dictionary<Vector2Int, Tile>();
 
