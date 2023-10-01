@@ -423,8 +423,8 @@ public class MeleeCombatManagerTests
         Assert.AreEqual(5, combatantB.diceAssignedToBout);
         Assert.AreEqual(6, combatantA.currentDice);
         Assert.AreEqual(5, combatantB.currentDice);
-        Assert.AreEqual(6, combatantA.characterSheet.meleeCombatStats.GetMaxCp(2));
-        Assert.AreEqual(5, combatantB.characterSheet.meleeCombatStats.GetMaxCp(3));
+        Assert.AreEqual(6, combatantA.characterSheet.meleeCombatStats.GetMaxCp(2, 0));
+        Assert.AreEqual(5, combatantB.characterSheet.meleeCombatStats.GetMaxCp(3, 0));
     }
 
     [Test]

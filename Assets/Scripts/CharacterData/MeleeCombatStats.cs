@@ -86,8 +86,8 @@ namespace Character {
             this.currProf = currProf.meleeProfType;
         }
 
-        public int GetMaxCp(int pain) {
-            return reflexes + profValue - pain;
+        public int GetMaxCp(int pain, int fp) {
+            return reflexes + profValue - pain - fp;
         }
 
         public void CalcReflexes(Attributes a) {

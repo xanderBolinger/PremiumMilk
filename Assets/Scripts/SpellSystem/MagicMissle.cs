@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class MagicMissle : ISpellSystem{
+using Character;
+public class MagicMissle : ISpellSystem {
 
     [SerializeField] GameObject MagicEffect;
 
@@ -9,7 +10,8 @@ public class MagicMissle : ISpellSystem{
         return false;
     }
 
-    public void Cast(){
+    public void Cast(CharacterSheet characterSheet) {
+        characterSheet.fatigueSystem.AddWork(0.5f, 60);
     }
 
     public bool CastFailed(){

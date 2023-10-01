@@ -138,7 +138,7 @@ public class Combatant
     public bool AssignCP(int cp, int cpAssignedToOtherBouts)
     {
         int pain = characterSheet.medicalData.GetPain();
-        int maxCP = characterSheet.meleeCombatStats.GetMaxCp(pain);
+        int maxCP = characterSheet.meleeCombatStats.GetMaxCp(pain, characterSheet.fatigueSystem.fatiguePoints);
         int availableCP = maxCP - cpAssignedToOtherBouts;
 
         if (cp > availableCP)

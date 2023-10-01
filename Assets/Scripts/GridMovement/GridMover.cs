@@ -51,6 +51,7 @@ public class GridMover : NetworkBehaviour
                 animator.SetJumping();
             else
                 animator.SetWalk();
+
         }
         else if (!moving) {
             canMoveAnimation = true;

@@ -1,7 +1,4 @@
 using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Character;
 using static OffensiveManuevers;
 using System;
@@ -75,7 +72,7 @@ public class MeleeCombatStatsTest
         CharacterSheet characterSheet = new CharacterSheet("test", null, attributes, medicalData, meleeCombatStats);
 
         Assert.AreEqual(3, characterSheet.meleeCombatStats.reflexes);
-        Assert.AreEqual(8, characterSheet.meleeCombatStats.GetMaxCp(0));
+        Assert.AreEqual(8, characterSheet.meleeCombatStats.GetMaxCp(0, 0));
 
     }
 

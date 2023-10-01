@@ -50,7 +50,7 @@ public class CharacterCreator : MonoBehaviour
         }
 
         CharacterSheet characterSheet = new CharacterSheet(characterName, species, attributes, medical, meleeCombatStats);
-
+        
         CombatManager.combatManager.characterSheets.Add(characterSheet);
         Debug.Log("Created character "+characterSheet.name);
         characterSheet.meleeCombatStats.CalcReflexes(characterSheet.attributes);

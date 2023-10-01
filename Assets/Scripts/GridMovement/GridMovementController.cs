@@ -12,12 +12,31 @@ public class GridMovementController : MonoBehaviour
                 continue;
 
             var gridMover = character.GetComponent<GridMover>();
+            var cn = character.GetComponent<CharacterNetwork>();
+            var cs = cn.GetCharacterSheet();
+            var fs = cs.fatigueSystem;
+
+            if (gridMover.path.Count > 0)
+            {
+                fs.AddWork(0.5f);
+            }
+            else
+                fs.AddRecoveryTime(0.5f);
+
+            fs.LogStats();
+
+            //cn.UpdateCharacterSheet(cs);
+
             NetworkIdentity opponentIdentity = character.GetComponent<NetworkIdentity>();
             if (opponentIdentity.connectionToClient != null)
                 gridMover.RpcSetMovementTurn(opponentIdentity.connectionToClient);
             gridMover.movementTurn = true;
             yield return new WaitUntil(() => !gridMover.movementReady);
+
+
         }
+
+        CombatNetworkController.combatNetworkController.UpdateCharacters();
 
 
     }

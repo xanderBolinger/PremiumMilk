@@ -12,6 +12,7 @@ namespace Character {
         public Species species;
         public MedicalData medicalData;
         public MeleeCombatStats meleeCombatStats;
+        public FatigueSystem fatigueSystem;
 
         public CharacterSheet() { }
 
@@ -22,6 +23,7 @@ namespace Character {
             species = characterSheet.species;
             medicalData = characterSheet.medicalData;
             meleeCombatStats = new MeleeCombatStats(characterSheet.meleeCombatStats);
+            fatigueSystem = new FatigueSystem(characterSheet.fatigueSystem);
         }
 
         public CharacterSheet(string name, Species species, Attributes attributes, MedicalData medicalData, MeleeCombatStats meleeCombatStats) {
@@ -30,6 +32,7 @@ namespace Character {
             this.attributes = attributes;
             this.medicalData = medicalData;
             this.meleeCombatStats = meleeCombatStats;
+            this.fatigueSystem = new FatigueSystem(attributes);
         }
 
         public bool Alive() {
