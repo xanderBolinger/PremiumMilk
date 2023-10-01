@@ -18,10 +18,13 @@ public class PlayerFollower : MonoBehaviour
 
     void LateUpdate()
     {
-        if (following == null && NetworkClient.localPlayer != null 
-            && NetworkClient.localPlayer.gameObject != null) {
+        if (following == null && NetworkClient.localPlayer != null
+            && NetworkClient.localPlayer.gameObject != null)
+        {
             following = NetworkClient.localPlayer.gameObject.transform;
         }
+        else if (following == null)
+            return;
 
         _transform.position = Vector3.MoveTowards(_transform.position, following.position, interested);
     }
