@@ -22,12 +22,18 @@ public class MeleeCombatUI : NetworkBehaviour
 
     private void Start()
     {
-
-       /* AddLog("You see a plate helmet at your feet...");
-        AddLog("You should move to it and pick it up (left click)");
-        AddLog("You should put the helmet on (tab)");
-        AddLog("There are Orcs in the dungeon, beware.");
-        AddLog("You will have to kill them if you want to have any chance of escaping.");*/
+        AddLog("Press control to move camera.");
+        AddLog("Click to move.");
+        AddLog("Click toolbar to use spells, for Magic Missile you need to click on a target.");
+        AddLog("In combat pick manuevers and assign dice from a dice pool. " +
+            "Perform the Full Evasion defense successfully to leave combat.");
+        AddLog("To recover Fatigue points from casting, click on your square to pass your turn and rest.");
+        AddLog("Reach the end of the maze to survive. Look for a bright light.");
+        /* AddLog("You see a plate helmet at your feet...");
+         AddLog("You should move to it and pick it up (left click)");
+         AddLog("You should put the helmet on (tab)");
+         AddLog("There are Orcs in the dungeon, beware.");
+         AddLog("You will have to kill them if you want to have any chance of escaping.");*/
     }
 
     private void Update()

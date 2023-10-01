@@ -191,7 +191,8 @@ public class CharacterAnimator : NetworkBehaviour
         if (animator == null) { return; }
 
         ClearAnimation();
-        animator.SetBool("IsParrying", true);
+        animator.Play("Parry");
+        //animator.SetBool("IsParrying", true);
     }
 
     private void ClearAnimation() {

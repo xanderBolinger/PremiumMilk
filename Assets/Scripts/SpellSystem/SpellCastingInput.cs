@@ -14,4 +14,15 @@ public class SpellCastingInput : MonoBehaviour {
         sp.ActivateSpellMode();
 
     }
+
+    public void SelectLightSpell()
+    {
+        var sp = GetComponent<SpellCastingMode>();
+        sp.selectedSpell = Spell.LIGHT_SPELL;
+        Debug.Log("Entering into SpellCastingMode");
+        sp.ActivateSpellMode();
+        sp.Cast();
+        sp.DeactivateSpellMode();
+    }
+
 }

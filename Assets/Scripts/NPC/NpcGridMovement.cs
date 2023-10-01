@@ -50,7 +50,7 @@ public class NpcGridMovement : NetworkBehaviour
         canEnterCombat = characterSheet.meleeCombatStats.GetMaxCp(characterSheet.medicalData.GetPain(), characterSheet.fatigueSystem.fatiguePoints) > 4;
 
 
-        if (canEnterCombat)
+        if (!canEnterCombat)
         {
             followRange = 0;
             roamer = true;
