@@ -85,7 +85,6 @@ public class SetTilesAlgorithm : MonoBehaviour {
                     //t.RemoveAt(i);
                     GetChildren(child.gameObject, t);
                 }
-
             }
 
             if (count == 4) {
