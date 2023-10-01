@@ -9,6 +9,7 @@ public class PathFinder
 {
     public List<Tile> FindPath(Tile start, Tile end)
     {
+        Debug.Log("Start: "+start.x+", "+start.y+", End: "+end.x+", "+end.y);
         List<Tile> openList = new List<Tile>();
         List<Tile> closedList = new List<Tile>();
 
@@ -28,7 +29,8 @@ public class PathFinder
 
             foreach (var tile in GetNeightbourTiles(currentTile))
             {
-                if (tile.IsBlockedStationary() || !tile.walkable || closedList.Contains(tile) || Mathf.Abs(currentTile.transform.position.z - tile.transform.position.z) > 1)
+                if (tile.IsBlockedStationary() || !tile.walkable || closedList.Contains(tile)
+                    /* || Mathf.Abs(currentTile.transform.position.z - tile.transform.position.z) > 1*/)
                 {
                     continue;
                 }
@@ -78,6 +80,7 @@ public class PathFinder
 
     public List<Tile> GetNeightbourTiles(Tile currentTile)
     {
+        Debug.Log("Neighbour Tile: "+currentTile.x+", "+currentTile.y);
         var map = MapManager.Instance.map;
 
         List<Tile> neighbours = new List<Tile>();

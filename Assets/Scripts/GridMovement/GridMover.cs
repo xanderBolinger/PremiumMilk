@@ -91,7 +91,7 @@ public class GridMover : NetworkBehaviour
     public Tile GetHitTile() {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
+        Debug.DrawRay(Camera.main.transform.position, ray.direction*100, Color.red);
         if (!Physics.Raycast(ray, out hit, 100) || hit.transform.gameObject.tag != "Tile")
         {
             return null;
@@ -196,7 +196,7 @@ public class GridMover : NetworkBehaviour
     private void AddToken(Tile tile, GameObject token) {
         var tokenObj = Instantiate(token);
         var pos = tile.transform.position;
-        tokenObj.transform.position = new Vector3(pos.x,pos.y+1,pos.z);
+        tokenObj.transform.position = new Vector3(pos.x,pos.y+1.5f,pos.z);
         tokenObj.transform.parent = GameObject.Find("CursorContainer").transform;
     }
 
@@ -267,7 +267,7 @@ public class GridMover : NetworkBehaviour
         var info = GetComponent<CharacterGridInfo>();
         var tile = path[0];
         var target = tile.transform.position;
-        target.y += 1;
+        target.y += 1.5f;
 
         SetMoveDestination(tile, info);
 
@@ -278,7 +278,7 @@ public class GridMover : NetworkBehaviour
 
     private void PositionCharacterOnLine(Tile tile)
     {
-        transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y+1f, tile.transform.position.z);
+        transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y+1.5f, tile.transform.position.z);
         //character.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder;
         character.standingOnTile = tile;
         if(!isServer)

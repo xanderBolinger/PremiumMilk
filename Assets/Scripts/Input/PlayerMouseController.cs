@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CharacterCombatController))]
 [RequireComponent(typeof(GridMover))]
@@ -25,9 +26,9 @@ public class PlayerMouseController : NetworkBehaviour
 
         if (!isLocalPlayer || (gm.turnBasedMovement && !gm.turnPaused))
             return;
-        else if (tile != null && !GameManager.InCombat(gameObject))
+        else if (tile != null && !GameManager.InCombat(gameObject) && !MouseOverUi() && !SpellCastingMode.instance.casting)
             Move(tile);
-        else if (target != null && gameObject != target && !SpellCastingMode.instance.casting) {
+        else if (target != null && gameObject != target && !SpellCastingMode.instance.casting && !MouseOverUi()) {
             characterCombatController.EnterCombat(target);
         } else if (target != null && gameObject != target && SpellCastingMode.instance.casting
             && target.tag != "Dead" && !characterMagic.castedSpell) {
@@ -40,11 +41,31 @@ public class PlayerMouseController : NetworkBehaviour
         }
     }
 
+    private bool MouseOverUi() {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
+
     private void Move(Tile tile)
     {
-        var newPath = gridMover.GetNewPath(tile);
+        List<Tile> newPath;
+        if (!SomeoneStandingOnTile(tile))
+            newPath = gridMover.GetNewPath(tile);
+        else
+            newPath = new List<Tile>();
+
         gridMover.PlotPath(newPath);
         gridMover.ConfirmNewPath(newPath);
+        Debug.Log("New Path Length: "+newPath.Count+", Tile: "+(tile == null ? "null" : tile.x+", "+tile.y));
+    }
+
+    bool SomeoneStandingOnTile(Tile tile) {
+
+        foreach (var character in FindObjectsOfType<CharacterGridInfo>()) {
+            if (tile == character.standingOnTile)
+                return true;
+        }
+
+        return false;
     }
 
     public static GameObject GetClickedCharacter() {

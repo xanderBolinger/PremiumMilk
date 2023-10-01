@@ -63,7 +63,9 @@ public class NpcGridMovement : NetworkBehaviour
         {
             MoveToTarget(enemy);
             path = gridMover.path;
-        } else if (path.Count < 1 || FinishedMovement())
+        } 
+        
+        if (path.Count < 1 || FinishedMovement())
         {
             gridInfo.ClearMovingTowards();
             SetRandomPath();
