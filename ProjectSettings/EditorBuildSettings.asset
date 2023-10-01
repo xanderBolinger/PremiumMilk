@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/OutdoorsScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 1
+  - enabled: 0
     path: Assets/TestScenes/NetworkTestScene.unity
     guid: 9b25b4667033d5f4591c15292c88c132
+  - enabled: 1
+    path: Assets/Scenes/Labrynth.unity
+    guid: 7b43661f066794f45ae6a36f51a68160
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 16a45dfe44598ef48af2cda140f3bc80,
       type: 2}

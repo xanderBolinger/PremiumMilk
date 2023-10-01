@@ -4,32 +4,70 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Character; 
 
 public class NpcGridMovement : NetworkBehaviour
 {
     [SerializeField] int followRange;
-
+    [SerializeField] bool roamer;
     Tile destination;
     PathFinder finder;
     CharacterGridInfo gridInfo;
     GridMover gridMover;
     CharacterAnimator animator;
+    CharacterNetwork characterNetwork;
+    List<Tile> npcPath;
+    CharacterSheet characterSheet;
+    public bool moved;
+    bool canEnterCombat;
 
 
+    int startingFollowRange;
+    bool startingRoamerStatus;
 
     private void Awake()
     {
+        characterNetwork = GetComponent<CharacterNetwork>();
         animator = GetComponent<CharacterAnimator>();
         gridMover = GetComponent<GridMover>();
         finder = new PathFinder();
         gridInfo = GetComponent<CharacterGridInfo>();
+        npcPath = new List<Tile>();
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitUntil(()=> characterNetwork.GetCharacterSheet() != null);
+
+        characterSheet = characterNetwork.GetCharacterSheet();
+        startingFollowRange = followRange;
+        startingRoamerStatus = roamer;
     }
 
     private void Update()
     {
-        if (!isServer)
-            return;
 
+        canEnterCombat = characterSheet.meleeCombatStats.GetMaxCp(characterSheet.medicalData.GetPain(), characterSheet.fatigueSystem.fatiguePoints) > 4;
+
+
+        if (!canEnterCombat)
+        {
+            followRange = 0;
+            roamer = true;
+        }
+        else {
+            roamer = startingRoamerStatus;
+            followRange = startingFollowRange;
+        }
+
+        if (!isServer)
+        {
+            return;
+        }
+        else if (GameManager.Instance.playerDied) {
+            animator.SetIdle();
+            return;
+        }
 
         var moving = gridMover.Moving();
 
@@ -52,34 +90,38 @@ public class NpcGridMovement : NetworkBehaviour
     }
 
     public void SetDestination() {
-        var path = gridMover.path;
         var (enemy, dist) = GetNearestEnemy();
 
-        if (dist == 1) {
+        if (dist == 1 && canEnterCombat) {
             GetComponent<CharacterCombatController>().EnterCombat(enemy);
             return;
         }
         else if (dist < followRange)
         {
             MoveToTarget(enemy);
-            path = gridMover.path;
-        } else if (path.Count < 1 || FinishedMovement())
+            npcPath = gridMover.path;
+        } 
+        
+        if (npcPath.Count < 1 || FinishedMovement())
         {
             gridInfo.ClearMovingTowards();
             SetRandomPath();
             return;
         }
 
-        var tile = path[0];
+        var tile = npcPath[0];
 
         if (tile.IsBlocked(gameObject))
         {
-            path.Clear();
+            npcPath.Clear();
             gridInfo.ClearMovingTowards();
             return;
         }
 
         gridInfo.SetMovingTowards(tile.x, tile.y);
+        gridMover.path.Add(npcPath[0]);
+        npcPath.RemoveAt(0);
+        moved = true;
     }
 
     public bool FinishedMovement() { 
@@ -94,13 +136,56 @@ public class NpcGridMovement : NetworkBehaviour
     }
 
     public void SetRandomPath() {
+        iterations = 0;
         var map = MapManager.Instance.map.ToList();
+        List<Tile> validDestinations = new List<Tile>();
+        GetChildren(gridInfo.standingOnTile.gameObject, map, validDestinations);
 
-        destination = map[DiceRoller.Roll(0, map.Count - 1)].Value;
-
-        gridMover.path = finder.FindPath(gridInfo.standingOnTile, destination);
+        destination = validDestinations[roamer ? (validDestinations.Count - 1) :
+            DiceRoller.Roll(0, validDestinations.Count-1)];
+        npcPath = finder.FindPath(gridInfo.standingOnTile, destination);
 
     }
+
+    int iterations;
+    public void GetChildren(GameObject parent, List<KeyValuePair<Vector2Int, Tile>> t, List<Tile> returnList)
+    {
+        iterations++;
+        if (iterations >= 100)
+            return;
+
+        Vector3 parentLocation = parent.transform.position;
+
+        int count = 0;
+
+        for (int i = 0; i < t.Count; i++)
+        {
+            Tile child = t[i].Value;
+
+
+
+            float difference = Mathf.Abs(Vector3.Distance(child.transform.position, parentLocation));
+
+            if (difference < 1.500001)
+            {
+                count++;
+                Vector3 d = -(parentLocation - (child.transform.position));
+                if ((d.x < 0 && d.z == 0 || d.x > 0 && d.z == 0 || d.x == 0 && d.z < 0
+                    || d.x == 0 && d.z > 0) && !returnList.Contains(child) && child.walkable)
+                {
+                    returnList.Add(child);
+                    GetChildren(child.gameObject, t, returnList);
+                }
+                
+
+                if (count == 4)
+                {
+                    break;
+                }
+            }
+        }
+    }
+
 
     public (GameObject, int) GetNearestEnemy() {
 

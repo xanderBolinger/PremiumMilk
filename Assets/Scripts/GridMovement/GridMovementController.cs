@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class GridMovementController : MonoBehaviour
 {
@@ -13,15 +14,22 @@ public class GridMovementController : MonoBehaviour
 
             var gridMover = character.GetComponent<GridMover>();
             var cn = character.GetComponent<CharacterNetwork>();
+            var characterController = character.GetComponent<CharacterController>();
             var cs = cn.GetCharacterSheet();
             var fs = cs.fatigueSystem;
+            
 
-            if (gridMover.path.Count > 0)
+            if (gridMover.path.Count > 0 && character.GetComponent<CharacterController>().player)
             {
                 fs.AddWork(0.5f);
             }
             else
                 fs.AddRecoveryTime(0.5f);
+
+            if (characterController.player)
+                GameObject.Find("FatiguePoints").GetComponent<TextMeshProUGUI>().text 
+                    = "Fatigue Points: " + cs.fatigueSystem.fatiguePoints;
+
 
             fs.LogStats();
 

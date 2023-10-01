@@ -40,7 +40,8 @@ public class CharacterMagic : NetworkBehaviour
 
         castedSpell = true;
 
-        characterAnimator.RotateTowardsTarget(CharacterController.GetCharacterObject(targetName));
+        if(targetName!="")
+            characterAnimator.RotateTowardsTarget(CharacterController.GetCharacterObject(targetName));
 
         StartCoroutine(CoroutineCast());
     }

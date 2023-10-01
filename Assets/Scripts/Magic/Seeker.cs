@@ -54,7 +54,7 @@ public class Seeker : NetworkBehaviour
         }
 
         if (isServer) {
-            MagicManager.magicManager.magicDamage.ApplyPhysicalDamage("Magic Missile", 1000, casterName, targetName);
+            MagicManager.magicManager.magicDamage.ApplyPhysicalDamage("Magic Missile", 200, casterName, targetName);
         }
 
 

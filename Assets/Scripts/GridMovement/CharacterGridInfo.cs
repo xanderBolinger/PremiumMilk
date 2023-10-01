@@ -23,12 +23,18 @@ public class CharacterGridInfo : NetworkBehaviour
     [SyncVar]
     public int standingOnY;
 
-    private void Start()
+    private IEnumerator Start()
     {
+
+        yield return new WaitUntil(() => MapManager.Instance != null &&
+        MapManager.Instance.setTiles != null && MapManager.Instance.setTiles.finished
+        && MapManager.Instance.map != null
+        && MapManager.Instance.map.ContainsKey(new Vector2Int(startingX, startingY)));
+
         if (standingOnTile == null && MapManager.Instance != null) {
             standingOnTile = MapManager.Instance.GetTile(startingX, startingY);
             var newPos = standingOnTile.transform.position;
-            transform.position = new Vector3(newPos.x, newPos.y + 1, newPos.z);
+            transform.position = new Vector3(newPos.x, newPos.y + 1.5f, newPos.z);
             if (isOwned)
             {
                 CmdSetStandingOnTile(standingOnTile.x, standingOnTile.y);

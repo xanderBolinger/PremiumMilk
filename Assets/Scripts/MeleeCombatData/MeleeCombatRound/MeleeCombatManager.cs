@@ -187,6 +187,15 @@ public class MeleeCombatManager : MonoBehaviour
             }
 
         }
+
+        foreach (var blue in blueBlue) {
+            var index = bouts.IndexOf(blue);
+            blue.combatantA.characterSheet.fatigueSystem.AddRecoveryTime(0.5f);
+            blue.combatantB.characterSheet.fatigueSystem.AddRecoveryTime(0.5f);
+            MeleeCombatController.meleeCombatController.selectedBoutIndex = index;
+            MeleeCombatController.meleeCombatController.RemoveBout(true);
+        }
+
     }
 
     private void CreateSingleRed(Bout bout, Combatant attackingCombatant, Combatant defendingCombatant) {
