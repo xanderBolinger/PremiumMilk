@@ -56,7 +56,6 @@ public class Algorithm : MonoBehaviour {
                     t.RemoveAt(i);
                     GetChildren(t[i].gameObject, t);
                 }
-
             }
 
             if (count == 4) break;
