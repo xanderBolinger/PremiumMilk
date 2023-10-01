@@ -23,7 +23,7 @@ namespace Character {
             species = characterSheet.species;
             medicalData = characterSheet.medicalData;
             meleeCombatStats = new MeleeCombatStats(characterSheet.meleeCombatStats);
-            fatigueSystem = new FatigueSystem(characterSheet.fatigueSystem);
+            fatigueSystem = characterSheet.fatigueSystem;
         }
 
         public CharacterSheet(string name, Species species, Attributes attributes, MedicalData medicalData, MeleeCombatStats meleeCombatStats) {

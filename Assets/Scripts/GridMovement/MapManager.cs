@@ -81,16 +81,11 @@ public class MapManager : MonoBehaviour
     }
 
     public Tile GetTile(int x, int y) {
-        
-        foreach (var tile in GameObject.FindGameObjectsWithTag("Tile")) {
-            var data = tile.GetComponent<Tile>();
-            if (data.x == x && data.y == y) {
-                return data;
-            }
-        }
+
+        return map[new Vector2Int(x, y)];
 
 
-        throw new System.Exception("Tile not found for x: " + x + ", y: " + y);
+        //throw new System.Exception("Tile not found for x: " + x + ", y: " + y);
     }
 
 
