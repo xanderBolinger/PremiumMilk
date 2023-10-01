@@ -16,7 +16,7 @@ public class GridMovementController : MonoBehaviour
             var cs = cn.GetCharacterSheet();
             var fs = cs.fatigueSystem;
 
-            if (gridMover.path.Count > 0)
+            if (gridMover.path.Count > 0 && character.GetComponent<CharacterController>().player)
             {
                 fs.AddWork(0.5f);
             }

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Character; 
 
 public class NpcGridMovement : NetworkBehaviour
 {
@@ -14,13 +15,19 @@ public class NpcGridMovement : NetworkBehaviour
     CharacterGridInfo gridInfo;
     GridMover gridMover;
     CharacterAnimator animator;
-
+    CharacterNetwork characterNetwork;
     List<Tile> npcPath;
-
+    CharacterSheet characterSheet;
     public bool moved;
+    bool canEnterCombat;
+
+
+    int startingFollowRange;
+    bool startingRoamerStatus;
 
     private void Awake()
     {
+        characterNetwork = GetComponent<CharacterNetwork>();
         animator = GetComponent<CharacterAnimator>();
         gridMover = GetComponent<GridMover>();
         finder = new PathFinder();
@@ -28,8 +35,31 @@ public class NpcGridMovement : NetworkBehaviour
         npcPath = new List<Tile>();
     }
 
+    private IEnumerator Start()
+    {
+        yield return new WaitUntil(()=> characterNetwork.GetCharacterSheet() != null);
+
+        characterSheet = characterNetwork.GetCharacterSheet();
+        startingFollowRange = followRange;
+        startingRoamerStatus = roamer;
+    }
+
     private void Update()
     {
+
+        canEnterCombat = characterSheet.meleeCombatStats.GetMaxCp(characterSheet.medicalData.GetPain(), characterSheet.fatigueSystem.fatiguePoints) > 4;
+
+
+        if (canEnterCombat)
+        {
+            followRange = 0;
+            roamer = true;
+        }
+        else {
+            roamer = startingRoamerStatus;
+            followRange = startingFollowRange;
+        }
+
         if (!isServer)
         {
             return;
@@ -38,7 +68,6 @@ public class NpcGridMovement : NetworkBehaviour
             animator.SetIdle();
             return;
         }
-
 
         var moving = gridMover.Moving();
 
@@ -63,7 +92,7 @@ public class NpcGridMovement : NetworkBehaviour
     public void SetDestination() {
         var (enemy, dist) = GetNearestEnemy();
 
-        if (dist == 1) {
+        if (dist == 1 && canEnterCombat) {
             GetComponent<CharacterCombatController>().EnterCombat(enemy);
             return;
         }

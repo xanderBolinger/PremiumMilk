@@ -11,7 +11,7 @@ public class MagicMissle : ISpellSystem {
     }
 
     public void Cast(CharacterSheet characterSheet) {
-        characterSheet.fatigueSystem.AddWork(0.5f, 60);
+        characterSheet.fatigueSystem.AddWork(0.5f, 20);
     }
 
     public bool CastFailed(){

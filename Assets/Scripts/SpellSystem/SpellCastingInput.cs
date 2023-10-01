@@ -9,7 +9,7 @@ public class SpellCastingInput : MonoBehaviour {
 
     public void SelectMagicMissile() {
         var sp = GetComponent<SpellCastingMode>();
-
+        sp.selectedSpell = Spell.MAGIC_MISSILE;
         Debug.Log("Entering into SpellCastingMode");
         sp.ActivateSpellMode();
 

@@ -13,6 +13,8 @@ public class SpellCastingMode : MonoBehaviour {
 
     [HideInInspector]
     public bool casting;
+    [HideInInspector]
+    public Spell selectedSpell;
 
     public static SpellCastingMode instance;
 
@@ -24,7 +26,7 @@ public class SpellCastingMode : MonoBehaviour {
 
     public void Cast(string targetName) {
         var characterMagic = NetworkClient.localPlayer.gameObject.GetComponent<CharacterMagic>();
-        characterMagic.SetVariables(Spell.MAGIC_MISSILE, targetName);
+        characterMagic.SetVariables(selectedSpell, targetName);
         characterMagic.CastSpell();
     }
 

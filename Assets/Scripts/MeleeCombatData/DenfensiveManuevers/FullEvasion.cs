@@ -2,6 +2,8 @@ using ExcelUtillity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MeleeCombatController;
+using static MeleeCombatManager;
 
 public class FullEvasion : IDefensiveManuever
 {
@@ -22,6 +24,12 @@ public class FullEvasion : IDefensiveManuever
         exchange.SetNoInitative();
         exchange.reachWinnder = null;
         exchange.bout.onPause = true;
+
+        var index = meleeCombatManager.bouts.IndexOf(exchange.bout);
+
+        meleeCombatController.selectedBoutIndex = index;
+        meleeCombatController.RemoveBout(true);
+
     }
 
     public int GetActivationCost() { return 1; }
