@@ -30,8 +30,14 @@ public class NpcGridMovement : NetworkBehaviour
 
     private void Update()
     {
-        if (!isServer || GameManager.Instance.playerDied)
+        if (!isServer)
+        {
             return;
+        }
+        else if (GameManager.Instance.playerDied) {
+            animator.SetIdle();
+            return;
+        }
 
 
         var moving = gridMover.Moving();
