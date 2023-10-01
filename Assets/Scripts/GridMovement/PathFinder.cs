@@ -76,7 +76,7 @@ public class PathFinder
     }
 
 
-    private List<Tile> GetNeightbourTiles(Tile currentTile)
+    public List<Tile> GetNeightbourTiles(Tile currentTile)
     {
         var map = MapManager.Instance.map;
 

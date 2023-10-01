@@ -6,6 +6,7 @@ using System;
 using UnityEditor;
 using Mirror;
 using System.Runtime.CompilerServices;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CharacterGridInfo))]
 public class GridMover : NetworkBehaviour
@@ -60,8 +61,11 @@ public class GridMover : NetworkBehaviour
 
     }
 
-    private void MovementNotReady() {
-        CmdMovementNotReady();
+    public void MovementNotReady() {
+        if (isServer)
+            movementReady = false;
+        else
+            CmdMovementNotReady();
     }
 
     [Command]
@@ -79,7 +83,7 @@ public class GridMover : NetworkBehaviour
         movementReady = true;
     }
 
-    private bool Moving() {
+    public bool Moving() {
         return path.Count > 0;
     }
 
@@ -221,11 +225,17 @@ public class GridMover : NetworkBehaviour
         if (tile.IsBlocked(gameObject))
         {
             path.Clear();
-            info.CmdClearMovingTowards();
+            if (!isServer)
+                info.CmdClearMovingTowards();
+            else
+                info.ClearMovingTowards();
             return;
         }
 
-        info.CmdSetMovingTowards(tile.x, tile.y);
+        if (!isServer)
+            info.CmdSetMovingTowards(tile.x, tile.y);
+        else
+            info.SetMovingTowards(tile.x, tile.y);
     }
 
     private void TranslateCharacter(Vector3 target) {
@@ -242,14 +252,16 @@ public class GridMover : NetworkBehaviour
         {
             PositionCharacterOnLine(tile);
             path.RemoveAt(0);
-            info.CmdClearMovingTowards();
-
+            if (!isServer)
+                info.CmdClearMovingTowards();
+            else
+                info.ClearMovingTowards();
             if (GameManager.Instance.turnBasedMovement)
                 path.Clear();
         }
     }
 
-    private void MoveAlongPath()
+    public void MoveAlongPath()
     {
         var info = GetComponent<CharacterGridInfo>();
         var tile = path[0];
@@ -268,7 +280,10 @@ public class GridMover : NetworkBehaviour
         transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y+1f, tile.transform.position.z);
         //character.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder;
         character.standingOnTile = tile;
-        GetComponent<CharacterGridInfo>().CmdSetStandingOnTile(tile.x, tile.y);
+        if(!isServer)
+            GetComponent<CharacterGridInfo>().CmdSetStandingOnTile(tile.x, tile.y);
+        else
+            GetComponent<CharacterGridInfo>().SetStandingOnTile(tile.x, tile.y);
     }
 
 }

@@ -32,8 +32,9 @@ public class CharacterAnimator : NetworkBehaviour
     public void RpcAttack(bool swing, string defender) {
 
         attacking = true;
-
-        RotateTowardsTarget(CharacterController.GetCharacterObject(defender));
+        attackFinished = false;
+        var target = CharacterController.GetCharacterObject(defender, true);
+        RotateTowardsTarget(target);
 
         if (swing)
             SetSwing();
@@ -86,7 +87,7 @@ public class CharacterAnimator : NetworkBehaviour
     }
 
     IEnumerator AttackerFinished(string attackerName) {
-        var obj = CharacterController.GetCharacterObject(attackerName);
+        var obj = CharacterController.GetCharacterObject(attackerName, true);
         var anim = obj.GetComponent<CharacterAnimator>();
 
 

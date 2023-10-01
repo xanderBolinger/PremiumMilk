@@ -50,14 +50,29 @@ public class CharacterGridInfo : NetworkBehaviour
         movingTowardsY = -1;
     }
 
+    public void ClearMovingTowards() {
+        movingTowardsX = -1;
+        movingTowardsY = -1;
+    }
+
     [Command]
     public void CmdSetMovingTowards(int x, int y) {
+        SetMovingTowards(x, y);
+    }
+
+    public void SetMovingTowards(int x, int y)
+    {
         movingTowardsX = x;
         movingTowardsY = y;
     }
 
     [Command]
     public void CmdSetStandingOnTile(int x, int y) {
+        standingOnX = x;
+        standingOnY = y;
+    }
+
+    public void SetStandingOnTile(int x, int y) {
         standingOnX = x;
         standingOnY = y;
     }
