@@ -18,6 +18,8 @@ public class PlayerMouseController : NetworkBehaviour
         characterMagic = GetComponent<CharacterMagic>();
     }
 
+    Tile lastTile;
+
     private void Update()
     {
         var gm = GameManager.Instance;
@@ -26,7 +28,7 @@ public class PlayerMouseController : NetworkBehaviour
 
         if (!isLocalPlayer || (gm.turnBasedMovement && !gm.turnPaused))
             return;
-        else if (tile != null && !GameManager.InCombat(gameObject) && !MouseOverUi() && !SpellCastingMode.instance.casting)
+        else if (tile != null && (tile != lastTile || Input.GetMouseButtonDown(0)) && !GameManager.InCombat(gameObject) && !MouseOverUi() && !SpellCastingMode.instance.casting)
             Move(tile);
         else if (target != null && gameObject != target && !SpellCastingMode.instance.casting && !MouseOverUi()) {
             characterCombatController.EnterCombat(target);
@@ -47,6 +49,7 @@ public class PlayerMouseController : NetworkBehaviour
 
     private void Move(Tile tile)
     {
+        lastTile = tile;
         List<Tile> newPath;
         if (!SomeoneStandingOnTile(tile))
             newPath = gridMover.GetNewPath(tile);
@@ -55,7 +58,7 @@ public class PlayerMouseController : NetworkBehaviour
 
         gridMover.PlotPath(newPath);
         gridMover.ConfirmNewPath(newPath);
-        Debug.Log("New Path Length: "+newPath.Count+", Tile: "+(tile == null ? "null" : tile.x+", "+tile.y));
+        //Debug.Log("New Path Length: "+newPath.Count+", Tile: "+(tile == null ? "null" : tile.x+", "+tile.y));
     }
 
     bool SomeoneStandingOnTile(Tile tile) {
