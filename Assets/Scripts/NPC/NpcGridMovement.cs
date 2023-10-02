@@ -46,6 +46,9 @@ public class NpcGridMovement : NetworkBehaviour
 
     private void Update()
     {
+        if(characterSheet == null || characterSheet.meleeCombatStats == null)
+            return;
+
 
         canEnterCombat = characterSheet.meleeCombatStats.GetMaxCp(characterSheet.medicalData.GetPain(), characterSheet.fatigueSystem.fatiguePoints) > 4;
 
