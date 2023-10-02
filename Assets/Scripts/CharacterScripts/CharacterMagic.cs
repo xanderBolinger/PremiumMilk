@@ -37,10 +37,12 @@ public class CharacterMagic : NetworkBehaviour
 
     // Client call
     public void CastSpell() {
-
+        if (castedSpell)
+            return;
         castedSpell = true;
 
-        characterAnimator.RotateTowardsTarget(CharacterController.GetCharacterObject(targetName));
+        if(targetName!="")
+            characterAnimator.RotateTowardsTarget(CharacterController.GetCharacterObject(targetName));
 
         StartCoroutine(CoroutineCast());
     }

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using TMPro;
 
 [RequireComponent(typeof(MagicDamage))]
 public class MagicManager : NetworkBehaviour
 {
     public enum Spell {
-        MAGIC_MISSILE
+        MAGIC_MISSILE,LIGHT_SPELL
     }
 
     [SerializeField] GameObject spellEffect;
@@ -26,16 +27,22 @@ public class MagicManager : NetworkBehaviour
 
     public MagicDamage magicDamage;
 
+    TextMeshProUGUI fatigueGui;
+
     private void Awake()
     {
         magicManager = this;
         magicDamage = GetComponent<MagicDamage>();
+        fatigueGui = GameObject.Find("FatiguePoints").GetComponent<TextMeshProUGUI>();
     }
 
     public void SpawnSpellEffect() {
         var obj = Instantiate(spellEffect, spellStartPos.position, Quaternion.identity);
 
-        obj.GetComponent<Seeker>().Launch(seekerTarget, casterName, targetName);
+        var seeker = obj.GetComponent<Seeker>();
+
+        if(seeker!= null)
+            seeker.Launch(seekerTarget, casterName, targetName);
 
         NetworkServer.Spawn(obj);
     }
@@ -54,8 +61,10 @@ public class MagicManager : NetworkBehaviour
         
 
         ISpellSystem spellSystem = GetSpell(spell);
-
-        spellSystem.Cast(CharacterController.GetCharacter(casterName));
+        var cs = CharacterController.GetCharacter(casterName);
+        spellSystem.Cast(cs);
+        fatigueGui.text
+                    = "Fatigue Points: " + cs.fatigueSystem.fatiguePoints;
 
         SpawnSpellEffect();
     }
@@ -69,7 +78,10 @@ public class MagicManager : NetworkBehaviour
         {
             case Spell.MAGIC_MISSILE:
                 spellEffect = Resources.Load<GameObject>("Prefabs/Effects/Magic/MagicMissile");
-                return new MagicMissle();
+                return new MagicMissile();
+            case Spell.LIGHT_SPELL:
+                spellEffect = Resources.Load<GameObject>("Prefabs/Effects/Magic/LightSpell");
+                return new LightSpell();
             default:
                 throw new System.Exception("Spell not found for spell: " + spell);
 

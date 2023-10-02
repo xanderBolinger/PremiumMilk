@@ -89,6 +89,12 @@ public class CharacterNetwork : NetworkBehaviour
     [TargetRpc]
     public void RpcCallDead() {
         CallDead();
+        //CmdDead();
+    }
+
+    [Command]
+    public void CmdDead() {
+        CallDead();
     }
 
     [ClientRpc]
@@ -107,8 +113,13 @@ public class CharacterNetwork : NetworkBehaviour
 
         //characterAnimator.AnmateDeath();
 
-        if (isLocalPlayer)
+        if (isLocalPlayer) { 
             CombatLog.Log("<b style=\"color: red;\">You have died, click to restart the level.</b>"); ;
+            
+        }
+
+        if (isServer && characterName == "Player")
+            GameManager.Instance.playerDied = true;
     }
 
     public void Print()
