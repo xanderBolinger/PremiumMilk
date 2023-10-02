@@ -47,7 +47,7 @@ public class GameManager : NetworkBehaviour
             NetworkManager.singleton.ServerChangeScene(SceneManager.GetActiveScene().name);
         }
 
-        if (GameObject.FindGameObjectsWithTag("Character").Length < 1 || !isServer || !turnBasedMovement
+        if (!isServer || !turnBasedMovement
             || MapManager.Instance == null || MapManager.Instance.map?.Count < 1)
             return;
 

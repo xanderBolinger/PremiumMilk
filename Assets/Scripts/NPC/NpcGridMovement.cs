@@ -92,6 +92,11 @@ public class NpcGridMovement : NetworkBehaviour
     public void SetDestination() {
         var (enemy, dist) = GetNearestEnemy();
 
+        if (dist > 50) {
+            Debug.Log("Set destination early dist return");
+            return;
+        }
+
         if (dist == 1 && canEnterCombat) {
             GetComponent<CharacterCombatController>().EnterCombat(enemy);
             return;
@@ -177,7 +182,7 @@ public class NpcGridMovement : NetworkBehaviour
     public void GetChildren(GameObject parent, List<KeyValuePair<Vector2Int, Tile>> t, List<Tile> returnList)
     {
         iterations++;
-        if (iterations >= 30)
+        if (iterations >= 15)
             return;
 
         Vector3 parentLocation = parent.transform.position;
