@@ -131,7 +131,30 @@ public class NpcGridMovement : NetworkBehaviour
     }
 
     void MoveToTarget(GameObject enemy) {
-        destination = finder.GetNeightbourTiles(enemy.GetComponent<CharacterGridInfo>().standingOnTile)[0];
+        var neighbours = finder.GetNeightbourTiles(enemy.GetComponent<CharacterGridInfo>().standingOnTile);
+
+        List<Tile> validNeighbours = new List<Tile>();
+
+        float distance = float.MaxValue;
+        Tile closestTile = null;
+
+        foreach (var tile in neighbours) {
+            if (tile.walkable)
+            {
+                validNeighbours.Add(tile);
+                var tempDist = Vector3.Distance(tile.gameObject.transform.position, gameObject.transform.position);
+                if (tempDist < distance) {
+                    closestTile = tile;
+                    distance = tempDist;
+                }
+
+            }
+        }
+
+        if (closestTile == null)
+            throw new System.Exception("Closest tile to target is null.");
+
+        destination = closestTile;
         gridMover.path = finder.FindPath(gridInfo.standingOnTile, destination);
     }
 
