@@ -66,7 +66,8 @@ public class MapManager : MonoBehaviour
                     GameObject obj = new GameObject("MissingTile "+x+":"+y);
                     var newTile = obj.AddComponent<Tile>();
                     newTile.walkable = false;
-                    Instantiate(obj, transform);
+                    var newObj = Instantiate(obj);
+                    newObj.transform.parent = transform;
                     newTile.x = x;
                     newTile.y = y;
                     map.Add(vector, newTile);

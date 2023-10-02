@@ -78,7 +78,7 @@ public class MagicManager : NetworkBehaviour
         {
             case Spell.MAGIC_MISSILE:
                 spellEffect = Resources.Load<GameObject>("Prefabs/Effects/Magic/MagicMissile");
-                return new MagicMissle();
+                return new MagicMissile();
             case Spell.LIGHT_SPELL:
                 spellEffect = Resources.Load<GameObject>("Prefabs/Effects/Magic/LightSpell");
                 return new LightSpell();
