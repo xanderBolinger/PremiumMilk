@@ -141,6 +141,9 @@ public class NpcGridMovement : NetworkBehaviour
         List<Tile> validDestinations = new List<Tile>();
         GetChildren(gridInfo.standingOnTile.gameObject, map, validDestinations);
 
+        if (validDestinations.Count < 1)
+            return;
+
         destination = validDestinations[roamer ? (validDestinations.Count - 1) :
             DiceRoller.Roll(0, validDestinations.Count-1)];
         npcPath = finder.FindPath(gridInfo.standingOnTile, destination);
@@ -151,7 +154,7 @@ public class NpcGridMovement : NetworkBehaviour
     public void GetChildren(GameObject parent, List<KeyValuePair<Vector2Int, Tile>> t, List<Tile> returnList)
     {
         iterations++;
-        if (iterations >= 100)
+        if (iterations >= 30)
             return;
 
         Vector3 parentLocation = parent.transform.position;
