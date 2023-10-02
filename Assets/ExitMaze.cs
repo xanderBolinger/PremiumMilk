@@ -8,7 +8,7 @@ public class ExitMaze : MonoBehaviour
     {
         var obj = collision.gameObject;
 
-        if (obj.tag != "Character" && obj.GetComponent<CharacterController>().player) {
+        if (obj.tag == "Character" && obj.GetComponent<CharacterController>().player) {
 
             SceneManager.LoadScene("End");
 

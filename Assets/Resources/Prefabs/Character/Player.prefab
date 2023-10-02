@@ -2633,8 +2633,8 @@ MonoBehaviour:
   syncInterval: 0
   randomStart: 0
   standingOnTile: {fileID: 0}
-  startingX: 100
-  startingY: 190
+  startingX: 190
+  startingY: 85
   movingTowardsX: 0
   movingTowardsY: 0
   standingOnX: 0
