@@ -37,7 +37,7 @@ public class CharacterMagic : NetworkBehaviour
 
     // Client call
     public void CastSpell() {
-        if (castedSpell)
+        if (castedSpell || CharacterCombatController.GetCharacterBouts(casterName).Count > 0)
             return;
         castedSpell = true;
 

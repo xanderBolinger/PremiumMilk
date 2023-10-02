@@ -11,7 +11,7 @@ Orc 5,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
 Orc 6,Orc,16,16,12,10,11,,Orc Sword,,CutAndThrust,5
 Gorris,Human,18,18,17,10,13,,Spear One Handed,Medium Shield,CutAndThrust,4
 Baern,Human,16,16,18,11,14,,Light Mace,Medium Shield,CutAndThrust,4
-Cadriel,Human,18,17,16,10,12,,Halberd,Cuirass;Chausses;Plate Helm,CutAndThrust,4
+Cadriel,Human,18,17,16,10,12,Cuirass;Chausses;Plate Helm,Halberd,,CutAndThrust,4
 Kirika,Human,14,16,19,13,12,,Spear One Handed,Round Shield,CutAndThrust,4
 Player,Human,13,13,16,10,13,Padded Coif;Mail Halberk;Chainmail Pants,Spear,,CutAndThrust,6
 Player 1,Human,18,18,17,10,13,,Orc Sword,,CutAndThrust,8

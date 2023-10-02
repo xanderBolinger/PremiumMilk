@@ -109,7 +109,7 @@ public class CharacterCombatController : NetworkBehaviour
         return combatants;
     }
 
-    private List<Bout> GetCharacterBouts(string name)
+    public static List<Bout> GetCharacterBouts(string name)
     {
 
         List<Bout> bouts = new List<Bout>();
