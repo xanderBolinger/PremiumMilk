@@ -2546,6 +2546,7 @@ MonoBehaviour:
   syncInterval: 0
   animator: {fileID: 0}
   attackFinished: 0
+  attacking: 0
 --- !u!114 &8433631357449078422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2633,8 +2634,8 @@ MonoBehaviour:
   syncInterval: 0
   randomStart: 0
   standingOnTile: {fileID: 0}
-  startingX: 144
-  startingY: 143
+  startingX: 100
+  startingY: 190
   movingTowardsX: 0
   movingTowardsY: 0
   standingOnX: 0
