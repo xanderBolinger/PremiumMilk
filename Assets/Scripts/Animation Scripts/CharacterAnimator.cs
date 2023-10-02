@@ -10,7 +10,7 @@ public class CharacterAnimator : NetworkBehaviour
 
     public bool attackFinished;
 
-    bool attacking;
+    public bool attacking;
 
     private void Awake()
     {

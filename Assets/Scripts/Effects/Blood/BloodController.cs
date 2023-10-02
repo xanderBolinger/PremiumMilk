@@ -61,7 +61,7 @@ public class BloodController : NetworkBehaviour
 
     [ClientRpc]
     public void RpcHit(string attackerName, int level, string location) {
-        var attacker = CharacterController.GetCharacterObject(attackerName);
+        var attacker = CharacterController.GetCharacterObject(attackerName, true);
 
         StartCoroutine(Hit(attacker, level, location));
     }

@@ -9,7 +9,8 @@ public class PathFinder
 {
     public List<Tile> FindPath(Tile start, Tile end)
     {
-        if (Vector3.Distance(start.gameObject.transform.position, end.gameObject.transform.position) > 8)
+        if (start == null || end == null || start.gameObject == null || end.gameObject == null ||
+                Vector3.Distance(start.gameObject.transform.position, end.gameObject.transform.position) > 8)
             return new List<Tile>();
 
         //Debug.Log("Start: "+start.x+", "+start.y+", End: "+end.x+", "+end.y);

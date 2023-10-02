@@ -96,6 +96,9 @@ public class CharacterCombatNetwork : NetworkBehaviour
     }
 
     public void Declare() {
+        if (selectedBoutIndex >= selectedBoutList.Count || selectedBoutIndex < 0)
+            return;
+
         CmdDeclare(meleeDecision, selectedBoutList[selectedBoutIndex]);
     }
 

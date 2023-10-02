@@ -25,6 +25,9 @@ public class NpcGridMovement : NetworkBehaviour
     int startingFollowRange;
     bool startingRoamerStatus;
 
+    Vector3 moveToPosition;
+    Tile moveToTile;
+
     private void Awake()
     {
         characterNetwork = GetComponent<CharacterNetwork>();
@@ -44,11 +47,46 @@ public class NpcGridMovement : NetworkBehaviour
         startingRoamerStatus = roamer;
     }
 
+    private void RotateTowards(Vector3 target)
+    {
+        Vector3 targetDirection = target - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * (5f));
+    }
+
+
+    private void TranslateCharacter(Vector3 target)
+    {
+        var step = 3f * Time.deltaTime;
+
+        RotateTowards(target);
+        var newPos = Vector3.MoveTowards(transform.position, target, step);
+        transform.position = newPos;
+    }
+
     private void Update()
     {
         if(characterSheet == null || characterSheet.meleeCombatStats == null)
             return;
 
+
+        if (moveToPosition != Vector3.zero && Vector3.Distance(moveToPosition, transform.position) > 0.001f)
+        {
+            TranslateCharacter(moveToPosition);
+            RotateTowards(moveToPosition);
+            if (gridMover.jumper)
+                animator.SetJumping();
+            else
+                animator.SetWalk();
+            return;
+        }
+        else if (moveToTile != null && gridInfo.standingOnTile != moveToTile) {
+            gridMover.EndCharacterMovement(moveToTile, gridInfo, moveToPosition);
+        }
+        else if ((animator.attacking && animator.attackFinished) || !animator.attacking)
+        {
+            animator.SetIdle();
+        }
 
         canEnterCombat = characterSheet.meleeCombatStats.GetMaxCp(characterSheet.medicalData.GetPain(), characterSheet.fatigueSystem.fatiguePoints) > 4;
 
@@ -71,31 +109,12 @@ public class NpcGridMovement : NetworkBehaviour
             animator.SetIdle();
             return;
         }
-
-        var moving = gridMover.Moving();
-
-        if (moving && gridMover.canMoveAnimation && GameManager.Instance.playGridMovment
-            && (GameManager.Instance.turnBasedMovement && gridMover.movementTurn))
-        {
-            gridMover.MoveAlongPath();
-            if (gridMover.jumper)
-                animator.SetJumping();
-            else
-                animator.SetWalk();
-        }
-        else if (!moving)
-        {
-            gridMover.canMoveAnimation = true;
-            gridMover.MovementNotReady();
-            gridMover.movementTurn = false;
-            animator.SetIdle();
-        }
     }
 
     public void SetDestination() {
         var (enemy, dist) = GetNearestEnemy();
 
-        if (dist > 50) {
+        if (dist > 20) {
             Debug.Log("Set destination early dist return");
             return;
         }
@@ -107,7 +126,6 @@ public class NpcGridMovement : NetworkBehaviour
         else if (dist < followRange)
         {
             MoveToTarget(enemy);
-            npcPath = gridMover.path;
         } 
         
         if (npcPath.Count < 1 || FinishedMovement())
@@ -127,7 +145,9 @@ public class NpcGridMovement : NetworkBehaviour
         }
 
         gridInfo.SetMovingTowards(tile.x, tile.y);
-        gridMover.path.Add(npcPath[0]);
+        moveToTile = npcPath[0];
+        moveToPosition = npcPath[0].gameObject.transform.position;
+        moveToPosition.y += 1.5f;
         npcPath.RemoveAt(0);
         moved = true;
     }
@@ -163,7 +183,7 @@ public class NpcGridMovement : NetworkBehaviour
             throw new System.Exception("Closest tile to target is null.");
 
         destination = closestTile;
-        gridMover.path = finder.FindPath(gridInfo.standingOnTile, destination);
+        npcPath = finder.FindPath(gridInfo.standingOnTile, destination);
     }
 
     public void SetRandomPath() {

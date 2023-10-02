@@ -248,11 +248,13 @@ public class GridMover : NetworkBehaviour
         transform.position = newPos;
     }
 
-    private void EndCharacterMovement(Tile tile, CharacterGridInfo info, Vector3 target) {
+    public void EndCharacterMovement(Tile tile, CharacterGridInfo info, Vector3 target) {
         if (Vector3.Distance(transform.position, target) < 0.001f)
         {
             PositionCharacterOnLine(tile);
-            path.RemoveAt(0);
+
+            if(path.Count > 0)
+                path.RemoveAt(0);
             if (!isServer)
                 info.CmdClearMovingTowards();
             else

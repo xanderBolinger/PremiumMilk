@@ -49,7 +49,7 @@ public class Seeker : NetworkBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.gameObject == casterObj) {
-            Debug.LogError("Spell collision hit same game object as caster.");
+            //Debug.LogError("Spell collision hit same game object as caster.");
             return; 
         }
 
