@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour {
 
@@ -8,12 +9,20 @@ public class StartGame : MonoBehaviour {
         EnterUi.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
+    void OnCollisionEnter(Collision collision) {
+        if (collision.transform.gameObject.tag != "Character")
+            return;
 
-    void OnCollisionEnter(Collision collision) { 
         EnterUi.SetActive(true);
     }
+
+    private void OnCollisionExit(Collision collision) {
+        EnterUi.SetActive(false);
+    }
+
+
+    public void LoadLabrynth() {
+        SceneManager.LoadScene("Labrynth");
+    }
+
 }
